@@ -172,3 +172,12 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+# Node.js stuff
+node_modules/
+package-lock.json
+yarn.lock
+# Docker stuff
+.dockerignore
+Dockerfile
+# VS Code settings
+.vscode/
