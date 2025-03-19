@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Operating System</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet"
+  href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <style>
+        .subject-section {
+            padding: 40px;
+            background-color: #f9f9f9;
+            text-align: center;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        h1, h2 {
+            margin-bottom: 20px;
+        }
+        p, ul {
+            font-size: 16px;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin: 10px 0;
+        }
+        ul li a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        ul li a:hover {
+            text-decoration: underline;
+            color: rgb(128, 126, 135);
+        }
+        #subject-introduction {
+    padding-top: 80px; 
+    }
+
+    </style>
+</head>
+<body>
+
+
+    <div class="navbar">
+        <div class="logo">
+            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;" ><i class='bx bxl-redux'></i></h2>
+        </div>
+        <ul id="nav-list">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="#notes">Notes</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li class="dropdown">
+                <a href="#">Login</a>
+                <div class="login-dropdown">
+                    <form>
+                        <label for="username">Roll number:</label>
+                        <input type="text" id="username" placeholder="Roll number">
+                        <label for="password">Passworrd:</label>
+                        <input type="password" id="password" placeholder="Password">
+                        <button type="submit">Login</button>
+                    </form>
+                </div>
+            </li>
+            <img  class="cross" src="/images/close-116-512.png" alt="cross">
+        </ul>
+        <div class="nav-icons">
+            <img class="menuopen" src="/images/hamburger-menu-5.png" alt="menu">
+        </div>
+    </div>
+    
+
+
+
+
+
+
+    <section id="subject-introduction" class="subject-section" style="background: black; color: #fff;" >
+        <div class="container">
+            <h1>Operating System</h1>
+            <p>An Operating System (OS) is system software that manages computer hardware and software resources, providing a user interface and essential services. It handles process management, memory allocation, file systems, and device control. Examples include Windows, macOS, Linux, and Android.</p>
+        </div>
+    </section>
+    
+    <section id="flipbook-notes" class="subject-section">
+        <div class="container">
+            <h2>Handwritten Notes</h2>
+            <iframe 
+                src="https://docs.google.com/document/d/e/2PACX-1vRRDrzcU-zyizSVLBDN-V3uM4Mjv4JwoWLZDvrvAc-xZ1ZLS1IAWCw64drf4sZmrmtnwE-BEQgW18wY/pub?embedded=true" 
+                width="100%"
+                height="700px"
+                style="border: none; overflow: hidden;">
+            </iframe>
+            <br>
+            <a href="https://docs.google.com/document/d/e/2PACX-1vRRDrzcU-zyizSVLBDN-V3uM4Mjv4JwoWLZDvrvAc-xZ1ZLS1IAWCw64drf4sZmrmtnwE-BEQgW18wY/pub"
+                target="_blank" 
+                style="text-align: center; margin: 10px auto; padding: 10px 15px; background: #000; color: #fff; text-decoration: none; border-radius: 5px; width: fit-content;">
+                Open in Full Screen
+            </a>
+        </div>
+    </section>
+    
+    
+    <section id="video-lectures" class="subject-section">
+        <div class="container">
+            <h2>Video Lectures</h2>
+            <div class="video-container">
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/fkGCLIQx1MI
+                    " allowfullscreen></iframe>
+                    <p>Basics Of Operating System</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/aytWaG4mEJI
+                    " allowfullscreen></iframe>
+                    <p>Process Management</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/B6D8HGBEt1g
+                    " allowfullscreen></iframe>
+                    <p>Synchronization & Concurrency</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/_i8zvljtvfo
+                    " allowfullscreen></iframe>
+                    <p>Memory Management</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/jND2Z4LVZvA
+                    " allowfullscreen></iframe>
+                    <p>I/O Management</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/GtovwKDemnI
+                    " allowfullscreen></iframe>
+                    <p>Linux & Shell Scripting</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/Tnfv-eVbX4E
+                    " allowfullscreen></iframe>
+                    <p>Important OS Case Studies</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <style>
+        .video-container {
+            display: flex;
+            gap: 20px;
+            overflow-x: auto; /* Enables horizontal scrolling */
+            padding: 10px;
+            scroll-behavior: smooth;
+        }
+        
+        .video-item {
+            min-width: 320px; /* Adjust width as needed */
+            flex: 0 0 auto;
+            text-align: center;
+        }
+    
+        .video-item iframe {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+        }
+    
+        .video-container::-webkit-scrollbar {
+            height: 4px;
+        }
+    
+        .video-container::-webkit-scrollbar-thumb {
+            background: #5f6060;
+            border-radius: 10px;
+        }
+    
+        .video-container::-webkit-scrollbar-track {
+            background: #ddd;
+        }
+    </style>
+    
+    
+    <section id="os-additional-resources" class="subject-section" style="background: black; color: white;">
+        <div class="container">
+            <h2>Operating System - Additional Resources</h2>
+            <ul>
+                <li><a href="https://www.geeksforgeeks.org/operating-systems/" target="_blank">GeeksforGeeks - Operating Systems</a></li>
+                <li><a href="https://www.tutorialspoint.com/operating_system/index.htm" target="_blank">TutorialsPoint - OS Tutorials</a></li>
+                <li><a href="https://www.javatpoint.com/operating-system-tutorial" target="_blank">JavaTpoint - OS Guide</a></li>
+                <li><a href="https://www.coursera.org/courses?query=operating%20system" target="_blank">Coursera - OS Courses</a></li>
+                <li><a href="https://www.udemy.com/topic/operating-system/" target="_blank">Udemy - OS Courses</a></li>
+                <li><a href="https://www.sanfoundry.com/#google_vignette"/ target="_blank">Sanfoundry - OS MCQ's</a></li>
+            </ul>
+        </div>
+    </section>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+    <div class="menu-items">
+        <div class="menu-list">
+            <ul class="footer-column">
+                <li><h5>Quick Links</h5></li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#notes">Notes</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <ul class="footer-column">
+                <li><h5>Subjects</h5></li>
+                <li><a href="#">C Programming</a></li>
+                <li><a href="#">Operating System</a></li>
+                <li><a href="#">Source Code Management</a></li>
+                <li><a href="#">DECA</a></li>
+                <li><a href="#">DE & T</a></li>
+            </ul>
+            <ul class="footer-column">
+                <li><h5>Follow Us</h5></li>
+                <li>
+                    <a href="https://www.instagram.com/yourprofile" target="_blank">
+                        <i class='bx bxl-instagram'></i> Instagram
+                    </a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/yourprofile" target="_blank">
+                        <i class='bx bxl-twitter'></i> Twitter
+                    </a>
+                </li>
+                <li>
+                    <a href="https://wa.me/yourphonenumber" target="_blank">
+                        <i class='bx bxl-whatsapp'></i> WhatsApp
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/yourprofile" target="_blank">
+                        <i class='bx bxl-github'></i> GitHub
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <div class="footer">
+            <p>© 2025 Notes Manager. All rights reserved.</p>
+        </div>
+    </div>
+
+
+
+
+
+
+    <script>
+        let nav_list = document.getElementById('nav-list')
+        let openMenu = document.querySelector('.menuopen')
+        let cross = document.querySelector('.cross')
+        openMenu.addEventListener('click',()=>{
+          nav_list.style.opacity = '100%'
+          openMenu.style.display ='none'
+        })
+        cross.addEventListener('click',()=>{
+          nav_list.style.opacity = '0%';
+          setTimeout(()=>{
+              openMenu.style.display ='block'
+          },400)
+        })
+      </script>
+
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
