@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect</title>
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet"
+  href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;" ><i class='bx bxl-redux'></i></h2>
+            </div>
+            <ul id="nav-list">
+                <li><a href="#">Home</a></li>
+                <li><a href="#notes">Notes</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li class="dropdown">
+                    <a href="#">Login</a>
+                    <div class="login-dropdown">
+                        <form>
+                            <label for="username">Roll number:</label>
+                            <input type="text" id="username" placeholder="Roll number">
+                            <label for="password">Passworrd:</label>
+                            <input type="password" id="password" placeholder="Password">
+                            <button type="submit">Login</button>
+                        </form>
+                    </div>
+                </li>
+                <img  class="cross" src="/images/close-116-512.png" alt="cross">
+            </ul>
+            <div class="nav-icons">
+                <img class="menuopen" src="/images/hamburger-menu-5.png" alt="menu">
+            </div>
+        </div>
+        <div class="navtext">
+            <p>Welcome to Notes Manager – Organize Your Ideas with Ease! . Your mind is powerful, but a note remembers everything</p>
+        </div>
+
+
+        <section class="intro-section">
+            <div class="fullscreen-text"><i class='bx bx-navigation'></i>Campus Connect</div>
+        </section>
+
+        <style>
+            .intro-section {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                background-color: black;
+                overflow: hidden; 
+            }
+            .fullscreen-text {
+                color: white;
+                font-size: 5rem;
+                font-weight: 630;
+                text-align: center;
+                transition: transform 0.5s ease-out;
+                transform: scale(1);
+                width: auto; 
+                white-space: nowrap;
+                margin-top: 50px; 
+            }
+
+            @media (max-width: 768px) {
+                .fullscreen-text {
+                    font-size: 2rem;
+                    margin-top: 25px;
+                }
+            }
+        </style>
+
+
+    <script>
+    document.addEventListener("scroll", function () {
+        let introText = document.querySelector(".fullscreen-text");
+        let notesSection = document.querySelector("#notes");
+    
+        let scrollPosition = window.scrollY;
+        let introHeight = introText.offsetHeight;
+        let notesPosition = notesSection.offsetTop;
+    
+        if (scrollPosition < notesPosition - introHeight) {
+            let scaleFactor = 1 + scrollPosition / 600; 
+            let translateY = scrollPosition / 7; 
+            introText.style.transform = `scale(${Math.min(scaleFactor, 2)}) translateY(${translateY}px)`;
+        } else {
+            introText.style.transform = "scale(2) translateY(80px)"; 
+        }
+    });
+    </script>
+    
+       
+
+        <section class="notes" id="notes">
+        <div class="card-container">
+            <h1>Stay organized with the latest updates to your notes management system!</h1>
+            <div class="cards">
+
+
+
+                <a href="/c_programming.html" >
+                 <div style="background: black;" class="card" >
+                    <h1 style="color: white;">C Programming</h1>
+                    <p style="color: white;">Master the fundamentals of C – the foundation of modern programming!</p>
+                    <img src="/images/c.jpg" alt="C programming">
+                 </div>
+                 </a>
+
+
+
+                 <a href="/operating_system.html">
+                 <div class="card">
+                    <h1>Operating System </h1>
+                    <p>Master the core concepts of multitasking, memory management, and process scheduling in Operating Systems</p>
+                    <img src="/images/operating system.jpg" alt="operating system">
+                 </div>
+                 </a>
+
+
+
+                 <a href="/scm.html">
+                 <div style="background: black;" class="card">
+                    <h1 style="color: white;" >SCM</h1>
+                    <p style="color: white;">Efficiently track, manage, and collaborate on code with powerful version control systems</p>
+                    <img style="height: 180px;" src="/images/git.jpg" alt="scm">
+                 </div>
+                 </a>
+
+
+
+                 <a href="/deca.html">
+                 <div  class="card">
+                    <h1>DECA</h1>
+                    <p>Unraveling the mysteries of the universe, one equation at a time</p>
+                    <img src="/images/deca1.jpg" alt="DECA">
+                </div>
+                </a>
+
+
+
+                <a href="/dent.html">
+                <div class="card">
+                    <h1 >DE & T</h1>
+                    <p>Differential equations and transformations </p>
+                    <img src="/images/DENT.jpg" alt="de%t">
+                </div>
+                </a>
+
+
+
+                <a href="#">
+                    <div class="card">
+                        <h1>Python</h1>
+                        <p>Problem Solving Using Python Programming</p>
+                        <img src="/images/python.png" alt="Python">
+                    </div>
+                </a>
+
+
+
+                <a href="#">
+                    <div style="background: black;" class="card">
+                        <h1 style="color: white;">Frontend Engineering</h1>
+                        <p style="color: white;">Bringing designs to life with the power of HTML, CSS, and JavaScript!</p>
+                        <img src="/images/fee.jpg" alt="FEE">
+                    </div>
+                </a>
+
+
+
+                <a href="#">
+                    <div class="card">
+                        <h1 >MCP</h1>
+                        <p>Modern Computational Physics </p>
+                        <img src="/images/MCP.webp" alt="MCP">
+                    </div>
+                </a>
+
+
+
+                <a href="#">
+                    <div style="background: black;"  class="card" >
+                        <h1 style="color: white;">CASA</h1>
+                        <p style="color: white;">Calculus And Statical Analysis </p>
+                        <img src="/images/CASA.jpg" alt="CASA">
+                    </div>
+                </a>
+                
+
+
+                
+            </div>
+        </div>
+        </section>
+
+        <section class="contact" id="contact">
+            <div class="contact-container">
+                <div class="contact-info">
+                    <p><strong>Email:</strong> notesmanagement@gmail.com</p>
+                    <p><strong>Phone:</strong> +91 8893756389</p>
+                    <p><strong>Address:</strong> Chitkara University , Punjab</p>
+                    <p>Join our Whatsapp <a href="https://wa.me/yourphonenumber" target="_blank">
+                        <i class='bx bxl-whatsapp'></i>
+                    </a></p>
+                </div>
+                <form class="contact-form">
+                    <input type="text" placeholder="Your Name" required>
+                    <input type="email" placeholder="Your Email" required>
+                    <textarea placeholder="Your Message" required></textarea>
+                    <button type="submit">Send Message</button>
+                </form>
+            </div>
+        </section>
+
+
+
+        <div class="text">
+            <h1>Your Notes, Your Way - Organized and Always Accessible .</h1>
+        </div>
+
+
+
+        <div class="menu-items">
+            <div class="menu-list">
+                <ul class="footer-column">
+                    <li><h5>Quick Links</h5></li>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#notes">Notes</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <ul class="footer-column">
+                    <li><h5>Subjects</h5></li>
+                    <li><a href="#">C Programming</a></li>
+                    <li><a href="#">Operating System</a></li>
+                    <li><a href="#">Source Code Management</a></li>
+                    <li><a href="#">DECA</a></li>
+                    <li><a href="#">DE & T</a></li>
+                </ul>
+                <ul class="footer-column">
+                    <li><h5>Follow Us</h5></li>
+                    <li>
+                        <a href="https://www.instagram.com/yourprofile" target="_blank">
+                            <i class='bx bxl-instagram'></i> Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/yourprofile" target="_blank">
+                            <i class='bx bxl-twitter'></i> Twitter
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/yourphonenumber" target="_blank">
+                            <i class='bx bxl-whatsapp'></i> WhatsApp
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/yourprofile" target="_blank">
+                            <i class='bx bxl-github'></i> GitHub
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="footer">
+                <p>© 2025 Notes Manager. All rights reserved.</p>
+            </div>
+
+
+
+
+            
+
+
+
+
+
+
+        </div>
+    </div>
+    <script>
+      let nav_list = document.getElementById('nav-list')
+      let openMenu = document.querySelector('.menuopen')
+      let cross = document.querySelector('.cross')
+      openMenu.addEventListener('click',()=>{
+        nav_list.style.opacity = '100%'
+        openMenu.style.display ='none'
+      })
+      cross.addEventListener('click',()=>{
+        nav_list.style.opacity = '0%';
+        setTimeout(()=>{
+            openMenu.style.display ='block'
+        },400)
+      })
+    </script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const cards = document.querySelectorAll(".card");
+    
+        const observer = new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.2 }
+        );
+    
+        cards.forEach((card) => {
+            observer.observe(card);
+        });
+    });
+    </script>
+    
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+        const textSection = document.querySelector(".text");
+    
+        const observer = new IntersectionObserver(
+            (entries, observer) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add("show");
+                        observer.unobserve(entry.target);
+                    }
+                });
+            },
+            { threshold: 0.2 }
+        );
+    
+        observer.observe(textSection);
+    });
+    </script>
+
+</body>
+</html>
