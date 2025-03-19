@@ -19,14 +19,12 @@
                 <li><a href="#notes">Notes</a></li>
                 <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
-                    <a href="#">Login</a>
+                    <a href="#">User</a>
                     <div class="login-dropdown">
                         <form>
-                            <label for="username">Roll number:</label>
-                            <input type="text" id="username" placeholder="Roll number">
-                            <label for="password">Passworrd:</label>
-                            <input type="password" id="password" placeholder="Password">
                             <button type="submit">Login</button>
+                            <br>
+                            <button type="submit">Sign Up</button>
                         </form>
                     </div>
                 </li>
@@ -223,6 +221,191 @@
             <h1>Your Notes, Your Way - Organized and Always Accessible .</h1>
         </div>
 
+
+
+
+
+        
+        <div class="mascot-container">
+            <div class="mascot">
+                <img src="/images/mascot.jpg" alt="mascot">
+            </div>
+            <div class="chat-container">
+                <div class="chat-header">EduChat</div>
+                <div class="chat-box" id="chatBox">
+                    <div class="bot-message">Hi! How can I help you?</div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="userInput" placeholder="Type a message...">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .mascot-container {
+                margin-top: 40px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                max-width: 1200px;
+                width: 100%;
+                padding: 20px;
+            }
+
+            .mascot {
+                flex: 1;
+                text-align: center;
+            }
+
+            .mascot img {
+                max-width: 60%;
+                height: auto;
+            }
+
+            .chat-container {
+                flex: 1;
+                max-width: 350px;
+                height: 500px;
+                background: white;
+                border-radius: 15px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+
+            .chat-header {
+                background: black;
+                color: white;
+                padding: 15px;
+                text-align: center;
+                font-weight: bold;
+            }
+
+            .chat-box {
+                flex: 1;
+                padding: 10px;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .user-message,
+            .bot-message {
+                padding: 8px 12px;
+                border-radius: 10px;
+                margin: 5px;
+                max-width: 70%;
+            }
+
+            .user-message {
+                background: #202121;
+                color: white;
+                align-self: flex-end;
+            }
+
+            .bot-message {
+                background: #e0e0e0;
+                color: black;
+            }
+
+            .chat-input {
+                display: flex;
+                padding: 10px;
+                background: white;
+                border-top: 1px solid #ddd;
+            }
+
+            .chat-input input {
+                flex: 1;
+                padding: 8px;
+                border: none;
+                border-radius: 5px;
+                outline: none;
+            }
+
+            .chat-input button {
+                margin-left: 10px;
+                padding: 8px 12px;
+                background: black;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .chat-input button:hover {
+                background-color: #b0b0b0;
+                transition: 0.2s ease;
+            }
+
+            @media (min-width: 1024px) {
+                .mascot img {
+                    max-width: 50%;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .container {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .mascot {
+                    order: -1;
+                    margin-bottom: 20px;
+                }
+
+                .chat-container {
+                    max-width: 100%;
+                }
+            }
+        </style>
+
+        <script>
+            function sendMessage() {
+                let userInput = document.getElementById("userInput").value;
+                let chatBox = document.getElementById("chatBox");
+                if (userInput.trim() === "") return;
+
+                let userMessage = `<div class='user-message'>${userInput}</div>`;
+                chatBox.innerHTML += userMessage;
+                document.getElementById("userInput").value = "";
+
+                setTimeout(() => {
+                    let botReply = `<div class='bot-message'>${getBotResponse(userInput)}</div>`;
+                    chatBox.innerHTML += botReply;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 1000);
+            }
+
+            function getBotResponse(input) {
+                input = input.toLowerCase();
+                let responses = {
+                    "hello": "Hello! How can I assist you today?",
+                    "courses": "We offer various courses including AI, Web Dev, and more!",
+                    "events": "Upcoming events are listed on the Campus Portal.",
+                    "bye": "Goodbye! Have a great day!",
+                    "hi": "hello",
+                    "great": "You're Welcome ! , feel free to ask anything",
+                    "thanks": "You're Welcome ! , feel free to ask anything",
+                    "notes": "You can create, edit, and manage your notes easily using our Notes Manager.",
+                    "save note": "To save a note, just type it and click the save button!",
+                    "delete note": "You can delete a note by clicking on the delete icon next to it.",
+                    "edit note": "Click on the note you want to edit, make changes, and save.",
+                    "search notes": "Use the search bar to find specific notes instantly!",
+                    "export notes": "You can export your notes as a PDF or text file for easy access.",
+                    "share notes": "You can share notes via email or generate a shareable link.",
+                    "backup notes": "Your notes are automatically backed up to prevent data loss.",
+                    "dark mode": "You can switch to dark mode for a better reading experience.",
+                    "sync notes": "Your notes sync across all your devices when logged in.",
+                    "help": "Need help with the Notes Manager? Visit our Help section for FAQs and guides."
+                };
+                return responses[input] || "I'm not sure. Try asking something else!";
+            }
+        </script>
+ 
 
 
         <div class="menu-items">
