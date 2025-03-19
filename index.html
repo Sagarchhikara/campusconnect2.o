@@ -9,10 +9,11 @@
   href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
 <body>
+
     <div class="container">
         <div class="navbar">
             <div class="logo">
-                <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;" ><i class='bx bxl-redux'></i></h2>
+                <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500; color: rgba(0, 0, 0, 0.815);" ><i class='bx bx-code'></i></i></i></h2>
             </div>
             <ul id="nav-list">
                 <li><a href="#">Home</a></li>
@@ -251,6 +252,7 @@
                 max-width: 1200px;
                 width: 100%;
                 padding: 20px;
+                padding-bottom: 35px;
             }
 
             .mascot {
@@ -406,6 +408,245 @@
             }
         </script>
  
+
+
+
+
+ <div class="marquee-container">
+    <div class="marquee-content">
+        Easy Notes &nbsp; | &nbsp; Smart Organization &nbsp; | &nbsp; Quick Access &nbsp; | &nbsp; Cloud Storage &nbsp; | &nbsp; Secure Backup &nbsp; | &nbsp; Collaboration &nbsp; | &nbsp; Productivity Boost &nbsp; | &nbsp; Reminders &nbsp; | &nbsp; Custom Tags &nbsp; | &nbsp; Search & Filter &nbsp; | &nbsp; Dark Mode &nbsp; | &nbsp; Auto Save &nbsp; | &nbsp; Handwritten Notes &nbsp; | &nbsp; AI-Powered Summaries &nbsp; | &nbsp; Sync Across Devices &nbsp; | &nbsp; Color Coding &nbsp; | &nbsp; Minimalist UI &nbsp; | &nbsp; No Ads &nbsp; | &nbsp; Privacy First &nbsp; | &nbsp; Fast & Reliable &nbsp; | &nbsp; Custom Templates &nbsp; | &nbsp; Voice Notes &nbsp; | &nbsp; To-Do Integration &nbsp; | &nbsp; Study Planner &nbsp; | &nbsp; Smart Highlights &nbsp; | &nbsp; Task Management &nbsp; | &nbsp; Notes Sharing &nbsp; | &nbsp; Cloud Sync &nbsp;
+    </div>
+</div>
+
+<style>
+    .marquee-container {
+        overflow: hidden;
+        white-space: nowrap;
+        position: relative;
+        width: 100%;
+        background: linear-gradient(to right, #ff6a00, #a84aff); 
+        padding: 12px 0;
+        display: flex;
+    }
+    .marquee-content {
+        display: flex;
+        white-space: nowrap;
+        animation: marquee 20s linear infinite; /* Slower Speed */
+        font-size: 20px;
+        font-weight: bold;
+        color: white;
+        min-width: 100%;
+    }
+    @keyframes marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-100%); }
+    }
+</style>
+
+
+
+
+
+        
+ <div class="pro-container">
+    <h1 class="pro-heading">Qualified Professors</h1>
+    <div class="pro-slider">
+        <div class="pro-card">
+            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+            <h3 class="pro-name">Mohit Kakkar</h3>
+            <p class="pro-subject">Engineering Mathematics</p>
+        </div>
+        <div class="pro-card">
+            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+            <h3 class="pro-name">Monika Sethi</h3>
+            <p class="pro-subject">Operating System</p>
+        </div>
+        <div class="pro-card">
+            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+            <h3 class="pro-name">Renu Popli</h3>
+            <p class="pro-subject">SCM</p>
+        </div>
+        <div class="pro-card">
+            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+            <h3 class="pro-name">Chandra Prabha</h3>
+            <p class="pro-subject">Python / C</p>
+        </div>
+        <div class="pro-card">
+            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+            <h3 class="pro-name">Ekta Thakur</h3>
+            <p class="pro-subject">Deca</p>
+        </div>
+        <div class="pro-card">
+            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+            <h3 class="pro-name">Neha Sharma</h3>
+            <p class="pro-subject">Frontend Engineering</p>
+        </div>
+        <div class="pro-card">
+            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+            <h3 class="pro-name">Shivani Punj</h3>
+            <p class="pro-subject">MCP</p>
+        </div>
+    </div>
+</div>
+<style>
+    .pro-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .pro-heading {
+        margin-top: 60px;
+        ;
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        color: #ff6f61;
+    }
+
+    .pro-slider {
+        display: flex;
+        overflow-x: auto;
+        gap: 20px;
+        padding-bottom: 20px;
+    }
+
+    .pro-slider::-webkit-scrollbar {
+        display: none;
+    }
+
+    .pro-card {
+        flex: 0 0 auto;
+        width: 250px;
+        height: 350px;
+        background-color: white;
+        border-radius: 10px;
+        padding: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: center;
+        transition: transform 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .pro-card:hover {
+        cursor: pointer;
+    }
+
+    .pro-image {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        margin-bottom: 20px;
+        object-fit: cover;
+    }
+
+    .pro-name {
+        font-size: 1.5rem;
+        margin-bottom: 15px;
+        color: black;
+    }
+
+    .pro-subject {
+        font-size: 1rem;
+        color: #676767;
+    }
+</style>
+<section class="resources-section">
+    <h2>Coding Essentials</h2>
+    <div class="logo-scroll-container">
+        <div class="logo-scroll-wrapper">
+            <div class="logo-scroll">
+                <a href="https://leetcode.com" target="_blank">
+                    <img src="/images/leetcode.webp" alt="leetcode" class="circular-logo">
+
+                </a>
+                <a href="https://github.com" target="_blank">
+                    <img src="/images/github_logo.png" alt="GitHub"
+                        class="circular-logo">
+
+                </a>
+                <a href="https://stackoverflow.com" target="_blank">
+                    <img src="/images/stack_overflow.webp"
+                        alt="stack_overflow" class="circular-logo">
+
+                </a>
+                <a href="https://www.geeksforgeeks.org" target="_blank">
+                    <img src="/images/gfg.svg" alt="GeeksforGeeks"
+                        class="circular-logo">
+
+                </a>
+                <a href="https://www.hackerrank.com" target="_blank">
+                    <img src="/images/hackerrank.webp" alt="hackerrank"
+                        class="circular-logo">
+
+                </a>
+                <a href="https://www.kaggle.com" target="_blank">
+                    <img src="/images/kaggle.webp" alt="kaggle"
+                        class="circular-logo">
+
+                </a>
+                <a href="https://www.freecodecamp.org" target="_blank">
+                    <img src="/images/free_code_Camp.webp" alt="free-code-camp"
+                        class="circular-logo">
+
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+<style>
+    .resources-section {
+        padding: 20px;
+        margin: 20px;
+        background-color: #f9f9f9;
+        text-align: center;
+    }
+
+    .resources-section h2 {
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: #000000;
+    }
+
+    .logo-scroll-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .logo-scroll-wrapper {
+        width: 100%;
+        max-width: 1200px;
+        overflow-x: auto;
+        scroll-behavior: smooth;
+        white-space: nowrap;
+        padding: 10px 0;
+    }
+
+    .logo-scroll a {
+        margin: 0 15px;
+    }
+
+    .circular-logo {
+        height: 80px;
+        width: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        transition: transform 0.3s ease;
+    }
+
+    .circular-logo:hover {
+        transform: scale(1.04);
+    }
+</style>
+
+
+
+
 
 
         <div class="menu-items">
