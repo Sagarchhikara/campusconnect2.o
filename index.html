@@ -10,6 +10,76 @@
 </head>
 <body>
 
+    <div id="cookie-popup" class="cookie-popup">
+        <p>This website uses cookies to ensure you get the best experience on our website. 
+           <a href="/privacy-policy">Learn more</a>
+        </p>
+        <button id="accept-cookies">Accept</button>
+        <button id="reject-cookies">Reject</button>
+    </div>
+    <style>
+         .cookie-popup {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: #fff;
+        padding: 15px;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 80%;
+        max-width: 600px;
+        z-index: 1000;
+    }
+    
+    .cookie-popup p {
+        margin: 0;
+        font-size: 14px;
+    }
+    
+    .cookie-popup a {
+        color: #4caf50;
+        text-decoration: none;
+    }
+    
+    .cookie-popup a:hover {
+        text-decoration: underline;
+    }
+    .cookie-popup button {
+        background-color: #4caf50;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+    .cookie-popup button#reject-cookies {
+        background-color: #f44336;
+    }
+    </style>
+   <script>
+    document.addEventListener("DOMContentLoaded", function() {
+    const cookiePopup = document.getElementById("cookie-popup");
+    const acceptCookies = document.getElementById("accept-cookies");
+    const rejectCookies = document.getElementById("reject-cookies");
+    if (!localStorage.getItem("cookieConsent")) {
+        cookiePopup.style.display = "flex";
+    }
+    acceptCookies.addEventListener("click", function() {
+        localStorage.setItem("cookieConsent", "accepted");
+        cookiePopup.style.display = "none";
+    });
+    rejectCookies.addEventListener("click", function() {
+        localStorage.setItem("cookieConsent", "rejected");
+        cookiePopup.style.display = "none";
+    });
+});
+   </script>
     <div class="container">
         <div class="navbar">
             <div class="logo">
