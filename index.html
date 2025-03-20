@@ -623,6 +623,20 @@
         color: #676767;
     }
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <section class="resources-section">
     <h2>Coding Essentials</h2>
     <div class="logo-scroll-container">
@@ -713,6 +727,130 @@
         transform: scale(1.04);
     }
 </style>
+
+
+
+
+
+
+
+<div class="counters">
+    <div>
+        <div class="counter">
+            <h1><span data-count="156">0</span></h1>
+            <h3>Notes Uploaded</h3>
+        </div>
+        <div class="counter">
+            <h1><span data-count="156">0</span></h1>
+            <h3>Satisfied Students</h3>
+        </div>
+        <div class="counter">
+            <h1><span data-count="156">0</span></h1>
+            <h3>Success Rate</h3>
+        </div>
+        <div class="counter">
+            <h1><span data-count="156">0</span></h1>
+            <h3>Qualified Professors</h3>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    const counters = document.querySelectorAll(".counter span");
+    const container = document.querySelector(".counters"); 
+    let activated = false;
+
+    function animateCounter(counter) {
+        const target = +counter.getAttribute("data-count"); 
+        let count = 0;
+        const speed = 200; 
+        const increment = Math.ceil(target / speed); 
+
+        const interval = setInterval(() => {
+            count += increment;
+            if (count >= target) {
+                count = target; 
+                clearInterval(interval);
+            }
+            counter.innerText = count;
+        }, 1);
+    }
+
+    window.addEventListener("scroll", () => {
+        if (window.pageYOffset > container.offsetTop - window.innerHeight + 200 && !activated) {
+            counters.forEach(counter => {
+                animateCounter(counter); 
+            });
+            activated = true;
+        }
+    });
+</script>
+
+
+
+
+<style>
+.counters{
+background: #ffffff;
+color: #000000;
+text-align: center;
+}
+
+.counters > div{
+max-width: 900px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(4,1fr);
+gap: 4em 2em;
+
+}
+
+.counter{
+position: relative;
+}
+
+.counter h1{
+font-size: 3em;
+margin-bottom: 0.5em;
+}
+
+.counter:not(:last-child)::before{
+width: 2px;
+position: absolute;
+height: 3em;
+top: 50%;
+transform: translateY(-50%);
+right: -1em;
+}
+
+@media screen and (max-width: 900px) and (min-width: 501px){
+.counters > div{
+    grid-template-columns: 1fr 1fr;
+}
+.counter:nth-child(2)::before{
+    display: none;
+}
+}
+
+@media screen and (max-width: 500px){
+.counters > div{
+    grid-template-columns: 1fr;
+    row-gap: 5em;
+}
+.counter:not(:last-child)::before{
+    width: 90%;
+    height: 2px;
+    top: inintial;
+    right: initial;
+    bottom: -3em;
+    left: 50%;
+    transform: translateY(-50%);
+}
+}    
+</style>
+
+
 
 
 
