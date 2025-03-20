@@ -88,17 +88,20 @@
             <ul id="nav-list">
                 <li><a href="#">Home</a></li>
                 <li><a href="#notes">Notes</a></li>
-                <li><a href="#contact">Contact</a></li>
                 <li class="dropdown">
                     <a href="#">User</a>
                     <div class="login-dropdown">
                         <form>
-                            <button type="submit">Login</button>
-                            <br>
-                            <button type="submit">Sign Up</button>
+                            <a href="/LOGINPAGE.html" class="btn-link">
+                                <button type="button">Login</button>
+                            </a>
+                            <a href="/SIGNUP.html" class="btn-link">
+                                <button type="button">Sign Up</button>
+                            </a>
                         </form>
                     </div>
                 </li>
+                
                 <img  class="cross" src="/images/close-116-512.png" alt="cross">
             </ul>
             <div class="nav-icons">
@@ -267,31 +270,129 @@
         </div>
         </section>
 
-        <section class="contact" id="contact">
-            <div class="contact-container">
-                <div class="contact-info">
-                    <p><strong>Email:</strong> notesmanagement@gmail.com</p>
-                    <p><strong>Phone:</strong> +91 8893756389</p>
-                    <p><strong>Address:</strong> Chitkara University , Punjab</p>
-                    <p>Join our Whatsapp <a href="https://wa.me/yourphonenumber" target="_blank">
-                        <i class='bx bxl-whatsapp'></i>
-                    </a></p>
-                </div>
-                <form class="contact-form">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="Your Message" required></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
-            </div>
-        </section>
-
-
-
         <div class="text">
             <h1>Your Notes, Your Way - Organized and Always Accessible .</h1>
         </div>
 
+
+        
+
+<div class="counters">
+    <div>
+        <div class="counter">
+            <h1><span data-count="243">0</span></h1>
+            <h3>Notes</h3>
+        </div>
+        <div class="counter">
+            <h1><span data-count="2453">0</span></h1>
+            <h3>Achievers</h3>
+        </div>
+        <div class="counter">
+            <h1><span data-count="121">0</span></h1>
+            <h3>Video Lectures</h3>
+        </div>
+        <div class="counter">
+            <h1><span data-count="137">0</span></h1>
+            <h3>Qualified Professors</h3>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    const counters = document.querySelectorAll(".counter span");
+    const container = document.querySelector(".counters"); 
+    let activated = false;
+
+    function animateCounter(counter) {
+        const target = +counter.getAttribute("data-count"); 
+        let count = 0;
+        const speed = 200; 
+        const increment = Math.ceil(target / speed); 
+
+        const interval = setInterval(() => {
+            count += increment;
+            if (count >= target) {
+                count = target; 
+                clearInterval(interval);
+            }
+            counter.innerText = count;
+        }, 1);
+    }
+
+    window.addEventListener("scroll", () => {
+        if (window.pageYOffset > container.offsetTop - window.innerHeight + 200 && !activated) {
+            counters.forEach(counter => {
+                animateCounter(counter); 
+            });
+            activated = true;
+        }
+    });
+</script>
+
+
+
+
+<style>
+.counters{
+padding-top: 60px;
+background: #ffffff;
+color: #000000;
+text-align: center;
+}
+
+.counters > div{
+max-width: 900px;
+margin: 0 auto;
+display: grid;
+grid-template-columns: repeat(4,1fr);
+gap: 4em 2em;
+
+}
+
+.counter{
+position: relative;
+}
+
+.counter h1{
+font-size: 3em;
+margin-bottom: 0.5em;
+}
+
+.counter:not(:last-child)::before{
+width: 2px;
+position: absolute;
+height: 3em;
+top: 50%;
+transform: translateY(-50%);
+right: -1em;
+}
+
+@media screen and (max-width: 900px) and (min-width: 501px){
+.counters > div{
+    grid-template-columns: 1fr 1fr;
+}
+.counter:nth-child(2)::before{
+    display: none;
+}
+}
+
+@media screen and (max-width: 500px){
+.counters > div{
+    grid-template-columns: 1fr;
+    row-gap: 5em;
+}
+.counter:not(:last-child)::before{
+    width: 90%;
+    height: 2px;
+    top: inintial;
+    right: initial;
+    bottom: -3em;
+    left: 50%;
+    transform: translateY(-50%);
+}
+}    
+</style>
 
 
 
@@ -482,42 +583,6 @@
 
 
 
- <div class="marquee-container">
-    <div class="marquee-content">
-        Easy Notes &nbsp; | &nbsp; Smart Organization &nbsp; | &nbsp; Quick Access &nbsp; | &nbsp; Cloud Storage &nbsp; | &nbsp; Secure Backup &nbsp; | &nbsp; Collaboration &nbsp; | &nbsp; Productivity Boost &nbsp; | &nbsp; Reminders &nbsp; | &nbsp; Custom Tags &nbsp; | &nbsp; Search & Filter &nbsp; | &nbsp; Dark Mode &nbsp; | &nbsp; Auto Save &nbsp; | &nbsp; Handwritten Notes &nbsp; | &nbsp; AI-Powered Summaries &nbsp; | &nbsp; Sync Across Devices &nbsp; | &nbsp; Color Coding &nbsp; | &nbsp; Minimalist UI &nbsp; | &nbsp; No Ads &nbsp; | &nbsp; Privacy First &nbsp; | &nbsp; Fast & Reliable &nbsp; | &nbsp; Custom Templates &nbsp; | &nbsp; Voice Notes &nbsp; | &nbsp; To-Do Integration &nbsp; | &nbsp; Study Planner &nbsp; | &nbsp; Smart Highlights &nbsp; | &nbsp; Task Management &nbsp; | &nbsp; Notes Sharing &nbsp; | &nbsp; Cloud Sync &nbsp;
-    </div>
-</div>
-
-<style>
-    .marquee-container {
-        overflow: hidden;
-        white-space: nowrap;
-        position: relative;
-        width: 100%;
-        background: linear-gradient(to right, #75726f, #a84aff); 
-        padding: 12px 0;
-        display: flex;
-    }
-    .marquee-content {
-        display: flex;
-        white-space: nowrap;
-        animation: marquee 20s linear infinite; /* Slower Speed */
-        font-size: 20px;
-        font-weight: bold;
-        color: white;
-        min-width: 100%;
-    }
-    @keyframes marquee {
-        from { transform: translateX(0); }
-        to { transform: translateX(-100%); }
-    }
-</style>
-
-
-
-
-
-        
  <div class="pro-container">
     <h1 class="pro-heading">Qualified Professors</h1>
     <div class="pro-slider">
@@ -570,7 +635,7 @@
         text-align: center;
         font-size: 2.5rem;
         margin-bottom: 20px;
-        color: #ff6f61;
+        color: #000000;
     }
 
     .pro-slider {
@@ -657,7 +722,7 @@
 
                 </a>
                 <a href="https://www.geeksforgeeks.org" target="_blank">
-                    <img src="/images/git.jpg" alt="GeeksforGeeks"
+                    <img src="/images/geekforgeeks.png" alt="GeeksforGeeks"
                         class="circular-logo">
 
                 </a>
@@ -734,123 +799,6 @@
 
 
 
-<div class="counters">
-    <div>
-        <div class="counter">
-            <h1><span data-count="156">0</span></h1>
-            <h3>Notes Uploaded</h3>
-        </div>
-        <div class="counter">
-            <h1><span data-count="156">0</span></h1>
-            <h3>Satisfied Students</h3>
-        </div>
-        <div class="counter">
-            <h1><span data-count="156">0</span></h1>
-            <h3>Success Rate</h3>
-        </div>
-        <div class="counter">
-            <h1><span data-count="156">0</span></h1>
-            <h3>Qualified Professors</h3>
-        </div>
-    </div>
-</div>
-
-
-<script>
-    const counters = document.querySelectorAll(".counter span");
-    const container = document.querySelector(".counters"); 
-    let activated = false;
-
-    function animateCounter(counter) {
-        const target = +counter.getAttribute("data-count"); 
-        let count = 0;
-        const speed = 200; 
-        const increment = Math.ceil(target / speed); 
-
-        const interval = setInterval(() => {
-            count += increment;
-            if (count >= target) {
-                count = target; 
-                clearInterval(interval);
-            }
-            counter.innerText = count;
-        }, 1);
-    }
-
-    window.addEventListener("scroll", () => {
-        if (window.pageYOffset > container.offsetTop - window.innerHeight + 200 && !activated) {
-            counters.forEach(counter => {
-                animateCounter(counter); 
-            });
-            activated = true;
-        }
-    });
-</script>
-
-
-
-
-<style>
-.counters{
-background: #ffffff;
-color: #000000;
-text-align: center;
-}
-
-.counters > div{
-max-width: 900px;
-margin: 0 auto;
-display: grid;
-grid-template-columns: repeat(4,1fr);
-gap: 4em 2em;
-
-}
-
-.counter{
-position: relative;
-}
-
-.counter h1{
-font-size: 3em;
-margin-bottom: 0.5em;
-}
-
-.counter:not(:last-child)::before{
-width: 2px;
-position: absolute;
-height: 3em;
-top: 50%;
-transform: translateY(-50%);
-right: -1em;
-}
-
-@media screen and (max-width: 900px) and (min-width: 501px){
-.counters > div{
-    grid-template-columns: 1fr 1fr;
-}
-.counter:nth-child(2)::before{
-    display: none;
-}
-}
-
-@media screen and (max-width: 500px){
-.counters > div{
-    grid-template-columns: 1fr;
-    row-gap: 5em;
-}
-.counter:not(:last-child)::before{
-    width: 90%;
-    height: 2px;
-    top: inintial;
-    right: initial;
-    bottom: -3em;
-    left: 50%;
-    transform: translateY(-50%);
-}
-}    
-</style>
-
-
 
 
 
@@ -863,7 +811,6 @@ right: -1em;
                     <li><h5>Quick Links</h5></li>
                     <li><a href="#">Home</a></li>
                     <li><a href="#notes">Notes</a></li>
-                    <li><a href="#contact">Contact</a></li>
                 </ul>
                 <ul class="footer-column">
                     <li><h5>Subjects</h5></li>
@@ -896,6 +843,13 @@ right: -1em;
                         </a>
                     </li>
                 </ul>
+                <div class="footer-column email-section">
+                    <h5>Contact Us</h5>
+                    <form class="email-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Send</button>
+                    </form>
+                </div>
             </div>
             <div class="footer">
                 <p>© 2025 Notes Manager. All rights reserved.</p>

@@ -50,8 +50,7 @@ html {
 
 .dropdown {
     position: relative;
-}
-.login-dropdown {
+}.login-dropdown {
     display: none;
     position: absolute;
     top: 100%;
@@ -67,32 +66,35 @@ html {
 .dropdown:hover .login-dropdown {
     display: block;
 }
+
 .login-dropdown form {
     display: flex;
     flex-direction: column;
-}
-.login-dropdown input {
-    padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    gap: 10px; /* Adds spacing between buttons */
+    width: 100%;
 }
 
-.login-dropdown button {
-    background-color:black;
-    color: white;
-    padding: 8px;
+.btn-link {
+    display: block;
+    width: 100%;
+}
+
+.btn-link button {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    background-color: black;
+    color: white;
     transition: 0.3s;
+    text-align: center;
 }
 
-.login-dropdown button:hover {
+.btn-link button:hover {
     background-color: darkgray;
-    
 }
-
 
 .navtext{
     padding-top: 30px;
@@ -174,87 +176,14 @@ html {
     margin-bottom: 30px;
 }
 
+a {
+    text-decoration: none;
+    color: inherit;
+}
 .mascot img {
     max-width: 60%;
     height: auto;
 }
-
-
-.contact {
-    text-align: center;
-    padding: 40px 20px;
-    background-color: #f9f9f9;
-    margin-top: 50px;
-}
-
-.contact-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    max-width: 900px;
-    margin: auto;
-    gap: 20px;
-}
-
-.contact-info {
-    flex: 1;
-    text-align: left;
-    min-width: 250px;
-}
-
-.contact-info p {
-    margin: 8px 0;
-    font-size: 16px;
-}
-
-.contact-form {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-width: 250px;
-}
-
-.contact-form input,
-.contact-form textarea {
-    width: 100%;
-    padding: 12px;
-    margin: 8px 0;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.contact-form textarea {
-    height: 100px;
-    resize: none;
-}
-
-.contact-form button {
-    padding: 12px;
-    background-color: black;
-    color: white;
-    font-weight: 500;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-}
-
-.contact-form button:hover {
-    background-color: darkgray;
-}
-
-@media screen and (max-width: 600px) {
-    .contact-container {
-        flex-direction: column;
-        text-align: center;
-    }
-    .contact-info {
-        text-align: center;
-    }
-}
-
-
 
 .menu-list{
     display: flex;
@@ -277,11 +206,6 @@ html {
     padding: 20px 0;
 }
 
-
-a {
-    text-decoration: none;
-    color: inherit;
-}
 
 .footer-column {
     list-style: none;
@@ -330,7 +254,37 @@ a {
 }
 .footer{
     padding: 20px;
+
 }
+.email-form {
+    display: flex;
+    gap: 10px;
+}
+
+.email-form input {
+    width: 100%;  
+    max-width: 400px; 
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.email-form button {
+    background-color: black;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.email-form button:hover {
+    background-color: darkgray;
+}
+
+
 .cross{
     display: none;
 }
