@@ -80,6 +80,56 @@
     });
 });
    </script>
+
+
+
+<div class="loader-progress-container">
+    <div class="loader-progress-bar" id="loader-progress-bar"></div>
+</div>
+<style>
+    .loader-progress-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 10000;
+}
+
+.loader-progress-bar {
+    height: 5px;
+    width: 0%;
+    background: #007bff;
+    transition: width 0.2s ease;
+}
+
+</style>
+<script>
+     window.onscroll = function () {
+        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+        let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        let progress = (scrollTop / scrollHeight) * 100;
+        document.getElementById("loader-progress-bar").style.width = progress + "%";
+    };
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <div class="container">
         <div class="navbar">
             <div class="logo">
@@ -107,6 +157,7 @@
             <div class="nav-icons">
                 <img class="menuopen" src="/images/hamburger-menu-5.png" alt="menu">
             </div>
+            
         </div>
         <div class="navtext">
             <p>Welcome to Notes Manager – Organize Your Ideas with Ease! . Your mind is powerful, but a note remembers everything</p>
