@@ -88,21 +88,86 @@
         </div>
     </section>
 
-    <section id="flipbook-notes" class="subject-section">
-        <div class="container">
+    <section id="flipbook-notes" class="flipbook-subject-section">
+        <div class="flipbook-container">
             <h2>Handwritten Notes</h2>
-            <iframe
-                src="https://docs.google.com/document/d/e/2PACX-1vRRDrzcU-zyizSVLBDN-V3uM4Mjv4JwoWLZDvrvAc-xZ1ZLS1IAWCw64drf4sZmrmtnwE-BEQgW18wY/pub?embedded=true"
-                width="100%" height="700px" style="border: none; overflow: hidden;">
-            </iframe>
-            <br>
-            <a href="https://docs.google.com/document/d/e/2PACX-1vRRDrzcU-zyizSVLBDN-V3uM4Mjv4JwoWLZDvrvAc-xZ1ZLS1IAWCw64drf4sZmrmtnwE-BEQgW18wY/pub"
-                target="_blank"
-                style="text-align: center; margin: 10px auto; padding: 10px 15px; background: #000; color: #fff; text-decoration: none; border-radius: 5px; width: fit-content;">
-                Open in Full Screen
-            </a>
+            <div class="flipbook-cards-scroll-container">
+                <div class="cards-wrapper">
+                    <a href="#" class="flipbook-card">Introduction</a>
+                    <a href="#" class="flipbook-card">Process Management</a>
+                    <a href="#" class="flipbook-card">Threads</a>
+                    <a href="#" class="flipbook-card">CPU Scheduling</a>
+                    <a href="#" class="flipbook-card">Memory Management</a>
+                    <a href="#" class="flipbook-card">Virtual Memory</a>
+                    <a href="#" class="flipbook-card">File System</a>
+                    <a href="#" class="flipbook-card">Disk Management</a>
+                    <a href="#" class="flipbook-card">Deadlocks</a>
+                </div>
+            </div>
         </div>
     </section>
+    <style>
+    .flipbook-container {
+        width: 100%;
+        overflow: hidden;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .flipbook-cards-scroll-container {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        scroll-behavior: smooth;
+    }
+    
+    .flipbook-cards-scroll-container::-webkit-scrollbar {
+        display: none; 
+    }
+    
+    .cards-wrapper {
+        display: flex;
+        gap: 19px;
+        padding: 20px 20px;
+    }
+    .flipbook-card {
+        flex: 0 0 auto;
+        width: 200px; 
+        height: 120px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        padding: 50px 90px;
+    }
+    .flipbook-card:hover {
+        background: #e9ecef;
+        transition: 0.9ms;
+    }
+    
+    @media (max-width: 768px) {
+        .flipbook-card {
+            width: 150px;
+            height: 100px;
+            font-size: 14px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .flipbook-card {
+            width: 120px;
+            height: 80px;
+            font-size: 12px;
+        }
+    }
+    
+    </style>
+
 
 
     <section id="video-lectures" class="subject-section">
@@ -223,6 +288,10 @@
                 <li><a href="scm.html">Source Code Management</a></li>
                 <li><a href="deca.html">DECA</a></li>
                 <li><a href="dent.html">DE & T</a></li>
+                <li><a href="">Python</a></li>
+                <li><a href="">Casa</a></li>
+                <li><a href="">Mcp</a></li>
+                <li><a href="">FEE</a></li>
             </ul>
             <ul class="footer-column">
                 <li>
