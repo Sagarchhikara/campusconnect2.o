@@ -262,12 +262,75 @@
             });
         </script>
         
-    
+        
+        <div class="feature-container">
+            <div class="feature">
+                <img src="/images/personalized_learning_icon.png" alt="Personalized Learning">
+                <h3>Personalized Learning</h3>
+                <p>Students practice at their own pace, filling in gaps in their understanding and accelerating their learning.</p>
+            </div>
+            <div class="feature">
+                <img src="/images/trusted_content_icon.png" alt="Trusted Content">
+                <h3>Trusted Content</h3>
+                <p>Created by experts, covering subjects like math, science, history, and more. Free for learners and teachers.</p>
+            </div>
+            <div class="feature">
+                <img src="/images/empower_teachers_icon.png" alt="Empower Teachers">
+                <h3>Tools to Empower Teachers</h3>
+                <p>Teachers can identify gaps, tailor instruction, and meet the needs of every student.</p>
+            </div>
+        </div>
        
+        <style> .feature-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            max-width: 900px;
+            width: 90%;
+            background: white;
+            padding: 30px;
+            margin: auto; 
+        }
+
+        .feature {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .feature img {
+            width: 60px;
+            height: auto;
+        }
+
+        .feature h3 {
+            font-size: 1.5em;
+            margin: 10px 0;
+        }
+
+        .feature p {
+            color: #555;
+        }
+
+        /* Responsive: Stack items on smaller screens */
+        @media (max-width: 768px) {
+            .feature-container {
+                flex-direction: column;
+                align-items: center;
+                padding: 20px;
+            }
+            .feature {
+                padding: 20px 0;
+            }
+        }
+        </style>
+
+
+
 
         <section class="notes" id="notes">
         <div class="card-container">
-            <h1>Stay organized with the latest updates to your notes management system!</h1>
+            <h1>Stay organized with the latest updates to your notes !</h1>
             <div class="cards">
 
 
