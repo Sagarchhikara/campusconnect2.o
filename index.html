@@ -1,122 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus Connect</title>
     <link rel="stylesheet" href="./style.css">
-    <link rel="stylesheet"
-  href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
 </head>
+
 <body>
 
     <div id="cookie-popup" class="cookie-popup">
-        <p>This website uses cookies to ensure you get the best experience on our website. 
-           <a href="/privacy-policy">Learn more</a>
+        <p>This website uses cookies to ensure you get the best experience on our website.
+            <a href="/privacy-policy">Learn more</a>
         </p>
         <button id="accept-cookies">Accept</button>
         <button id="reject-cookies">Reject</button>
     </div>
     <style>
-         .cookie-popup {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        background-color: #333;
-        color: #fff;
-        padding: 15px;
-        border-radius: 5px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 80%;
-        max-width: 600px;
-        z-index: 1000;
-    }
-    
-    .cookie-popup p {
-        margin: 0;
-        font-size: 14px;
-    }
-    
-    .cookie-popup a {
-        color: #4caf50;
-        text-decoration: none;
-    }
-    
-    .cookie-popup a:hover {
-        text-decoration: underline;
-    }
-    .cookie-popup button {
-        background-color: #4caf50;
-        color: #fff;
-        border: none;
-        padding: 8px 16px;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-left: 10px;
-    }
-    .cookie-popup button#reject-cookies {
-        background-color: #f44336;
-    }
+        .cookie-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 80%;
+            max-width: 600px;
+            z-index: 1000;
+        }
+
+        .cookie-popup p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .cookie-popup a {
+            color: #4caf50;
+            text-decoration: none;
+        }
+
+        .cookie-popup a:hover {
+            text-decoration: underline;
+        }
+
+        .cookie-popup button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .cookie-popup button#reject-cookies {
+            background-color: #f44336;
+        }
     </style>
-   <script>
-    document.addEventListener("DOMContentLoaded", function() {
-    const cookiePopup = document.getElementById("cookie-popup");
-    const acceptCookies = document.getElementById("accept-cookies");
-    const rejectCookies = document.getElementById("reject-cookies");
-    if (!localStorage.getItem("cookieConsent")) {
-        cookiePopup.style.display = "flex";
-    }
-    acceptCookies.addEventListener("click", function() {
-        localStorage.setItem("cookieConsent", "accepted");
-        cookiePopup.style.display = "none";
-    });
-    rejectCookies.addEventListener("click", function() {
-        localStorage.setItem("cookieConsent", "rejected");
-        cookiePopup.style.display = "none";
-    });
-});
-   </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cookiePopup = document.getElementById("cookie-popup");
+            const acceptCookies = document.getElementById("accept-cookies");
+            const rejectCookies = document.getElementById("reject-cookies");
+            if (!localStorage.getItem("cookieConsent")) {
+                cookiePopup.style.display = "flex";
+            }
+            acceptCookies.addEventListener("click", function () {
+                localStorage.setItem("cookieConsent", "accepted");
+                cookiePopup.style.display = "none";
+            });
+            rejectCookies.addEventListener("click", function () {
+                localStorage.setItem("cookieConsent", "rejected");
+                cookiePopup.style.display = "none";
+            });
+        });
+    </script>
 
 
 
-<div class="loader-progress-container">
-    <div class="loader-progress-bar" id="loader-progress-bar"></div>
-</div>
-<style>
-    .loader-progress-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: rgba(0, 0, 0, 0.1);
-    z-index: 10000;
-}
+    <div class="loader-progress-container">
+        <div class="loader-progress-bar" id="loader-progress-bar"></div>
+    </div>
+    <style>
+        .loader-progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 10000;
+        }
 
-.loader-progress-bar {
-    height: 5px;
-    width: 0%;
-    background: #007bff;
-    transition: width 0.2s ease;
-}
-
-</style>
-<script>
-     window.onscroll = function () {
-        let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
-        let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-        let progress = (scrollTop / scrollHeight) * 100;
-        document.getElementById("loader-progress-bar").style.width = progress + "%";
-    };
-</script>
-<div class="container">
+        .loader-progress-bar {
+            height: 5px;
+            width: 0%;
+            background: #007bff;
+            transition: width 0.2s ease;
+        }
+    </style>
+    <script>
+        window.onscroll = function () {
+            let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            let progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById("loader-progress-bar").style.width = progress + "%";
+        };
+    </script>
+    <div class="container">
         <div class="navbar">
             <div class="logo">
-                <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500; color: rgba(0, 0, 0, 0.815);" ><i class='bx bx-code'></i></i></i></h2>
+                <h2
+                    style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500; color: rgba(0, 0, 0, 0.815);">
+                    <i class='bx bx-code'></i></i></i></h2>
             </div>
             <ul id="nav-list">
                 <li><a href="#">Home</a></li>
@@ -134,16 +138,17 @@
                         </form>
                     </div>
                 </li>
-                
-                <img  class="cross" src="/images/close-116-512.png" alt="cross">
+
+                <img class="cross" src="/images/close-116-512.png" alt="cross">
             </ul>
             <div class="nav-icons">
                 <img class="menuopen" src="/images/hamburger-menu-5.png" alt="menu">
             </div>
-            
+
         </div>
         <div class="navtext">
-            <p>Welcome to Notes Manager – Organize Your Ideas with Ease! . Your mind is powerful, but a note remembers everything</p>
+            <p>Welcome to Notes Manager – Organize Your Ideas with Ease! . Your mind is powerful, but a note remembers
+                everything</p>
         </div>
 
 
@@ -170,6 +175,7 @@
                 color: white;
                 padding: 20px;
             }
+
             .intro-container {
                 display: flex;
                 flex-direction: column;
@@ -177,18 +183,21 @@
                 transform: translateY(-30px);
                 transition: transform 0.5s ease-out;
             }
+
             .fullscreen-text {
                 font-size: 3rem;
                 font-weight: 700;
                 text-align: center;
                 margin-bottom: 10px;
             }
+
             .subheading {
                 font-size: 1.2rem;
                 font-weight: 400;
                 opacity: 0.8;
                 margin-bottom: 20px;
             }
+
             .search-container {
                 position: relative;
                 display: flex;
@@ -200,6 +209,7 @@
                 max-width: 600px;
                 box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
             }
+
             .search-bar {
                 flex: 1;
                 border: none;
@@ -208,54 +218,60 @@
                 padding: 10px;
                 border-radius: 50px;
             }
+
             .search-icon {
                 font-size: 1.5rem;
                 color: gray;
                 cursor: pointer;
             }
+
             @media (max-width: 768px) {
                 .fullscreen-text {
                     font-size: 2rem;
                 }
+
                 .subheading {
                     font-size: 1rem;
                 }
+
                 .search-bar {
                     font-size: 0.9rem;
                 }
             }
         </style>
-        
+
         <script>
             document.addEventListener("scroll", function () {
                 let introContainer = document.querySelector(".intro-container");
                 let notesSection = document.querySelector("#notes");
-                
+
                 let scrollPosition = window.scrollY;
                 let introHeight = introContainer.offsetHeight;
                 let notesPosition = notesSection.offsetTop;
-            
+
                 if (scrollPosition < notesPosition - introHeight) {
-                    let scaleFactor = 1 + scrollPosition / 1200; 
-                    let translateY = scrollPosition / 10 - 30; 
+                    let scaleFactor = 1 + scrollPosition / 1200;
+                    let translateY = scrollPosition / 10 - 30;
                     introContainer.style.transform = `scale(${Math.min(scaleFactor, 1.2)}) translateY(${translateY}px)`;
                 } else {
                     introContainer.style.transform = "scale(1.2) translateY(30px)";
                 }
             });
         </script>
-        
-        
+
+
         <div class="feature-container">
             <div class="feature">
                 <img src="/images/personalized_learning_icon.png" alt="Personalized Learning">
                 <h3>Personalized Learning</h3>
-                <p>Students practice at their own pace, filling in gaps in their understanding and accelerating their learning.</p>
+                <p>Students practice at their own pace, filling in gaps in their understanding and accelerating their
+                    learning.</p>
             </div>
             <div class="feature">
                 <img src="/images/trusted_content_icon.png" alt="Trusted Content">
                 <h3>Trusted Content</h3>
-                <p>Created by experts, covering subjects like math, science, history, and more. Free for learners and teachers.</p>
+                <p>Created by experts, covering subjects like math, science, history, and more. Free for learners and
+                    teachers.</p>
             </div>
             <div class="feature">
                 <img src="/images/empower_teachers_icon.png" alt="Empower Teachers">
@@ -263,154 +279,160 @@
                 <p>Teachers can identify gaps, tailor instruction, and meet the needs of every student.</p>
             </div>
         </div>
-       
-        <style> .feature-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            text-align: center;
-            max-width: 900px;
-            width: 90%;
-            background: white;
-            padding: 30px;
-            margin: auto; 
-        }
 
-        .feature {
-            flex: 1;
-            padding: 20px;
-        }
-
-        .feature img {
-            width: 60px;
-            height: auto;
-        }
-
-        .feature h3 {
-            font-size: 1.5em;
-            margin: 10px 0;
-        }
-
-        .feature p {
-            color: #555;
-        }
-
-        /* Responsive: Stack items on smaller screens */
-        @media (max-width: 768px) {
+        <style>
             .feature-container {
-                flex-direction: column;
+                display: flex;
+                justify-content: space-between;
                 align-items: center;
+                text-align: center;
+                max-width: 900px;
+                width: 90%;
+                background: white;
+                padding: 30px;
+                margin: auto;
+            }
+
+            .feature {
+                flex: 1;
                 padding: 20px;
             }
-            .feature {
-                padding: 20px 0;
+
+            .feature img {
+                width: 60px;
+                height: auto;
             }
-        }
+
+            .feature h3 {
+                font-size: 1.5em;
+                margin: 10px 0;
+            }
+
+            .feature p {
+                color: #555;
+            }
+
+            /* Responsive: Stack items on smaller screens */
+            @media (max-width: 768px) {
+                .feature-container {
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 20px;
+                }
+
+                .feature {
+                    padding: 20px 0;
+                }
+            }
         </style>
 
 
 
 
         <section class="notes" id="notes">
-        <div class="card-container">
-            <h1>Stay organized with the latest updates to your notes !</h1>
-            <div class="cards">
+            <div class="card-container">
+                <h1>Stay organized with the latest updates to your notes !</h1>
+                <div class="cards">
 
 
 
-                <a href="/c_programming.html" >
-                 <div style="background: black;" class="card" >
-                    <h1 style="color: white;">C Programming</h1>
-                    <p style="color: white;">Master the fundamentals of C – the foundation of modern programming!</p>
-                    <img src="/images/c.jpg" alt="C programming">
-                 </div>
-                 </a>
+                    <a href="/c_programming.html">
+                        <div style="background: black;" class="card">
+                            <h1 style="color: white;">C Programming</h1>
+                            <p style="color: white;">Master the fundamentals of C – the foundation of modern
+                                programming!</p>
+                            <img src="/images/c.jpg" alt="C programming">
+                        </div>
+                    </a>
 
 
 
-                 <a href="/operating_system.html">
-                 <div class="card">
-                    <h1>Operating System </h1>
-                    <p>Master the core concepts of multitasking, memory management, and process scheduling in Operating Systems</p>
-                    <img src="/images/operating system.jpg" alt="operating system">
-                 </div>
-                 </a>
+                    <a href="/operating_system.html">
+                        <div class="card">
+                            <h1>Operating System </h1>
+                            <p>Master the core concepts of multitasking, memory management, and process scheduling in
+                                Operating Systems</p>
+                            <img src="/images/operating system.jpg" alt="operating system">
+                        </div>
+                    </a>
 
 
 
-                 <a href="/scm.html">
-                 <div style="background: black;" class="card">
-                    <h1 style="color: white;" >SCM</h1>
-                    <p style="color: white;">Efficiently track, manage, and collaborate on code with powerful version control systems</p>
-                    <img style="height: 180px;" src="/images/git.jpg" alt="scm">
-                 </div>
-                 </a>
+                    <a href="/scm.html">
+                        <div style="background: black;" class="card">
+                            <h1 style="color: white;">SCM</h1>
+                            <p style="color: white;">Efficiently track, manage, and collaborate on code with powerful
+                                version control systems</p>
+                            <img style="height: 180px;" src="/images/git.jpg" alt="scm">
+                        </div>
+                    </a>
 
 
 
-                 <a href="/deca.html">
-                 <div  class="card">
-                    <h1>DECA</h1>
-                    <p>Unraveling the mysteries of the universe, one equation at a time</p>
-                    <img src="/images/deca1.jpg" alt="DECA">
+                    <a href="/deca.html">
+                        <div class="card">
+                            <h1>DECA</h1>
+                            <p>Unraveling the mysteries of the universe, one equation at a time</p>
+                            <img src="/images/deca1.jpg" alt="DECA">
+                        </div>
+                    </a>
+
+
+
+                    <a href="/dent.html">
+                        <div class="card">
+                            <h1>DE & T</h1>
+                            <p>Differential equations and transformations </p>
+                            <img src="/images/DENT.jpg" alt="de%t">
+                        </div>
+                    </a>
+
+
+
+                    <a href="#">
+                        <div class="card">
+                            <h1>Python</h1>
+                            <p>Problem Solving Using Python Programming</p>
+                            <img src="/images/python.png" alt="Python">
+                        </div>
+                    </a>
+
+
+
+                    <a href="#">
+                        <div style="background: black;" class="card">
+                            <h1 style="color: white;">Frontend Engineering</h1>
+                            <p style="color: white;">Bringing designs to life with the power of HTML, CSS, and
+                                JavaScript!</p>
+                            <img src="/images/fee.jpg" alt="FEE">
+                        </div>
+                    </a>
+
+
+
+                    <a href="#">
+                        <div class="card">
+                            <h1>MCP</h1>
+                            <p>Modern Computational Physics </p>
+                            <img src="/images/MCP.webp" alt="MCP">
+                        </div>
+                    </a>
+
+
+
+                    <a href="#">
+                        <div style="background: black;" class="card">
+                            <h1 style="color: white;">CASA</h1>
+                            <p style="color: white;">Calculus And Statical Analysis </p>
+                            <img src="/images/CASA.jpg" alt="CASA">
+                        </div>
+                    </a>
+
+
+
+
                 </div>
-                </a>
-
-
-
-                <a href="/dent.html">
-                <div class="card">
-                    <h1 >DE & T</h1>
-                    <p>Differential equations and transformations </p>
-                    <img src="/images/DENT.jpg" alt="de%t">
-                </div>
-                </a>
-
-
-
-                <a href="#">
-                    <div class="card">
-                        <h1>Python</h1>
-                        <p>Problem Solving Using Python Programming</p>
-                        <img src="/images/python.png" alt="Python">
-                    </div>
-                </a>
-
-
-
-                <a href="#">
-                    <div style="background: black;" class="card">
-                        <h1 style="color: white;">Frontend Engineering</h1>
-                        <p style="color: white;">Bringing designs to life with the power of HTML, CSS, and JavaScript!</p>
-                        <img src="/images/fee.jpg" alt="FEE">
-                    </div>
-                </a>
-
-
-
-                <a href="#">
-                    <div class="card">
-                        <h1 >MCP</h1>
-                        <p>Modern Computational Physics </p>
-                        <img src="/images/MCP.webp" alt="MCP">
-                    </div>
-                </a>
-
-
-
-                <a href="#">
-                    <div style="background: black;"  class="card" >
-                        <h1 style="color: white;">CASA</h1>
-                        <p style="color: white;">Calculus And Statical Analysis </p>
-                        <img src="/images/CASA.jpg" alt="CASA">
-                    </div>
-                </a>
-                
-
-
-                
             </div>
-        </div>
         </section>
 
         <div class="text">
@@ -418,129 +440,131 @@
         </div>
 
 
-        
 
-<div class="counters">
-    <div>
-        <div class="counter">
-            <h1><span data-count="243">0</span></h1>
-            <h3>Notes</h3>
+
+        <div class="counters">
+            <div>
+                <div class="counter">
+                    <h1><span data-count="243">0</span></h1>
+                    <h3>Notes</h3>
+                </div>
+                <div class="counter">
+                    <h1><span data-count="2453">0</span></h1>
+                    <h3>Achievers</h3>
+                </div>
+                <div class="counter">
+                    <h1><span data-count="121">0</span></h1>
+                    <h3>Video Lectures</h3>
+                </div>
+                <div class="counter">
+                    <h1><span data-count="137">0</span></h1>
+                    <h3>Qualified Professors</h3>
+                </div>
+            </div>
         </div>
-        <div class="counter">
-            <h1><span data-count="2453">0</span></h1>
-            <h3>Achievers</h3>
-        </div>
-        <div class="counter">
-            <h1><span data-count="121">0</span></h1>
-            <h3>Video Lectures</h3>
-        </div>
-        <div class="counter">
-            <h1><span data-count="137">0</span></h1>
-            <h3>Qualified Professors</h3>
-        </div>
-    </div>
-</div>
 
 
-<script>
-    const counters = document.querySelectorAll(".counter span");
-    const container = document.querySelector(".counters"); 
-    let activated = false;
+        <script>
+            const counters = document.querySelectorAll(".counter span");
+            const container = document.querySelector(".counters");
+            let activated = false;
 
-    function animateCounter(counter) {
-        const target = +counter.getAttribute("data-count"); 
-        let count = 0;
-        const speed = 200; 
-        const increment = Math.ceil(target / speed); 
+            function animateCounter(counter) {
+                const target = +counter.getAttribute("data-count");
+                let count = 0;
+                const speed = 200;
+                const increment = Math.ceil(target / speed);
 
-        const interval = setInterval(() => {
-            count += increment;
-            if (count >= target) {
-                count = target; 
-                clearInterval(interval);
+                const interval = setInterval(() => {
+                    count += increment;
+                    if (count >= target) {
+                        count = target;
+                        clearInterval(interval);
+                    }
+                    counter.innerText = count;
+                }, 1);
             }
-            counter.innerText = count;
-        }, 1);
-    }
 
-    window.addEventListener("scroll", () => {
-        if (window.pageYOffset > container.offsetTop - window.innerHeight + 200 && !activated) {
-            counters.forEach(counter => {
-                animateCounter(counter); 
+            window.addEventListener("scroll", () => {
+                if (window.pageYOffset > container.offsetTop - window.innerHeight + 200 && !activated) {
+                    counters.forEach(counter => {
+                        animateCounter(counter);
+                    });
+                    activated = true;
+                }
             });
-            activated = true;
-        }
-    });
-</script>
+        </script>
 
 
 
 
-<style>
-.counters{
-padding-top: 60px;
-background: #ffffff;
-color: #000000;
-text-align: center;
-}
+        <style>
+            .counters {
+                padding-top: 60px;
+                background: #ffffff;
+                color: #000000;
+                text-align: center;
+            }
 
-.counters > div{
-max-width: 900px;
-margin: 0 auto;
-display: grid;
-grid-template-columns: repeat(4,1fr);
-gap: 4em 2em;
+            .counters>div {
+                max-width: 900px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 4em 2em;
 
-}
+            }
 
-.counter{
-position: relative;
-}
+            .counter {
+                position: relative;
+            }
 
-.counter h1{
-font-size: 3em;
-margin-bottom: 0.5em;
-}
+            .counter h1 {
+                font-size: 3em;
+                margin-bottom: 0.5em;
+            }
 
-.counter:not(:last-child)::before{
-width: 2px;
-position: absolute;
-height: 3em;
-top: 50%;
-transform: translateY(-50%);
-right: -1em;
-}
+            .counter:not(:last-child)::before {
+                width: 2px;
+                position: absolute;
+                height: 3em;
+                top: 50%;
+                transform: translateY(-50%);
+                right: -1em;
+            }
 
-@media screen and (max-width: 900px) and (min-width: 501px){
-.counters > div{
-    grid-template-columns: 1fr 1fr;
-}
-.counter:nth-child(2)::before{
-    display: none;
-}
-}
+            @media screen and (max-width: 900px) and (min-width: 501px) {
+                .counters>div {
+                    grid-template-columns: 1fr 1fr;
+                }
 
-@media screen and (max-width: 500px){
-.counters > div{
-    grid-template-columns: 1fr;
-    row-gap: 5em;
-}
-.counter:not(:last-child)::before{
-    width: 90%;
-    height: 2px;
-    top: inintial;
-    right: initial;
-    bottom: -3em;
-    left: 50%;
-    transform: translateY(-50%);
-}
-}    
-</style>
+                .counter:nth-child(2)::before {
+                    display: none;
+                }
+            }
+
+            @media screen and (max-width: 500px) {
+                .counters>div {
+                    grid-template-columns: 1fr;
+                    row-gap: 5em;
+                }
+
+                .counter:not(:last-child)::before {
+                    width: 90%;
+                    height: 2px;
+                    top: inintial;
+                    right: initial;
+                    bottom: -3em;
+                    left: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+        </style>
 
 
 
 
-        
+
         <div class="mascot-container">
             <div class="mascot">
                 <img src="/images/mascot.jpg" alt="mascot">
@@ -721,215 +745,213 @@ right: -1em;
                 return responses[input] || "I'm not sure. Try asking something else!";
             }
         </script>
- 
 
 
 
 
- <div class="pro-container">
-    <h1 class="pro-heading">Qualified Professors</h1>
-    <div class="pro-slider">
-        <div class="pro-card">
-            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
-            <h3 class="pro-name">Mohit Kakkar</h3>
-            <p class="pro-subject">Engineering Mathematics</p>
-        </div>
-        <div class="pro-card">
-            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
-            <h3 class="pro-name">Monika Sethi</h3>
-            <p class="pro-subject">Operating System</p>
-        </div>
-        <div class="pro-card">
-            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
-            <h3 class="pro-name">Renu Popli</h3>
-            <p class="pro-subject">SCM</p>
-        </div>
-        <div class="pro-card">
-            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
-            <h3 class="pro-name">Chandra Prabha</h3>
-            <p class="pro-subject">Python / C</p>
-        </div>
-        <div class="pro-card">
-            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
-            <h3 class="pro-name">Ekta Thakur</h3>
-            <p class="pro-subject">Deca</p>
-        </div>
-        <div class="pro-card">
-            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
-            <h3 class="pro-name">Neha Sharma</h3>
-            <p class="pro-subject">Frontend Engineering</p>
-        </div>
-        <div class="pro-card">
-            <img src="https://via.placeholder.com/150" alt="" class="pro-image">
-            <h3 class="pro-name">Shivani Punj</h3>
-            <p class="pro-subject">MCP</p>
-        </div>
-    </div>
-</div>
-<style>
-    .pro-container {
-        max-width: 1200px;
-        margin: 0 auto;
-    }
 
-    .pro-heading {
-        margin-top: 60px;
-        ;
-        text-align: center;
-        font-size: 2.5rem;
-        margin-bottom: 20px;
-        color: #000000;
-    }
-
-    .pro-slider {
-        display: flex;
-        overflow-x: auto;
-        gap: 20px;
-        padding-bottom: 20px;
-    }
-
-    .pro-slider::-webkit-scrollbar {
-        display: none;
-    }
-
-    .pro-card {
-        flex: 0 0 auto;
-        width: 250px;
-        height: 350px;
-        background-color: white;
-        border-radius: 10px;
-        padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        text-align: center;
-        transition: transform 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .pro-card:hover {
-        cursor: pointer;
-    }
-
-    .pro-image {
-        width: 120px;
-        height: 120px;
-        border-radius: 50%;
-        margin-bottom: 20px;
-        object-fit: cover;
-    }
-
-    .pro-name {
-        font-size: 1.5rem;
-        margin-bottom: 15px;
-        color: black;
-    }
-
-    .pro-subject {
-        font-size: 1rem;
-        color: #676767;
-    }
-</style>
-<section class="resources-section">
-    <h2>Coding Essentials</h2>
-    <div class="logo-scroll-container">
-        <div class="logo-scroll-wrapper">
-            <div class="logo-scroll">
-                <a href="https://leetcode.com" target="_blank">
-                    <img src="/images/leetcode.webp" alt="leetcode" class="circular-logo">
-
-                </a>
-                <a href="https://github.com" target="_blank">
-                    <img src="/images/github_logo.png" alt="GitHub"
-                        class="circular-logo">
-
-                </a>
-                <a href="https://stackoverflow.com" target="_blank">
-                    <img src="/images/stack_overflow.webp"
-                        alt="stack_overflow" class="circular-logo">
-
-                </a>
-                <a href="https://www.geeksforgeeks.org" target="_blank">
-                    <img src="/images/geekforgeeks.png" alt="GeeksforGeeks"
-                        class="circular-logo">
-
-                </a>
-                <a href="https://www.hackerrank.com" target="_blank">
-                    <img src="/images/hackerrank.webp" alt="hackerrank"
-                        class="circular-logo">
-
-                </a>
-                <a href="https://www.kaggle.com" target="_blank">
-                    <img src="/images/kaggle.webp" alt="kaggle"
-                        class="circular-logo">
-
-                </a>
-                <a href="https://www.freecodecamp.org" target="_blank">
-                    <img src="/images/free_code_Camp.webp" alt="free-code-camp"
-                        class="circular-logo">
-
-                </a>
+        <div class="pro-container">
+            <h1 class="pro-heading">Qualified Professors</h1>
+            <div class="pro-slider">
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Mohit Kakkar</h3>
+                    <p class="pro-subject">Engineering Mathematics</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Monika Sethi</h3>
+                    <p class="pro-subject">Operating System</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Renu Popli</h3>
+                    <p class="pro-subject">SCM</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Chandra Prabha</h3>
+                    <p class="pro-subject">Python / C</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Ekta Thakur</h3>
+                    <p class="pro-subject">Deca</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Neha Sharma</h3>
+                    <p class="pro-subject">Frontend Engineering</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Shivani Punj</h3>
+                    <p class="pro-subject">MCP</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<style>
-    .resources-section {
-        padding: 20px;
-        margin: 20px;
-        background-color: #f9f9f9;
-        text-align: center;
-    }
+        <style>
+            .pro-container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
 
-    .resources-section h2 {
-        margin-bottom: 20px;
-        font-size: 24px;
-        color: #000000;
-    }
+            .pro-heading {
+                margin-top: 60px;
+                ;
+                text-align: center;
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+                color: #000000;
+            }
 
-    .logo-scroll-container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        overflow: hidden;
-    }
+            .pro-slider {
+                display: flex;
+                overflow-x: auto;
+                gap: 20px;
+                padding-bottom: 20px;
+            }
 
-    .logo-scroll-wrapper {
-        width: 100%;
-        max-width: 1200px;
-        overflow-x: auto;
-        scroll-behavior: smooth;
-        white-space: nowrap;
-        padding: 10px 0;
-    }
+            .pro-slider::-webkit-scrollbar {
+                display: none;
+            }
 
-    .logo-scroll a {
-        margin: 0 15px;
-    }
+            .pro-card {
+                flex: 0 0 auto;
+                width: 250px;
+                height: 350px;
+                background-color: white;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                transition: transform 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
 
-    .circular-logo {
-        height: 80px;
-        width: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-    }
+            .pro-card:hover {
+                cursor: pointer;
+            }
 
-    .circular-logo:hover {
-        transform: scale(1.04);
-    }
-</style>
-<div class="menu-items">
+            .pro-image {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                margin-bottom: 20px;
+                object-fit: cover;
+            }
+
+            .pro-name {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+                color: black;
+            }
+
+            .pro-subject {
+                font-size: 1rem;
+                color: #676767;
+            }
+        </style>
+        <section class="resources-section">
+            <h2>Coding Essentials</h2>
+            <div class="logo-scroll-container">
+                <div class="logo-scroll-wrapper">
+                    <div class="logo-scroll">
+                        <a href="https://leetcode.com" target="_blank">
+                            <img src="/images/leetcode.webp" alt="leetcode" class="circular-logo">
+
+                        </a>
+                        <a href="https://github.com" target="_blank">
+                            <img src="/images/github_logo.png" alt="GitHub" class="circular-logo">
+
+                        </a>
+                        <a href="https://stackoverflow.com" target="_blank">
+                            <img src="/images/stack_overflow.webp" alt="stack_overflow" class="circular-logo">
+
+                        </a>
+                        <a href="https://www.geeksforgeeks.org" target="_blank">
+                            <img src="/images/geekforgeeks.png" alt="GeeksforGeeks" class="circular-logo">
+
+                        </a>
+                        <a href="https://www.hackerrank.com" target="_blank">
+                            <img src="/images/hackerrank.webp" alt="hackerrank" class="circular-logo">
+
+                        </a>
+                        <a href="https://www.kaggle.com" target="_blank">
+                            <img src="/images/kaggle.webp" alt="kaggle" class="circular-logo">
+
+                        </a>
+                        <a href="https://www.freecodecamp.org" target="_blank">
+                            <img src="/images/free_code_Camp.webp" alt="free-code-camp" class="circular-logo">
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <style>
+            .resources-section {
+                padding: 20px;
+                margin: 20px;
+                background-color: #f9f9f9;
+                text-align: center;
+            }
+
+            .resources-section h2 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #000000;
+            }
+
+            .logo-scroll-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .logo-scroll-wrapper {
+                width: 100%;
+                max-width: 1200px;
+                overflow-x: auto;
+                scroll-behavior: smooth;
+                white-space: nowrap;
+                padding: 10px 0;
+            }
+
+            .logo-scroll a {
+                margin: 0 15px;
+            }
+
+            .circular-logo {
+                height: 80px;
+                width: 80px;
+                border-radius: 50%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+            }
+
+            .circular-logo:hover {
+                transform: scale(1.04);
+            }
+        </style>
+        <div class="menu-items">
             <div class="menu-list">
                 <ul class="footer-column">
-                    <li><h5>Quick Links</h5></li>
+                    <li>
+                        <h5>Quick Links</h5>
+                    </li>
                     <li><a href="#">Home</a></li>
                     <li><a href="#notes">Notes</a></li>
                 </ul>
                 <ul class="footer-column">
-                    <li><h5>Subjects</h5></li>
+                    <li>
+                        <h5>Subjects</h5>
+                    </li>
                     <li><a href="c_programming.html">C Programming</a></li>
                     <li><a href="operating_system.html">Operating System</a></li>
                     <li><a href="scm.html">Source Code Management</a></li>
@@ -937,7 +959,9 @@ right: -1em;
                     <li><a href="dent.html">DE & T</a></li>
                 </ul>
                 <ul class="footer-column">
-                    <li><h5>Follow Us</h5></li>
+                    <li>
+                        <h5>Follow Us</h5>
+                    </li>
                     <li>
                         <a href="https://www.instagram.com/yourprofile" target="_blank">
                             <i class='bx bxl-instagram'></i> Instagram
@@ -966,72 +990,73 @@ right: -1em;
                         <button type="submit">Send</button>
                     </form>
                 </div>
-               
+
             </div>
             <div class="footer">
                 <p>© 2025 Notes Manager. All rights reserved.</p>
             </div>
         </div>
-        
+
     </div>
     <script>
-      let nav_list = document.getElementById('nav-list')
-      let openMenu = document.querySelector('.menuopen')
-      let cross = document.querySelector('.cross')
-      openMenu.addEventListener('click',()=>{
-        nav_list.style.opacity = '100%'
-        openMenu.style.display ='none'
-      })
-      cross.addEventListener('click',()=>{
-        nav_list.style.opacity = '0%';
-        setTimeout(()=>{
-            openMenu.style.display ='block'
-        },400)
-      })
+        let nav_list = document.getElementById('nav-list')
+        let openMenu = document.querySelector('.menuopen')
+        let cross = document.querySelector('.cross')
+        openMenu.addEventListener('click', () => {
+            nav_list.style.opacity = '100%'
+            openMenu.style.display = 'none'
+        })
+        cross.addEventListener('click', () => {
+            nav_list.style.opacity = '0%';
+            setTimeout(() => {
+                openMenu.style.display = 'block'
+            }, 400)
+        })
     </script>
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        const cards = document.querySelectorAll(".card");
-    
-        const observer = new IntersectionObserver(
-            (entries, observer) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("show");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.2 }
-        );
-    
-        cards.forEach((card) => {
-            observer.observe(card);
-        });
-    });
-    </script>
-    
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-        const textSection = document.querySelector(".text");
-    
-        const observer = new IntersectionObserver(
-            (entries, observer) => {
-                entries.forEach((entry) => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add("show");
-                        observer.unobserve(entry.target);
-                    }
-                });
-            },
-            { threshold: 0.2 }
-        );
-    
-        observer.observe(textSection);
-    });
+            const cards = document.querySelectorAll(".card");
+
+            const observer = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("show");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.2 }
+            );
+
+            cards.forEach((card) => {
+                observer.observe(card);
+            });
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const textSection = document.querySelector(".text");
+
+            const observer = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("show");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.2 }
+            );
+
+            observer.observe(textSection);
+        });
     </script>
 
 </body>
+
 </html>
