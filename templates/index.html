@@ -129,6 +129,28 @@
             opacity: 1;
             visibility: visible;
         }
+
+        .flash-messages {
+            text-align: center;
+            margin: 10px auto;
+            width: 80%;
+        }
+
+        .flash-message {
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .flash-message.error {
+            background-color: #ffcccc;
+            color: #cc0000;
+        }
+
+        .flash-message.success {
+            background-color: #ccffcc;
+            color: #008000;
+        }
     </style>
     <script>
         document.addEventListener("DOMContentLoaded", function () {
@@ -189,6 +211,15 @@
             <p>Welcome to Notes Manager – Organize Your Ideas with Ease! . Your mind is powerful, but a note remembers
                 everything</p>
         </div>
+        {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+        <div class="flash-messages">
+            {% for category, message in messages %}
+            <div class="flash-message {{ category }}">{{ message }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
 
 
         <section class="intro-section">
@@ -1000,7 +1031,7 @@
                         <h5>Quick Links</h5>
                     </li>
                     <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('notes') }}">Notes</a></li>
+                    <li><a href="#notes">Notes</a></li>
                 </ul>
                 <ul class="footer-column">
                     <li>
