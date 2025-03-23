@@ -184,6 +184,7 @@
                         </form>
                     </div>
                 </li>
+                <li><a href=""><i class='bx bx-user' style="font-size: x-large;"></i></a></li>
 
                 <img class="cross" src="/images/close-116-512.png" alt="cross">
             </ul>
@@ -661,18 +662,116 @@
             height: 300px;
             margin: 0 10px;
             background: #000000;
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
-
         }
 
         .note-card img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border: 4px solid red';
+            border-radius: 13px;
+            border: 4px solid rgb(0, 0, 0); 
+}
+
+</style>
+
+
+
+<div class="mission-container">
+    <div class="mission-card">
+        <div class="mission-title">Our System</div>
+        <div class="mission-line">
+        </div>
+        <p class="mission-text">
+            Our Notes Management System simplifies how students and teachers organize, share, 
+            and access study materials. With a user-friendly interface and efficient search 
+            features, managing notes has never been easier.
+        </p>
+    </div>
+
+    <div class="mission-card">
+        <div class="mission-title">Our Features</div>
+        <div class="mission-line">
+        </div>
+        <p class="mission-text">
+            From categorized notes to progress tracking, our system ensures 
+            that students can access well-structured and updated learning materials. 
+            Smart filters and an intuitive dashboard make studying more efficient.
+        </p>
+    </div>
+</div>
+<style>
+    
+    .mission-container {
+            display: flex;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            padding-top: 30px;
+        }
+
+        .mission-card {
+            flex: 1;
+            padding: 20px;
+            border: 2px solid green;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mission-title {
+            font-size: 20px;
+            font-weight: bold;
+            color: #222;
+            text-transform: uppercase;
+        }
+
+        .mission-line {
+            display: flex;
+            align-items: center;
+            margin: 10px 0;
+        }
+
+        .mission-line::before {
+            content: "";
+            flex-grow: 1;
+            height: 2px;
+            background-color: green;
+            margin-right: 10px;
+        }
+
+        .mission-see-more {
+            font-size: 14px;
+            color: green;
+            font-weight: bold;
+            text-decoration: none;
+        }
+
+        .mission-text {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
         }
 </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -856,6 +955,180 @@
                 return responses[input] || "I'm not sure. Try asking something else!";
             }
         </script>
+
+
+
+<div class="whatsapp-container">
+    <div class="whatsapp-text-section">Smarter, Faster</div>
+    <div class="whatsapp-qr-section">
+        <img src="{3FF36A08-BCA7-4AD6-8784-1DA9C48B252F}.png" alt="WhatsApp QR Code">
+        <p>Scan to Join <i class='bx bxl-whatsapp'></i></p>
+    </div>
+</div>
+<style>
+    
+    .whatsapp-container {
+            display: flex;
+            align-items: center;
+            justify-content: ;
+            gap: 20px;
+            padding: 40px 40px;
+        }
+        .whatsapp-text-section {
+            background: black;
+            color: white;
+            font-size: 40px;
+            font-weight: bold;
+            padding: 10px;
+            display: inline-block;
+            transform: rotate(-5deg);
+        }
+        .whatsapp-qr-section {
+            text-align: center;
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .whatsapp-qr-section img {
+            width: 150px;
+            height: 150px;
+            border-radius: 5px;
+        }
+        .whatsapp-qr-section p {
+            margin-top: 10px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        .whatsapp-qr-section p i {
+            color: green;
+            font-size: 24px;
+        }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="quiz-container">
+    <h1 class="quiz-heading">Test Your Knowledge with MCQs</h1>
+    <p class="quiz-subheading">Practice quizzes to enhance your understanding in various subjects.</p>
+
+    <div class="quiz-buttons">
+        
+        <button class="quiz-button">Source Code Management</button>
+        <button class="quiz-button">C Programming</button>
+        <button class="quiz-button">Python Programming</button>
+        <button class="quiz-button">Data Structures</button>
+        <button class="quiz-button">Operating System</button>
+        <button class="quiz-button">DECA</button>
+        <button class="quiz-button">MCP</button>
+        <button class="quiz-button">CASA</button>
+        <button class="quiz-button">DE & T</button>
+        <button class="quiz-button">HTML</button>
+        <button class="quiz-button">JAVASCRIPT</button>
+    </div>
+</div>
+<style>
+    
+        .quiz-container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px 20px;
+            padding-top: 40px;
+        }
+
+        .quiz-heading {
+            font-size: 28px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .quiz-subheading {
+            font-size: 18px;
+            color: #555;
+            margin: 10px 0 20px;
+        }
+
+        .quiz-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            background-color: white;
+            transition: 0.3s;
+        }
+
+        .quiz-button:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
