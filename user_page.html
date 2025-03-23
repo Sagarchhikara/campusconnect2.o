@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>C Programming</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+<body>
+
+
+    <div class="navbar">
+        <div class="logo">
+            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;"><i class='bx bxl-redux'></i>
+            </h2>
+        </div>
+        <ul id="nav-list">
+            <li><a href="/index.html">Home</a></li>
+            <li><a href="#notes">Notes</a></li>
+            <img class="cross" src="/images/close-116-512.png" alt="cross">
+        </ul>
+        <div class="nav-icons">
+            <img class="menuopen" src="/images/hamburger-menu-5.png" alt="menu">
+        </div>
+    </div>
+
+
+
+
+<div class="menu-items">
+        <div class="menu-list">
+            <ul class="footer-column">
+                <li>
+                    <h5>Quick Links</h5>
+                </li>
+                <li><a href="#">Home</a></li>
+                <li><a href="#notes">Notes</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <ul class="footer-column">
+                <li>
+                    <h5>Subjects</h5>
+                </li>
+                <li><a href="c_programming.html">C Programming</a></li>
+                <li><a href="operating_system.html">Operating System</a></li>
+                <li><a href="scm.html">Source Code Management</a></li>
+                <li><a href="deca.html">DECA</a></li>
+                <li><a href="dent.html">DE & T</a></li>
+                <li><a href="">Python</a></li>
+                <li><a href="">Casa</a></li>
+                <li><a href="">Mcp</a></li>
+                <li><a href="">FEE</a></li>
+            </ul>
+            <ul class="footer-column">
+                <li>
+                    <h5>Follow Us</h5>
+                </li>
+                <li>
+                    <a href="https://www.instagram.com/yourprofile" target="_blank">
+                        <i class='bx bxl-instagram'></i> Instagram
+                    </a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/yourprofile" target="_blank">
+                        <i class='bx bxl-twitter'></i> Twitter
+                    </a>
+                </li>
+                <li>
+                    <a href="https://wa.me/yourphonenumber" target="_blank">
+                        <i class='bx bxl-whatsapp'></i> WhatsApp
+                    </a>
+                </li>
+                <li>
+                    <a href="https://github.com/yourprofile" target="_blank">
+                        <i class='bx bxl-github'></i> GitHub
+                    </a>
+                </li>
+            </ul>
+            <div class="footer-column email-section">
+                <h5>Contact Us</h5>
+                <form class="email-form">
+                    <input type="email" placeholder="Enter your email" required>
+                    <button type="submit">Send</button>
+                </form>
+            </div>
+        </div>
+        <div class="footer">
+            <p>© 2025 Notes Manager. All rights reserved.</p>
+        </div>
+    </div>
+
+
+
+    <script>
+        let nav_list = document.getElementById('nav-list')
+        let openMenu = document.querySelector('.menuopen')
+        let cross = document.querySelector('.cross')
+        openMenu.addEventListener('click', () => {
+            nav_list.style.opacity = '100%'
+            openMenu.style.display = 'none'
+        })
+        cross.addEventListener('click', () => {
+            nav_list.style.opacity = '0%';
+            setTimeout(() => {
+                openMenu.style.display = 'block'
+            }, 400)
+        })
+    </script>
+
+
+</body>
+
+</html>
