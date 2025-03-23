@@ -193,11 +193,6 @@
             </div>
 
         </div>
-        <div class="navtext">
-            <p>Welcome to Notes Manager – Organize Your Ideas with Ease! . Your mind is powerful, but a note remembers
-                everything</p>
-        </div>
-
 
         <section class="intro-section">
             <div class="intro-container">
@@ -215,7 +210,7 @@
                 align-items: center;
                 justify-content: center;
                 height: 100vh;
-                background-color: #000000;
+                background: linear-gradient(140deg, black, rgb(100, 100, 100));
                 overflow: hidden;
                 flex-direction: column;
                 text-align: center;
@@ -1129,11 +1124,6 @@
 
 
 
-
-
-
-
-
         <div class="pro-container">
             <h1 class="pro-heading">Qualified Professors</h1>
             <div class="pro-slider">
@@ -1323,6 +1313,86 @@
                 transform: scale(1.04);
             }
         </style>
+
+
+
+
+<section class="faq-container">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">What is Campus Connect?</p>
+        <div class="faq-answer">Campus Connect is a platform designed to help students connect with academic and extracurricular opportunities within their university.</div>
+        <br>
+        <hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">How can I register on Campus Connect?</p>
+        <div class="faq-answer">You can register by signing up with your university email and verifying your identity through the provided verification process.</div>
+        <br>
+        <hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">What features does Campus Connect offer?</p>
+        <div class="faq-answer">Campus Connect provides networking opportunities, event updates, study groups, and academic resources tailored to your university.</div>
+        <br><hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">Is Campus Connect free to use?</p>
+        <div class="faq-answer">Yes, the platform is free for students and faculty members of registered universities.</div> <br><hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">How can I post an event on Campus Connect?</p>
+        <div class="faq-answer">Registered users can submit event details through the event submission form, which will be reviewed before being published.</div><br><hr>
+    </div>
+</section>
+<style>
+    .faq-container{
+        color: white;
+        padding: 50px 50px;
+        background: linear-gradient(90deg, #000000, #9e9999);
+    }
+    .faq-container h2{
+        text-align: center;
+    }
+        .faq-item {
+            background: transparent;
+            padding: 15px;
+            cursor: pointer;
+        }
+        .faq-answer {
+            display: none;
+            padding: 10px;
+            background: transparent;
+        }
+</style>
+<script>
+    function toggleFAQ(element) {
+        let answer = element.querySelector('.faq-answer');
+        answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
+    }
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         <div class="menu-items">
             <div class="menu-list">
                 <ul class="footer-column">
@@ -1401,7 +1471,6 @@
                     transition: opacity 0.3s ease, visibility 0.3s ease;
                     z-index: 999;
                 }
-        
                 #scrollToTopBtn.show {
                     opacity: 1;
                     visibility: visible;
@@ -1418,7 +1487,6 @@
                             scrollToTopBtn.classList.remove("show");
                         }
                     };
-        
                     scrollToTopBtn.addEventListener("click", () => {
                         window.scrollTo({
                             top: 0,
