@@ -181,3 +181,6 @@ yarn.lock
 Dockerfile
 # VS Code settings
 .vscode/
+
+uploads/
+

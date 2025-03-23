@@ -91,16 +91,23 @@
     <section id="flipbook-notes" class="subject-section">
         <div class="container">
             <h2>Handwritten Notes</h2>
-            <iframe
-                src="https://docs.google.com/document/d/e/2PACX-1vRRDrzcU-zyizSVLBDN-V3uM4Mjv4JwoWLZDvrvAc-xZ1ZLS1IAWCw64drf4sZmrmtnwE-BEQgW18wY/pub?embedded=true"
-                width="100%" height="700px" style="border: none; overflow: hidden;">
-            </iframe>
-            <br>
-            <a href="https://docs.google.com/document/d/e/2PACX-1vRRDrzcU-zyizSVLBDN-V3uM4Mjv4JwoWLZDvrvAc-xZ1ZLS1IAWCw64drf4sZmrmtnwE-BEQgW18wY/pub"
-                target="_blank"
-                style="text-align: center; margin: 10px auto; padding: 10px 15px; background: #000; color: #fff; text-decoration: none; border-radius: 5px; width: fit-content;">
-                Open in Full Screen
-            </a>
+            <div class="flipbook-cards-scroll-container">
+                <div class="cards-wrapper">
+                    {% for note in notes %}
+                        <div class="flipbook-card">
+                            <a href="{{ url_for('download_notes', filename=note.filename, subject='operating_system') }}">
+                                📄 {{ note.filename }}
+                            </a>
+                            {% if note.video_link %}S
+                                <br>
+                                <a href="{{ note.video_link }}" target="_blank" class="video-link">
+                                    🎥 Watch Video
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
     </section>
 

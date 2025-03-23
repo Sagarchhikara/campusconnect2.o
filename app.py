@@ -84,22 +84,27 @@ def logout():
 
 @app.route('/c_programming')
 def c_programming():
-    return render_template('c_programming.html')
+    notes = Note.query.filter_by(subject="c_programming").all()
+    return render_template('c_programming.html', notes=notes)
 
 @app.route('/operating_system')
 def operating_system():
-    return render_template('operating_system.html')
+    notes = Note.query.filter_by(subject="operating_system").all()
+    return render_template('operating_system.html', notes=notes)
 
 @app.route('/scm')
 def scm():
+    notes = Note.query.filter_by(subject="scm").all()
     return render_template('scm.html')
+
 @app.route('/deca')
 def deca():
-    notes = Note.query.filter_by(subject="deca").all()  # Fetch only DECA notes
+    notes = Note.query.filter_by(subject="deca").all()
     return render_template('deca.html', notes=notes)
 
 @app.route('/dent')
 def dent():
+    notes = Note.query.filter_by(subject="dent").all()
     return render_template('dent.html')
 
 @app.route('/download/<subject>/<filename>')
@@ -129,34 +134,35 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-@app.route('/upload/<subject>', methods=['POST'])
-def upload_notes(subject):
+
+@app.route('/upload_notes', methods=['GET', 'POST'])
+def upload_notes():
     if 'user_id' not in session:
         flash("⚠️ You must be logged in to upload notes!", "error")
         return redirect(url_for('login'))
 
-    file = request.files.get('file')
-    video_link = request.form.get('video_link')  # ✅ Get video link from form
+    if request.method == 'POST':
+        subject = request.form.get('subject')  # ✅ Get subject from dropdown
+        file = request.files.get('file')
+        video_link = request.form.get('video_link')
 
-    if file and allowed_file(file.filename):
-        filename = secure_filename(file.filename)
-        filepath = os.path.join(app.config['UPLOAD_FOLDER'], subject, filename)
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], subject, filename)
 
-        os.makedirs(os.path.dirname(filepath), exist_ok=True)
-        file.save(filepath)
+            os.makedirs(os.path.dirname(filepath), exist_ok=True)
+            file.save(filepath)
 
-        new_note = Note(filename=filename, filepath=filepath, subject=subject, video_link=video_link, uploader=session['user_id'])
-        db.session.add(new_note)
-        db.session.commit()
+            new_note = Note(filename=filename, filepath=filepath, subject=subject, video_link=video_link, uploader=session['user_id'])
+            db.session.add(new_note)
+            db.session.commit()
 
-        flash(f"✅ Notes uploaded successfully for {subject}!", "success")
-        return redirect(url_for(f"{subject}"))
+            flash(f"✅ Notes uploaded successfully for {subject}!", "success")
+            return redirect(url_for('upload_notes'))  # Stay on the same page after upload
 
-    flash("⚠️ Invalid file format!", "error")
-    return redirect(url_for(f"{subject}"))
+        flash("⚠️ Invalid file format!", "error")
 
-    flash("⚠️ Invalid file format!", "error")
-    return redirect(url_for(f"{subject}"))
+    return render_template('upload_notes.html')
 
 
 if __name__ == '__main__':
