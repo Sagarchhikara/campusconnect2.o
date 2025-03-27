@@ -1021,6 +1021,84 @@
 
 
 
+    <div class="learning-container">
+        <div class="learning-devices">
+            <div class="learning-device">
+                <img src="/images/learning.webp" alt="Laptop View">
+            </div>
+        </div>
+        <div class="learning-text">
+            <div class="learning-info">
+                <h3>Learn faster</h3>
+                <p>Short 5-minute lessons make it easier to pay attention and remember what you learned.</p>
+            </div>
+            <div class="learning-info">
+                <h3>Stay motivated</h3>
+                <p>Animated videos bring concepts to life with examples and a touch of humor.</p>
+            </div>
+            <div class="learning-info">
+                <h3>Study smarter</h3>
+                <p>Expert teachers help you focus on what's most important so you are confident and prepared.</p>
+            </div>
+        </div>
+    </div>
+    <style>
+
+.learning-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .learning-text {
+            max-width: 400px;
+        }
+        .learning-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .learning-info {
+            margin-bottom: 15px;
+        }
+        .learning-info h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .learning-devices {
+            display: flex;
+            align-items: center;
+        }
+        .learning-device {
+            max-width: 300px;
+            margin-right: 20px;
+        }
+        .learning-device img {
+            width: 600px; 
+            height: auto; 
+            object-fit: cover;
+            border-radius: 7px;
+        }
+        @media (max-width: 1024px) { 
+            .learning-device img {
+                width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) { 
+            .learning-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .learning-device img {
+                width: 100%; 
+                max-width: 300px;
+            }
+        }
+    </style>
 
 
 
