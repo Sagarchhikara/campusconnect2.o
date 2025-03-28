@@ -364,6 +364,32 @@ a {
     animation: fadeInUp 0.6s ease-out forwards;
 }
 
+.whatsapp-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+.whatsapp-qr-section {
+    text-align: center;
+    background: white;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+.whatsapp-qr-section img {
+    width: 150px;
+    height: 150px;
+}
+.whatsapp-qr-section p {
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.whatsapp-qr-section p i {
+    color: green;
+    font-size: 24px;
+}
 
 @keyframes fadeInUp {
     from {
