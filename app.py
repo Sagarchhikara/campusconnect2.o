@@ -4,6 +4,9 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
+from flask_migrate import Migrate
+
+
 
 app = Flask(__name__)  
 app.secret_key = 'your_secret_key_here'
@@ -11,11 +14,15 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
+    name = db.Column(db.String(100), nullable=True)  # Optional name
+    bio = db.Column(db.Text, nullable=True)  # Short user bio
+    profile_pic = db.Column(db.String(255), nullable=True)  # Profile picture filename
 
 @app.route('/')
 def home():
@@ -110,6 +117,33 @@ def dent():
 @app.route('/download/<subject>/<filename>')
 def download_notes(subject, filename):
     return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], subject), filename)
+
+@app.route('/profile', methods=['GET', 'POST'])
+def profile():
+    if 'user_id' not in session:
+        flash("⚠️ You must be logged in to access your profile!", "error")
+        return redirect(url_for('login'))
+
+    user = User.query.get(session['user_id'])
+
+    if request.method == 'POST':
+        user.name = request.form.get('name')
+        user.bio = request.form.get('bio')
+
+        file = request.files.get('profile_pic')
+        if file and allowed_file(file.filename):
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'profiles', filename)
+            os.makedirs(os.path.dirname(filepath), exist_ok=True)
+            file.save(filepath)
+            user.profile_pic = filename
+
+        db.session.commit()
+        flash("✅ Profile updated successfully!", "success")
+        return redirect(url_for('profile'))
+
+    return render_template('profile.html', user=user)
+
 
 class Note(db.Model):
     id = db.Column(db.Integer, primary_key=True)

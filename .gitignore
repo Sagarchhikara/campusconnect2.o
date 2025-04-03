@@ -184,3 +184,6 @@ Dockerfile
 
 uploads/
 
+# Ignore Alembic migration cache  
+migrations/  
+alembic.ini  

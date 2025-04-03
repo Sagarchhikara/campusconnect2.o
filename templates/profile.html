@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>User Profile</title>
+    <!-- Bootstrap CDN -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <style>
+        body {
+            background: #f4f4f4;
+        }
+
+        .profile-container {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            margin: 50px auto;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #007bff;
+            margin-bottom: 10px;
+        }
+
+        .bio {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
+        }
+
+        .social-links a {
+            margin: 0 10px;
+            color: #007bff;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #0056b3;
+        }
+
+        .edit-form {
+            display: none;
+            margin-top: 15px;
+            transition: all 0.3s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Display User Info -->
+        <h2>{{ user.name or 'User' }}</h2>
+        {% if user.profile_pic %}
+            <img class="profile-pic" src="{{ url_for('static', filename='uploads/profiles/' + user.profile_pic) }}" alt="Profile Picture">
+        {% else %}
+            <img class="profile-pic" src="{{ url_for('static', filename='default-profile.png') }}" alt="Default Profile">
+        {% endif %}
+        
+        <p class="bio">{{ user.bio or "No bio available. Tell us something about yourself!" }}</p>
+
+        <!-- Social Links -->
+        <div class="social-links">
+            {% if user.linkedin %}
+                <a href="{{ user.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>
+            {% endif %}
+            {% if user.github %}
+                <a href="{{ user.github }}" target="_blank"><i class="fab fa-github"></i></a>
+            {% endif %}
+        </div>
+
+        <button id="edit-btn" class="btn btn-primary mt-3" onclick="toggleEdit()">Edit Profile</button>
+
+        <!-- Edit Form -->
+        <form id="edit-form" class="edit-form mt-3" method="POST" enctype="multipart/form-data">
+            <div class="mb-2">
+                <label class="form-label">Name:</label>
+                <input type="text" class="form-control" name="name" value="{{ user.name or '' }}">
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label">Bio:</label>
+                <textarea class="form-control" name="bio">{{ user.bio or '' }}</textarea>
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label">LinkedIn:</label>
+                <input type="text" class="form-control" name="linkedin" value="{{ user.linkedin or '' }}" placeholder="https://linkedin.com/in/yourprofile">
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label">GitHub:</label>
+                <input type="text" class="form-control" name="github" value="{{ user.github or '' }}" placeholder="https://github.com/yourusername">
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label">Profile Picture:</label>
+                <input type="file" class="form-control" name="profile_pic">
+            </div>
+
+            <button class="btn btn-success w-100" type="submit">Save Changes</button>
+        </form>
+    </div>
+
+    <script>
+        function toggleEdit() {
+            var form = document.getElementById("edit-form");
+            var button = document.getElementById("edit-btn");
+
+            if (form.style.display === "none" || form.style.display === "") {
+                form.style.display = "block";
+                button.innerText = "Cancel";
+                button.classList.remove("btn-primary");
+                button.classList.add("btn-danger");
+            } else {
+                form.style.display = "none";
+                button.innerText = "Edit Profile";
+                button.classList.remove("btn-danger");
+                button.classList.add("btn-primary");
+            }
+        }
+    </script>
