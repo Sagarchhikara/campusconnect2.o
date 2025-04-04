@@ -5,7 +5,7 @@ from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
 from flask_migrate import Migrate
-
+from enum import Enum
 
 
 app = Flask(__name__)  
@@ -39,16 +39,7 @@ def login():
             flash("✅ Login successful!", "success")
             return redirect(url_for('home'))  # ✅ Redirect to home page
         
-        existing_user = User.query.filter_by(email=email).first()
-        if existing_user:
-            flash("⚠️ Email already exists! Try logging in instead.", "error")
-            return redirect(url_for('signup'))
-
-        hashed_password = generate_password_hash(password, method='pbkdf2:sha256')
-        new_user = User(email=email, password=hashed_password)
-        db.session.add(new_user)
-        db.session.commit()
-        flash("✅ Account created successfully! You can now log in.", "success")
+      
         
         flash("⚠️ Invalid email or password. Try again!", "error")
         return redirect(url_for('login'))  # Redirect back to login if failed
@@ -102,7 +93,7 @@ def operating_system():
 @app.route('/scm')
 def scm():
     notes = Note.query.filter_by(subject="scm").all()
-    return render_template('scm.html')
+    return render_template('scm.html', notes=notes)
 
 @app.route('/deca')
 def deca():
@@ -112,7 +103,7 @@ def deca():
 @app.route('/dent')
 def dent():
     notes = Note.query.filter_by(subject="dent").all()
-    return render_template('dent.html')
+    return render_template('dent.html',notes=notes)
 
 @app.route('/download/<subject>/<filename>')
 def download_notes(subject, filename):
@@ -154,12 +145,9 @@ class Note(db.Model):
     uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
     uploader = db.Column(db.String(150), nullable=False)
 
-with app.app_context():
-    db.create_all()
 
 # Create the database table
-with app.app_context():
-    db.create_all()
+
 UPLOAD_FOLDER = 'uploads'
 ALLOWED_EXTENSIONS = {'pdf', 'docx', 'jpg', 'png'}
 
