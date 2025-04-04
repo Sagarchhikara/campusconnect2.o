@@ -195,6 +195,8 @@
             <div class="flipbook-cards-scroll-container">
                 <div class="cards-wrapper">
                     {% for note in notes %}
+                    {% include 'notes_section.html' %}
+
                         <div class="flipbook-card">
                             <a href="{{ url_for('download_notes', filename=note.filename, subject='deca') }}">
                                 📄 {{ note.filename }}

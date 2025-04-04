@@ -6,6 +6,8 @@ from werkzeug.utils import secure_filename
 import os
 from flask_migrate import Migrate
 from enum import Enum
+from flask import abort
+from functools import wraps
 
 
 app = Flask(__name__)  
@@ -16,6 +18,21 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
+class Role(Enum):
+    STUDENT = "student"
+    ADMIN = "admin"
+    DEV = "dev"
+
+def role_required(role):
+    def decorator(f):
+        @wraps(f)
+        def decorated_function(*args, **kwargs):
+            if not current_user.is_authenticated or current_user.role != role:
+                abort(403)  # Forbidden access
+            return f(*args, **kwargs)
+        return decorated_function
+    return decorator
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True, nullable=False)
@@ -23,7 +40,7 @@ class User(db.Model):
     name = db.Column(db.String(100), nullable=True)  # Optional name
     bio = db.Column(db.Text, nullable=True)  # Short user bio
     profile_pic = db.Column(db.String(255), nullable=True)  # Profile picture filename
-
+    role = db.Column(db.Enum(Role), default=Role.STUDENT, nullable=False)  # Role field
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -159,6 +176,9 @@ def allowed_file(filename):
 
 @app.route('/upload_notes', methods=['GET', 'POST'])
 def upload_notes():
+    @role_required("admin")  # Only admins can access this
+    def upload_notes():
+     return "Upload Page - Only Admins Can See This"
     if 'user_id' not in session:
         flash("⚠️ You must be logged in to upload notes!", "error")
         return redirect(url_for('login'))
