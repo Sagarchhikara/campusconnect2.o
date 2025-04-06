@@ -1,171 +1,222 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>User Profile</title>
-
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-
-  <!-- FontAwesome Icons -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-
-  <!-- Custom Styles -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile Page</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <style>
     body {
-      background: url('https://i.pinimg.com/474x/7e/54/f3/7e54f3e16663b795d9037d35751e263f.jpg') no-repeat center center fixed;
-      background-size: cover;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #c8c9cb;
+    
+      
     }
 
-    .profile-card {
-      max-width: 600px;
-      margin: 80px auto;
-      background: rgba(255, 255, 255, 0.95);
-      padding: 40px;
+    .header {
+      background-image: url('');
+      height: 200px;
+      background-size: cover;
+      border-top-left-radius: 20px;
+      border-top-right-radius: 20px;
+      position: relative;
+    }
+
+    .container {
+      max-width: 900px;
+      background: white;
+      margin: -80px auto 0;
       border-radius: 20px;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-      backdrop-filter: blur(5px);
+      padding: 20px 30px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    }
+
+    .profile {
+      display: flex;
+      gap: 30px;
     }
 
     .profile-img {
-      width: 140px;
-      height: 140px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 5px solid #0d6efd;
-      margin-bottom: 20px;
+      flex-shrink: 0;
     }
 
-    .bio {
-      color: #6c757d;
-      font-size: 16px;
-      margin: 15px 0 25px;
-    }
-
-    .social-icons a {
-      color: #0d6efd;
-      font-size: 22px;
-      margin: 0 10px;
-      transition: color 0.3s ease;
-    }
-
-    .social-icons a:hover {
-      color: #084298;
-    }
-
-    .edit-section {
-      display: none;
-      margin-top: 30px;
-    }
-
-    .preview-img {
-      width: 90px;
-      height: 90px;
+    .profile-img img {
+      width: 130px;
+      height: 130px;
       object-fit: cover;
       border-radius: 50%;
+      border: 4px solid white;
+      margin-top: -50px;
+    }
+
+    .profile-info {
+      flex-grow: 1;
+    }
+
+    .profile-info h2 {
+      font-size: 24px;
+      margin: 0;
+    }
+
+    .profile-info p {
+      margin: 4px 0;
+      color: #555;
+    }
+
+    .buttons {
       margin-top: 10px;
-      border: 2px dashed #ccc;
-      display: none;
     }
 
-    .form-label {
-      font-weight: 500;
+    .buttons button {
+      padding: 10px 20px;
+      margin-right: 10px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .edit-btn {
+      background-color: #111827;
+      color: white;
+    }
+    .edit-btn:hover{
+        background-color: #1a1d23;
+        transform: translateY(-5px);
+    }
+
+    .settings-btn {
+      background: white;
+      color: #111827;
+      border: 1px solid #111827;
+    }
+    .settings-btn:hover{
+        background-color: #1a1d23;
+        color: white;
+        background-color: #111827;
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      color: #666;
+    }
+
+    .tag {
+      display: inline-block;
+      background-color: #fcefe8;
+      color: #333;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    .tag:hover{
+        background-color: #fac4b0;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .cards {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 30px;
+      gap: 10px;
+    }
+    .card:hover{
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        transform: translateY(-5px);
+    }
+
+
+
+    .card {
+      background: #f9fbfd;
+      border-radius: 15px;
+      flex: 1;
+      padding: 20px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    .card h4 {
+      margin-bottom: 10px;
+      font-size: 16px;
+      font-weight: 600;
+    }
+
+    .card p {
+      font-size: 14px;
+      color: #555;
+    }
+
+    .arrow {
+      float: right;
+      font-weight: bold;
+      color: #3182ce;
     }
   </style>
 </head>
 <body>
+  <div class="header"></div>
 
-  <div class="profile-card text-center">
-    <!-- User Info Display -->
-    <h2 class="mb-3">{{ user.name or 'User' }}</h2>
-
-    {% if user.profile_pic %}
-      <img id="profile-display" class="profile-img" src="{{ url_for('static', filename='uploads/profiles/' + user.profile_pic) }}" alt="Profile Picture">
-    {% else %}
-      <img id="profile-display" class="profile-img" src="{{ url_for('static', filename='default-profile.png') }}" alt="Default Profile">
-    {% endif %}
-
-    <p class="bio">{{ user.bio or 'No bio available. Tell us something about yourself!' }}</p>
-
-    <!-- Social Links -->
-    <div class="social-icons mb-4">
-      {% if user.linkedin %}
-        <a href="{{ user.linkedin }}" target="_blank"><i class="fab fa-linkedin"></i></a>
-      {% endif %}
-      {% if user.github %}
-        <a href="{{ user.github }}" target="_blank"><i class="fab fa-github"></i></a>
-      {% endif %}
+  <div class="container">
+    <div class="profile">
+      <div class="profile-img">
+        <img src="7A2BC0DA-4E91-419A-AC6C-6B91ED1FA981.jpeg" alt="Profile">
+      </div>
+      <div class="profile-info">
+        <h2>Anirudh sharma<i class="fas fa-star" style="color: gold; margin-left: 8px;" title="Top Rated"></i></h2>
+        <p>Software Engineer</p>
+        <p>Patiala,Punjab</p>
+        <div class="buttons">
+          <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+          <button class="settings-btn">Settings</button>
+        </div>
+      </div>
     </div>
 
-    <!-- Edit Toggle Button -->
-    <button id="toggle-edit-btn" class="btn btn-outline-primary w-100" onclick="toggleEdit()">Edit Profile</button>
+    <div class="section">
+      <div class="section-title">Current role</div>
+      <span class="tag">ADMIN</span>
+    </div>
 
-    <!-- Edit Profile Form -->
-    <form id="edit-form" class="edit-section text-start mt-4" method="POST" enctype="multipart/form-data">
-      <div class="mb-3">
-        <label class="form-label">Name</label>
-        <input type="text" class="form-control" name="name" value="{{ user.name or '' }}" required>
+    <div class="section">
+      <div class="section-title">Skills</div>
+      <span class="tag">HTML</span>
+      <span class="tag">CSS</span>
+      <span class="tag">Dart</span>
+      <span class="tag">C++</span>
+      <span class="tag">UI Design</span>
+    </div>
+
+    <div class="cards">
+      <div class="card">
+        <h4>Ready for work <span class="arrow">→</span></h4>
+        <p>Show recruiters that you’re ready for work.</p>
       </div>
-
-      <div class="mb-3">
-        <label class="form-label">Bio</label>
-        <textarea class="form-control" name="bio" rows="3" placeholder="Share something about yourself">{{ user.bio or '' }}</textarea>
+      <div class="card">
+        <h4>Share posts <span class="arrow">→</span></h4>
+        <p>Share latest news to get connected with others.</p>
       </div>
-
-      <div class="mb-3">
-        <label class="form-label">LinkedIn</label>
-        <input type="url" class="form-control" name="linkedin" placeholder="https://linkedin.com/in/yourprofile" value="{{ user.linkedin or '' }}">
+      <div class="card">
+        <h4>Update <span class="arrow">→</span></h4>
+        <p>Keep your profile updated so that recruiters know you better.</p>
       </div>
-
-      <div class="mb-3">
-        <label class="form-label">GitHub</label>
-        <input type="url" class="form-control" name="github" placeholder="https://github.com/yourusername" value="{{ user.github or '' }}">
-      </div>
-
-      <div class="mb-3">
-        <label class="form-label">Profile Picture</label>
-        <input type="file" class="form-control" name="profile_pic" onchange="previewImage(event)">
-        <img id="preview" class="preview-img" />
-      </div>
-
-      <button type="submit" class="btn btn-success w-100"><i class="fas fa-save me-2"></i>Save Changes</button>
-    </form>
+    </div>
   </div>
 
-  <!-- Scripts -->
   <script>
-    function toggleEdit() {
-      const form = document.getElementById("edit-form");
-      const button = document.getElementById("toggle-edit-btn");
-
-      if (form.style.display === "none" || form.style.display === "") {
-        form.style.display = "block";
-        button.textContent = "Cancel";
-        button.classList.remove("btn-outline-primary");
-        button.classList.add("btn-outline-danger");
-      } else {
-        form.style.display = "none";
-        button.textContent = "Edit Profile";
-        button.classList.remove("btn-outline-danger");
-        button.classList.add("btn-outline-primary");
-      }
-    }
-
-    function previewImage(event) {
-      const preview = document.getElementById("preview");
-      const file = event.target.files[0];
-
-      if (file) {
-        preview.src = URL.createObjectURL(file);
-        preview.style.display = "block";
-      } else {
-        preview.src = "";
-        preview.style.display = "none";
-      }
+    function editProfile() {
+      alert('Edit Profile button clicked. You can add editable form functionality here.');
     }
   </script>
-
 </body>
 </html>
