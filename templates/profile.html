@@ -71,6 +71,7 @@
       border-radius: 50%;
       border: 4px solid white;
       margin-top: -50px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     .profile-info {
@@ -98,6 +99,7 @@
       border-radius: 8px;
       cursor: pointer;
       font-weight: 600;
+      transition: all 0.3s ease;
     }
 
     .edit-btn {
@@ -142,12 +144,23 @@
       margin-right: 8px;
       margin-bottom: 8px;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
 
     .tag:hover {
       background-color: #fac4b0;
       transform: translateY(-5px);
       box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .tag .remove-btn {
+      margin-left: 5px;
+      color: #666;
+      cursor: pointer;
+    }
+
+    .tag .remove-btn:hover {
+      color: #ff3333;
     }
 
     .cards {
@@ -196,7 +209,6 @@
       width: 100%; height: 100%;
       background: rgba(0, 0, 0, 0.5);
       z-index: 1000;
-      display: flex;
       align-items: center;
       justify-content: center;
     }
@@ -208,6 +220,8 @@
       width: 100%;
       max-width: 500px;
       position: relative;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .input {
@@ -215,8 +229,8 @@
       outline: none;
       border-radius: 15px;
       padding: 1em;
-      background-color: #ccc;
-      box-shadow: inset 2px 5px 10px rgba(0,0,0,0.3);
+      background-color: #f0f0f0;
+      box-shadow: inset 2px 5px 10px rgba(0,0,0,0.1);
       transition: 300ms ease-in-out;
       width: 90%;
       margin-top: 4px;
@@ -225,54 +239,143 @@
 
     .input:focus {
       background-color: white;
-      transform: scale(1.05);
-      box-shadow: 13px 13px 100px #969696, -13px -13px 100px #ffffff;
+      transform: scale(1.02);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 20px;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 24px;
+      cursor: pointer;
+      color: #555;
+    }
+    
+    .skill-tag {
+      display: inline-block;
+      background-color: #fcefe8;
+      color: #333;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-size: 14px;
+      margin-right: 8px;
+      margin-bottom: 8px;
+    }
+    
+    .skill-actions {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+    
+    .submit-btn {
+      padding: 10px 20px;
+      background: #111827;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .cancel-btn {
+      padding: 10px 20px;
+      background: white;
+      color: #111827;
+      border: 1px solid #111827;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+    
+    .submit-btn:hover, .cancel-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    }
+    
+    .modal-footer {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .profile-placeholder {
+      width: 130px;
+      height: 130px;
+      border-radius: 50%;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 50px;
+      color: #aaa;
+      margin-top: -50px;
+    }
+    
+    textarea.input {
+      min-height: 80px;
+      resize: vertical;
+    }
+    
+    .preview-img {
+      max-width: 100px;
+      max-height: 100px;
+      border-radius: 50%;
+      display: block;
+      margin-top: 10px;
+    }
+    
+    #imagePreview {
+      margin-bottom: 15px;
     }
   </style>
 </head>
 <body>
-  <div class="header"></div>
-
-  <div class="container">
-    <div class="profile">
-      <div class="profile-img">
-        {% if user.profile_pic %}
-  <img src="{{ url_for('static', filename='uploads/profiles/' + user.profile_pic) }}" alt="Profile Picture">
-{% else %}
-  <p>No profile picture uploaded.</p>
-{% endif %}
-      </div>
-      <div class="profile-info">
-        <h2>Welcome back, {{ user.name }} <i class="fas fa-star" style="color: gold; margin-left: 8px;" title="Top Rated"></i></h2>
-        <p>Email: {{ user.email }}</p>
-        <p>Bio: {{ user.bio }}</p>
-        <div class="buttons">
-          <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
-          <button class="settings-btn">Settings</button>
+  <div class="background-wrapper">
+    <div class="container">
+      <div class="profile">
+        <div class="profile-img">
+          <div id="profileImage">
+            <!-- This will be populated by JS -->
+          </div>
+        </div>
+        <div class="profile-info">
+          <h2>Welcome back, <span id="userName">Guest</span> <i class="fas fa-star" style="color: gold; margin-left: 8px;" title="Top Rated"></i></h2>
+          <p>Email: <span id="userEmail">guest@example.com</span></p>
+          <p>Bio: <span id="userBio">No bio provided yet.</span></p>
+          <div class="buttons">
+            <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+            <button class="settings-btn" onclick="openSettings()">Settings</button>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="section">
-      <div class="section-title">Current role</div>
-      <span class="tag">ADMIN</span>
-    </div>
+      <div class="section">
+        <div class="section-title">Current role</div>
+        <span class="tag" id="userRole">ADMIN</span>
+      </div>
 
       <div class="section">
         <div class="section-title">Skills</div>
         <div id="skillsSection">
-          <span class="tag">HTML</span>
-          <span class="tag">CSS</span>
-          <span class="tag">Dart</span>
-          <span class="tag">C++</span>
-          <span class="tag">UI Design</span>
+          <!-- Skills will be populated by JS -->
         </div>
       </div>
 
       <div class="cards">
         <div class="card">
           <h4>Ready for work <span class="arrow">→</span></h4>
-          <p>Show recruiters that you’re ready for work.</p>
+          <p>Show recruiters that you're ready for work.</p>
         </div>
         <div class="card">
           <h4>Share posts <span class="arrow">→</span></h4>
@@ -289,35 +392,291 @@
   <!-- Modal -->
   <div id="editModal">
     <div class="modal-content">
-      <h2><center>EDIT PROFILE</center></h2>
-      <label>Profile Image:</label>
-      <input type="file" id="profileImageInput" accept="image/*" class="input">
+      <div class="modal-header">
+        <h2>Edit Profile</h2>
+        <button class="close-btn" onclick="closeModal()">&times;</button>
+      </div>
+      
+      <form id="profileForm">
+        <label>Profile Image:</label>
+        <input type="file" id="profileImageInput" accept="image/*" class="input" onchange="previewImage(this)">
+        <div id="imagePreview"></div>
 
-      <label>Name:</label>
-      <input type="text" id="nameInput" autocomplete="off" name="text" class="input" placeholder="Username">
+        <label>Name:</label>
+        <input type="text" id="nameInput" autocomplete="off" name="text" class="input" placeholder="Username">
 
-      <label>Profession:</label>
-      <input type="text" id="professionInput" class="input" placeholder="Profession">
+        <label>Email:</label>
+        <input type="email" id="emailInput" class="input" placeholder="Email" readonly>
 
-      <label>Location:</label>
-      <input type="text" id="locationInput" class="input" placeholder="Location">
+        <label>Bio:</label>
+        <textarea id="bioInput" class="input" placeholder="Tell us about yourself"></textarea>
 
-      <label>Skills:</label>
-      <div id="skillsContainer" style="margin-bottom:10px;"></div>
-      <input type="text" id="newSkillInput" class="input" placeholder="Add skill"/>
-      <button onclick="addSkill()">Add</button><br><br>
+        <label>Role:</label>
+        <select id="roleInput" class="input">
+          <option value="ADMIN">Admin</option>
+          <option value="USER">User</option>
+          <option value="MODERATOR">Moderator</option>
+        </select>
 
-      <button onclick="saveChanges()" style="padding:10px 20px; background:#111827; color:white; border:none; border-radius:8px;">Save Changes</button>
-      <button onclick="closeModal()" style="margin-left:10px;">Cancel</button>
+        <label>Skills:</label>
+        <div id="skillsContainer" style="margin-bottom:10px;">
+          <!-- Current skills will be populated here -->
+        </div>
+        
+        <div class="skill-actions">
+          <input type="text" id="newSkillInput" class="input" placeholder="Add skill" style="margin-bottom:0; width:70%">
+          <button type="button" onclick="addSkill()" class="submit-btn">Add</button>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" onclick="closeModal()" class="cancel-btn">Cancel</button>
+          <button type="button" onclick="saveChanges()" class="submit-btn">Save Changes</button>
+        </div>
+      </form>
     </div>
   </div>
 
   <script>
-    let skills = [];
-
-    function editProfile() {
-      alert('Edit Profile button clicked. You can add editable form functionality here.');
+    // Auto-detect user email from browser
+    function detectUserEmail() {
+      // In a real application, this would be retrieved from your authentication system
+      // For this demo, we'll simulate having it from localStorage or from authentication
+      
+      // Try to get from localStorage for demo purposes
+      const storedEmail = localStorage.getItem('userEmail');
+      
+      if (storedEmail) {
+        return storedEmail;
+      } else {
+        // In a real app, you might get this from your auth service
+        // For this demo, we'll use a dummy email and store it
+        const autoDetectedEmail = "user@" + window.location.hostname;
+        localStorage.setItem('userEmail', autoDetectedEmail);
+        return autoDetectedEmail;
+      }
     }
+    
+    // Mock data (in a real app, this would come from your backend)
+    let userData = {
+      name: "Guest User",
+      email: detectUserEmail(),
+      bio: "No bio provided yet.",
+      role: "USER",
+      profilePic: null, // No profile pic initially
+      skills: ["HTML", "CSS", "JavaScript"]
+    };
+    
+    // Initialize page
+    document.addEventListener('DOMContentLoaded', function() {
+      loadUserData();
+      
+      // Check if userData exists in localStorage
+      const savedUserData = localStorage.getItem('userData');
+      if (savedUserData) {
+        try {
+          const parsedData = JSON.parse(savedUserData);
+          // Keep the auto-detected email but update other fields
+          parsedData.email = userData.email;
+          userData = parsedData;
+          loadUserData();
+        } catch (e) {
+          console.error("Error parsing saved user data:", e);
+        }
+      }
+    });
+    
+    function loadUserData() {
+      // Set user information
+      document.getElementById('userName').textContent = userData.name;
+      document.getElementById('userEmail').textContent = userData.email;
+      document.getElementById('userBio').textContent = userData.bio;
+      document.getElementById('userRole').textContent = userData.role;
+      
+      // Set profile image
+      updateProfileImage();
+      
+      // Load skills
+      loadSkills();
+      
+      // Save to localStorage for persistence
+      localStorage.setItem('userData', JSON.stringify(userData));
+    }
+    
+    function updateProfileImage() {
+      const profileImageContainer = document.getElementById('profileImage');
+      
+      if (userData.profilePic) {
+        profileImageContainer.innerHTML = `<img src="${userData.profilePic}" alt="Profile Picture">`;
+      } else {
+        // Show placeholder with initials
+        const initials = userData.name ? userData.name.split(' ').map(n => n[0]).join('').toUpperCase() : 'U';
+        profileImageContainer.innerHTML = `<div class="profile-placeholder">${initials}</div>`;
+      }
+    }
+    
+    function loadSkills() {
+      const skillsSection = document.getElementById('skillsSection');
+      skillsSection.innerHTML = '';
+      
+      if (userData.skills && userData.skills.length > 0) {
+        userData.skills.forEach(skill => {
+          const skillTag = document.createElement('span');
+          skillTag.className = 'tag';
+          skillTag.textContent = skill;
+          skillsSection.appendChild(skillTag);
+        });
+      } else {
+        const noSkills = document.createElement('p');
+        noSkills.textContent = 'No skills added yet.';
+        noSkills.style.color = '#777';
+        skillsSection.appendChild(noSkills);
+      }
+    }
+    
+    function previewImage(input) {
+      const preview = document.getElementById('imagePreview');
+      
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+          preview.innerHTML = `<img src="${e.target.result}" class="preview-img" alt="Image Preview">`;
+        };
+        
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+    
+    function editProfile() {
+      // Populate form with current user data
+      document.getElementById('nameInput').value = userData.name;
+      document.getElementById('emailInput').value = userData.email;
+      document.getElementById('bioInput').value = userData.bio;
+      document.getElementById('roleInput').value = userData.role;
+      
+      // Clear any previous image preview
+      document.getElementById('imagePreview').innerHTML = userData.profilePic ? 
+        `<img src="${userData.profilePic}" class="preview-img" alt="Current Profile">` : '';
+      
+      // Load skills in the edit form
+      loadSkillsInEditForm();
+      
+      // Show modal
+      document.getElementById('editModal').style.display = 'flex';
+    }
+    
+    function loadSkillsInEditForm() {
+      const skillsContainer = document.getElementById('skillsContainer');
+      skillsContainer.innerHTML = '';
+      
+      if (userData.skills && userData.skills.length > 0) {
+        userData.skills.forEach((skill, index) => {
+          const skillTag = document.createElement('span');
+          skillTag.className = 'skill-tag';
+          skillTag.innerHTML = `${skill} <span class="remove-btn" onclick="removeSkill(${index})"><i class="fas fa-times"></i></span>`;
+          skillsContainer.appendChild(skillTag);
+        });
+      } else {
+        skillsContainer.innerHTML = '<p style="color:#777;">No skills added yet.</p>';
+      }
+    }
+    
+    function addSkill() {
+      const newSkillInput = document.getElementById('newSkillInput');
+      const skill = newSkillInput.value.trim();
+      
+      if (!userData.skills) {
+        userData.skills = [];
+      }
+      
+      if (skill && !userData.skills.includes(skill)) {
+        userData.skills.push(skill);
+        loadSkillsInEditForm();
+        newSkillInput.value = '';
+      } else if (userData.skills.includes(skill)) {
+        alert('This skill is already in your list!');
+      } else {
+        alert('Please enter a skill name.');
+      }
+    }
+    
+    function removeSkill(index) {
+      if (userData.skills && index >= 0 && index < userData.skills.length) {
+        userData.skills.splice(index, 1);
+        loadSkillsInEditForm();
+      }
+    }
+    
+    function closeModal() {
+      document.getElementById('editModal').style.display = 'none';
+    }
+    
+    function saveChanges() {
+      // Update user data with form values
+      userData.name = document.getElementById('nameInput').value || "Guest User";
+      // Email is read-only, so we don't update it
+      userData.bio = document.getElementById('bioInput').value || "No bio provided yet.";
+      userData.role = document.getElementById('roleInput').value;
+      
+      // Handle profile image upload
+      const fileInput = document.getElementById('profileImageInput');
+      if (fileInput.files && fileInput.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          userData.profilePic = e.target.result;
+          updateProfileImage();
+          // Save again after image is loaded
+          localStorage.setItem('userData', JSON.stringify(userData));
+        };
+        reader.readAsDataURL(fileInput.files[0]);
+      }
+      
+      // Reload user data on the page
+      loadUserData();
+      
+      // Close modal
+      closeModal();
+      
+      // Show success message in a non-blocking way
+      const successMsg = document.createElement('div');
+      successMsg.style.position = 'fixed';
+      successMsg.style.bottom = '20px';
+      successMsg.style.right = '20px';
+      successMsg.style.backgroundColor = '#4CAF50';
+      successMsg.style.color = 'white';
+      successMsg.style.padding = '15px 20px';
+      successMsg.style.borderRadius = '5px';
+      successMsg.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+      successMsg.style.zIndex = '9999';
+      successMsg.textContent = 'Profile updated successfully!';
+      document.body.appendChild(successMsg);
+      
+      setTimeout(() => {
+        successMsg.style.opacity = '0';
+        successMsg.style.transition = 'opacity 0.5s ease';
+        setTimeout(() => {
+          document.body.removeChild(successMsg);
+        }, 500);
+      }, 3000);
+    }
+    
+    function openSettings() {
+      alert('Settings functionality coming soon!');
+    }
+    
+    // Window event listener to close modal if user clicks outside of it
+    window.addEventListener('click', function(event) {
+      const modal = document.getElementById('editModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    });
+    
+    // Prevent form submission
+    document.getElementById('profileForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      saveChanges();
+    });
   </script>
 </body>
 </html>

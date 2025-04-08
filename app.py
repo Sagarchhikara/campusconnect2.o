@@ -16,6 +16,11 @@ app.secret_key = 'your_secret_key_here'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+# Configure upload folder early
+UPLOAD_FOLDER = 'uploads'
+ALLOWED_EXTENSIONS = {'pdf', 'docx', 'jpg', 'png'}
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
@@ -47,13 +52,27 @@ class User(UserMixin, db.Model):
     profile_pic = db.Column(db.String(255), nullable=True)
     role = db.Column(db.Enum(Role), default=Role.STUDENT, nullable=False)
 
+class Note(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    filename = db.Column(db.String(255), nullable=False)
+    filepath = db.Column(db.String(255), nullable=False)
+    subject = db.Column(db.String(100), nullable=False)
+    video_link = db.Column(db.String(500), nullable=True)  # Optional Video Link
+    uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
+    uploader_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    uploader = db.relationship('User', backref='notes')
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
 
+def allowed_file(filename):
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
 @app.route('/')
 def home():
     return render_template('index.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -62,7 +81,7 @@ def login():
         user = User.query.filter_by(email=email).first()
         
         if user and check_password_hash(user.password, password):
-            login_user(user)  # 👈 this logs in the user
+            login_user(user)  # This logs in the user
             flash("✅ Login successful!", "success")
             return redirect(url_for('home'))
         
@@ -71,14 +90,12 @@ def login():
 
     return render_template('LOGINPAGE.html')
 
-    return render_template('LOGINPAGE.html')
 @app.route('/signup', methods=['GET', 'POST'])
 def signup():
     if request.method == 'POST':
         email = request.form['email']
-        password = request.form['password']
-        password = request.form.get('password')  # ✅ Use .get()
-        confirm_password = request.form.get('confirm_password')  # ✅ Use .get()
+        password = request.form.get('password')  # Use .get()
+        confirm_password = request.form.get('confirm_password')  # Use .get()
 
         if not confirm_password:
             flash("⚠️ Confirm Password field is missing!", "error")
@@ -103,8 +120,10 @@ def signup():
     return render_template('SIGNUP.html')
 
 @app.route('/logout')
+@login_required
 def logout():
-    session.pop('user_id', None)
+    logout_user()  # Use Flask-Login's logout_user instead of manually handling session
+    flash("You have been logged out.", "success")
     return redirect(url_for('home'))
 
 @app.route('/c_programming')
@@ -130,7 +149,7 @@ def deca():
 @app.route('/dent')
 def dent():
     notes = Note.query.filter_by(subject="dent").all()
-    return render_template('dent.html',notes=notes)
+    return render_template('dent.html', notes=notes)
 
 @app.route('/download/<subject>/<filename>')
 def download_notes(subject, filename):
@@ -159,38 +178,12 @@ def profile():
 
     return render_template('profile.html', user=user)
 
-
-class Note(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    filename = db.Column(db.String(255), nullable=False)
-    filepath = db.Column(db.String(255), nullable=False)
-    subject = db.Column(db.String(100), nullable=False)
-    video_link = db.Column(db.String(500), nullable=True)  # ✅ Optional Video Link
-    uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
-    uploader = db.Column(db.String(150), nullable=False)
-
-
-# Create the database table
-
-UPLOAD_FOLDER = 'uploads'
-ALLOWED_EXTENSIONS = {'pdf', 'docx', 'jpg', 'png'}
-
-app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-
-def allowed_file(filename):
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
-
-
 @app.route('/upload_notes', methods=['GET', 'POST'])
+@login_required
 @role_required(Role.ADMIN)  # Only admins can access this
 def upload_notes():
-    if 'user_id' not in session:
-        flash("⚠️ You must be logged in to upload notes!", "error")
-        return redirect(url_for('login'))
-    return "Upload Page - Only Admins Can See This"
-
     if request.method == 'POST':
-        subject = request.form.get('subject')  # ✅ Get subject from dropdown
+        subject = request.form.get('subject')  # Get subject from dropdown
         file = request.files.get('file')
         video_link = request.form.get('video_link')
 
@@ -201,7 +194,13 @@ def upload_notes():
             os.makedirs(os.path.dirname(filepath), exist_ok=True)
             file.save(filepath)
 
-            new_note = Note(filename=filename, filepath=filepath, subject=subject, video_link=video_link, uploader=session['user_id'])
+            new_note = Note(
+                filename=filename, 
+                filepath=filepath, 
+                subject=subject, 
+                video_link=video_link, 
+                uploader_id=current_user.id
+            )
             db.session.add(new_note)
             db.session.commit()
 
@@ -211,7 +210,6 @@ def upload_notes():
         flash("⚠️ Invalid file format!", "error")
 
     return render_template('upload_notes.html')
-
 
 if __name__ == '__main__':
     with app.app_context():

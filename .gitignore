@@ -182,8 +182,9 @@ Dockerfile
 # VS Code settings
 .vscode/
 
-uploads/
+
 
 # Ignore Alembic migration cache  
 migrations/  
 alembic.ini  
+uploads/
