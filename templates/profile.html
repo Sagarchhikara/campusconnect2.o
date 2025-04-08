@@ -231,28 +231,32 @@
   </style>
 </head>
 <body>
-  <div class="background-wrapper">
-    <div class="container">
+  <div class="header"></div>
 
-      <div class="profile">
-        <div class="profile-img">
-          <img src="7A2BC0DA-4E91-419A-AC6C-6B91ED1FA981.jpeg" alt="Profile" id="profileImage">
-        </div>
-        <div class="profile-info">
-          <h2 id="name">Anirudh Sharma <i class="fas fa-star" style="color: gold; margin-left: 8px;" title="Top Rated"></i></h2>
-          <p id="profession">Software Engineer</p>
-          <p id="location">Patiala, Punjab</p>
-          <div class="buttons">
-            <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
-            <button class="settings-btn">Settings</button>
-          </div>
+  <div class="container">
+    <div class="profile">
+      <div class="profile-img">
+        {% if user.profile_pic %}
+  <img src="{{ url_for('static', filename='uploads/profiles/' + user.profile_pic) }}" alt="Profile Picture">
+{% else %}
+  <p>No profile picture uploaded.</p>
+{% endif %}
+      </div>
+      <div class="profile-info">
+        <h2>Welcome back, {{ user.name }} <i class="fas fa-star" style="color: gold; margin-left: 8px;" title="Top Rated"></i></h2>
+        <p>Email: {{ user.email }}</p>
+        <p>Bio: {{ user.bio }}</p>
+        <div class="buttons">
+          <button class="edit-btn" onclick="editProfile()">Edit Profile</button>
+          <button class="settings-btn">Settings</button>
         </div>
       </div>
+    </div>
 
-      <div class="section">
-        <div class="section-title">Current role</div>
-        <span class="tag">ADMIN</span>
-      </div>
+    <div class="section">
+      <div class="section-title">Current role</div>
+      <span class="tag">ADMIN</span>
+    </div>
 
       <div class="section">
         <div class="section-title">Skills</div>
@@ -312,76 +316,7 @@
     let skills = [];
 
     function editProfile() {
-      document.getElementById('editModal').style.display = 'flex';
-      document.getElementById('nameInput').value = document.getElementById('name').childNodes[0].nodeValue.trim();
-      document.getElementById('professionInput').value = document.getElementById('profession').innerText;
-      document.getElementById('locationInput').value = document.getElementById('location').innerText;
-
-      const skillTags = document.querySelectorAll('#skillsSection .tag');
-      skills = Array.from(skillTags).map(tag => tag.textContent.trim());
-      updateSkillList();
-    }
-
-    function closeModal() {
-      document.getElementById('editModal').style.display = 'none';
-    }
-
-    function addSkill() {
-      const skillInput = document.getElementById('newSkillInput');
-      const newSkill = skillInput.value.trim();
-      if (newSkill && !skills.includes(newSkill)) {
-        skills.push(newSkill);
-        updateSkillList();
-      }
-      skillInput.value = '';
-    }
-
-    function removeSkill(index) {
-      skills.splice(index, 1);
-      updateSkillList();
-    }
-
-    function updateSkillList() {
-      const container = document.getElementById('skillsContainer');
-      container.innerHTML = '';
-      skills.forEach((skill, index) => {
-        const tag = document.createElement('span');
-        tag.className = 'tag';
-        tag.textContent = skill;
-        tag.title = 'Click to remove';
-        tag.onclick = () => removeSkill(index);
-        container.appendChild(tag);
-      });
-    }
-
-    function saveChanges() {
-      const name = document.getElementById('nameInput').value.trim();
-      const profession = document.getElementById('professionInput').value.trim();
-      const location = document.getElementById('locationInput').value.trim();
-      const imgInput = document.getElementById('profileImageInput');
-
-      document.getElementById('name').childNodes[0].nodeValue = name + ' ';
-      document.getElementById('profession').innerText = profession;
-      document.getElementById('location').innerText = location;
-
-      const skillsSection = document.getElementById('skillsSection');
-      skillsSection.innerHTML = '';
-      skills.forEach(skill => {
-        const span = document.createElement('span');
-        span.className = 'tag';
-        span.textContent = skill;
-        skillsSection.appendChild(span);
-      });
-
-      if (imgInput.files && imgInput.files[0]) {
-        const reader = new FileReader();
-        reader.onload = function(e) {
-          document.getElementById('profileImage').src = e.target.result;
-        };
-        reader.readAsDataURL(imgInput.files[0]);
-      }
-
-      closeModal();
+      alert('Edit Profile button clicked. You can add editable form functionality here.');
     }
   </script>
 </body>

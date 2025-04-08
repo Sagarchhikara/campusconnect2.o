@@ -8,6 +8,7 @@ from flask_migrate import Migrate
 from enum import Enum
 from flask import abort
 from functools import wraps
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 
 
 app = Flask(__name__)  
@@ -17,6 +18,10 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+login_manager = LoginManager()
+login_manager.init_app(app)
+login_manager.login_view = 'login'  # redirects if user not logged in
 
 class Role(Enum):
     STUDENT = "student"
@@ -33,14 +38,19 @@ def role_required(role):
         return decorated_function
     return decorator
 
-class User(db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(150), unique=True, nullable=False)
     password = db.Column(db.String(256), nullable=False)
-    name = db.Column(db.String(100), nullable=True)  # Optional name
-    bio = db.Column(db.Text, nullable=True)  # Short user bio
-    profile_pic = db.Column(db.String(255), nullable=True)  # Profile picture filename
-    role = db.Column(db.Enum(Role), default=Role.STUDENT, nullable=False)  # Role field
+    name = db.Column(db.String(100), nullable=True)
+    bio = db.Column(db.Text, nullable=True)
+    profile_pic = db.Column(db.String(255), nullable=True)
+    role = db.Column(db.Enum(Role), default=Role.STUDENT, nullable=False)
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 @app.route('/')
 def home():
     return render_template('index.html')
@@ -49,17 +59,17 @@ def login():
     if request.method == 'POST':
         email = request.form['email']
         password = request.form['password']
-       
         user = User.query.filter_by(email=email).first()
-        if user and check_password_hash(user.password, password):
-            session['user_id'] = user.id  # ✅ Store user ID in session
-            flash("✅ Login successful!", "success")
-            return redirect(url_for('home'))  # ✅ Redirect to home page
         
-      
+        if user and check_password_hash(user.password, password):
+            login_user(user)  # 👈 this logs in the user
+            flash("✅ Login successful!", "success")
+            return redirect(url_for('home'))
         
         flash("⚠️ Invalid email or password. Try again!", "error")
-        return redirect(url_for('login'))  # Redirect back to login if failed
+        return redirect(url_for('login'))
+
+    return render_template('LOGINPAGE.html')
 
     return render_template('LOGINPAGE.html')
 @app.route('/signup', methods=['GET', 'POST'])
@@ -127,12 +137,9 @@ def download_notes(subject, filename):
     return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], subject), filename)
 
 @app.route('/profile', methods=['GET', 'POST'])
+@login_required
 def profile():
-    if 'user_id' not in session:
-        flash("⚠️ You must be logged in to access your profile!", "error")
-        return redirect(url_for('login'))
-
-    user = User.query.get(session['user_id'])
+    user = current_user  # Use Flask-Login's current_user
 
     if request.method == 'POST':
         user.name = request.form.get('name')
@@ -175,13 +182,12 @@ def allowed_file(filename):
 
 
 @app.route('/upload_notes', methods=['GET', 'POST'])
+@role_required(Role.ADMIN)  # Only admins can access this
 def upload_notes():
-    @role_required("admin")  # Only admins can access this
-    def upload_notes():
-     return "Upload Page - Only Admins Can See This"
     if 'user_id' not in session:
         flash("⚠️ You must be logged in to upload notes!", "error")
         return redirect(url_for('login'))
+    return "Upload Page - Only Admins Can See This"
 
     if request.method == 'POST':
         subject = request.form.get('subject')  # ✅ Get subject from dropdown
