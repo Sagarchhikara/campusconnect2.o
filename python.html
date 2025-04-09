@@ -1,59 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DE & T</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <link rel="stylesheet"
-  href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <title>Python</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <style>
         .subject-section {
             padding: 40px;
             background-color: #f9f9f9;
             text-align: center;
         }
+
         .container {
             max-width: 800px;
             margin: auto;
         }
-        h1, h2 {
+
+        h1,
+        h2 {
             margin-bottom: 20px;
         }
-        p, ul {
+
+        p,
+        ul {
             font-size: 16px;
         }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
+
         ul li {
             margin: 10px 0;
         }
+
         ul li a {
             color: rgb(255, 255, 255);
             text-decoration: none;
             font-weight: 500;
         }
+
         ul li a:hover {
             text-decoration: underline;
             color: rgb(128, 126, 135);
         }
-        #subject-introduction {
-    padding-top: 80px; 
-    }
 
+        #subject-introduction {
+            padding-top: 80px;
+        }
     </style>
+
 </head>
+
 <body>
+
+
     <div class="navbar">
         <div class="logo">
-            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif;" ><i class='bx bxl-vuejs'></i></h2>
+            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;"><i class='bx bxl-vuejs'></i>
+            </h2>
         </div>
         <ul id="nav-list">
             <li><a href="/index.html">Home</a></li>
             <li><a href="#notes">Notes</a></li>
-            <img  class="cross" src="/images/close-116-512.png" alt="cross">
+            <img class="cross" src="/images/close-116-512.png" alt="cross">
         </ul>
         <div class="nav-icons">
             <img class="menuopen" src="/images/hamburger-menu-5.png" alt="menu">
@@ -64,33 +78,27 @@
 
 
 
-
-
-    <section id="subject-introduction" class="subject-section" style="background: black; color: white;">
+    <section id="subject-introduction" class="subject-section" style="background: black; color: #fff;">
         <div class="container">
-            <h1>Differential Equations And Transformations</h1>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore ab voluptatem laborum atque! Unde dolore omnis itaque ad deserunt tempora perferendis ex velit provident blanditiis! Obcaecati est modi exercitationem error?</p>
+            <h1>Problem solving using python programming</h1>
+            <p>Python is dynamically type-checked and garbage-collected. It supports multiple programming paradigms, including structured (particularly procedural), object-oriented and functional programming. It is often described as a "batteries included" language due to its comprehensive standard library.</p>
         </div>
     </section>
-    
+
     <section id="flipbook-notes" class="flipbook-subject-section">
         <div class="flipbook-container">
             <h2>Handwritten Notes</h2>
             <div class="flipbook-cards-scroll-container">
                 <div class="cards-wrapper">
-                    {% for note in notes %}
-                        <div class="flipbook-card">
-                            <a href="{{ url_for('download_notes', filename=note.filename, subject='dent') }}">
-                                📄 {{ note.filename }}
-                            </a>
-                            {% if note.video_link %}
-                                <br>
-                                <a href="{{ note.video_link }}" target="_blank" class="video-link">
-                                    🎥 Watch Video
-                                </a>
-                            {% endif %}
-                        </div>
-                    {% endfor %}
+                    <a href="#" class="flipbook-card">Introduction to Python</a>
+                    <a href="#" class="flipbook-card">Data Types</a>
+                    <a href="#" class="flipbook-card">Operators</a>
+                    <a href="#" class="flipbook-card">Control Statements</a>
+                    <a href="#" class="flipbook-card">Functions</a>
+                    <a href="#" class="flipbook-card">Operators & Expressions</a>
+                    <a href="#" class="flipbook-card">Control Flow</a>
+                    <a href="#" class="flipbook-card">Structures</a>
+                    <a href="#" class="flipbook-card">File Handling</a>
                 </div>
             </div>
         </div>
@@ -132,13 +140,12 @@
         font-size: 16px;
         font-weight: bold;
         text-align: center;
-        padding: 50px 90px;
+        padding: 10px;
     }
     .flipbook-card:hover {
         background: #e9ecef;
         transition: 0.9ms;
     }
-    
     @media (max-width: 768px) {
         .flipbook-card {
             width: 150px;
@@ -156,94 +163,103 @@
     }
     
     </style>
-    
 
-    <section id="video-lectures" class="subject-section">
+
+
+
+<section id="video-lectures" class="subject-section">
         <div class="container">
             <h2>Video Lectures</h2>
             <div class="video-container">
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/kWRLInwDckU
-                    " allowfullscreen></iframe>
-                    <p>Fourier Series</p>
+                    <iframe src="https://www.youtube.com/embed/t2_Q2BRzeEE"
+                     allowfullscreen></iframe>
+                    <p>Introduction to Python - Basics</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/Ff5yCozon94
-                    " allowfullscreen></iframe>
-                    <p>Fourier Transformations</p>
+                    <iframe src="https://www.youtube.com/embed/ceiuLR2ysas" allowfullscreen></iframe>
+                    <p>Data Types & Variables</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/live/ma-Iu9kkNt8
-                    " allowfullscreen></iframe>
-                    <p>Differential Equations (Part - 1)</p>
+                    <iframe src="https://www.youtube.com/embed/hecHkaSt4iY" allowfullscreen></iframe>
+                    <p>Operators & Expressions</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/aZwx9OdsMsQ
+                    <iframe src="https://www.youtube.com/embed/Zp5MuPOtsSY
                     " allowfullscreen></iframe>
-                    <p>Differential Equations (Part - 2)</p>
+                    <p>Control Flow</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/NqeUG8FEvCo
+                    <iframe src="https://www.youtube.com/embed/OvTH-7ESoRA
                     " allowfullscreen></iframe>
-                    <p>Laplace Transformations</p>
+                    <p>Functions in Python</p>
                 </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/HeW-D6KpDwY
+                    " allowfullscreen></iframe>
+                    <p>OOPS in Python</p>
+                </div>
+                
+                
+                
+                
+            
             </div>
         </div>
     </section>
+
     <style>
         .video-container {
             display: flex;
             gap: 20px;
-            overflow-x: auto; 
+            overflow-x: auto;
             padding: 10px;
             scroll-behavior: smooth;
         }
-        
+
         .video-item {
-            min-width: 320px; 
+            min-width: 320px;
             flex: 0 0 auto;
             text-align: center;
         }
-    
+
         .video-item iframe {
             width: 100%;
             height: 180px;
             border-radius: 10px;
         }
-    
+
         .video-container::-webkit-scrollbar {
             height: 4px;
         }
-    
+
         .video-container::-webkit-scrollbar-thumb {
             background: #5f6060;
             border-radius: 10px;
         }
-    
+
         .video-container::-webkit-scrollbar-track {
             background: #ddd;
         }
     </style>
-    
+<section id="additional-resources" class="subject-section" style="background: #000000; color: #fff;">
+    <div class="container">
+        <h2>Additional Resources</h2>
+        <ul>
+            <li><a href="https://www.geeksforgeeks.org/python-programming-language/" target="_blank">GeeksforGeeks - Python Programming</a></li>
+            <li><a href="https://www.tutorialspoint.com/python/index.htm" target="_blank">TutorialsPoint - Python Programming</a></li>
+            <li><a href="https://www.python.org/doc/" target="_blank">Official Python Documentation</a></li>
+        </ul>
+    </div>
+</section>
 
 
-    <section id="additional-resources" class="subject-section" style="background: black; color: #fff;">
-        <div class="container">
-            <h2>Engineering Mathematics Resources</h2>
-            <ul>
-                <li><a href="https://www.mathcentre.ac.uk/" target="_blank">MathCentre - Engineering Mathematics</a></li>
-                <li><a href="https://www.khanacademy.org/math" target="_blank">Khan Academy - Mathematics</a></li>
-                <li><a href="https://ocw.mit.edu/courses/mathematics/" target="_blank">MIT OpenCourseWare - Mathematics</a></li>
-            </ul>
-        </div>
-    </section>
-    
-
-
-    <div class="menu-items">
+<div class="menu-items">
         <div class="menu-list">
             <ul class="footer-column">
-                <li><h5>Quick Links</h5></li>
+                <li>
+                    <h5>Quick Links</h5>
+                </li>
                 <li><a href="#">Home</a></li>
                 <li><a href="#notes">Notes</a></li>
                 <li><a href="#contact">Contact</a></li>
@@ -263,7 +279,9 @@
                 <li><a href="">FEE</a></li>
             </ul>
             <ul class="footer-column">
-                <li><h5>Follow Us</h5></li>
+                <li>
+                    <h5>Follow Us</h5>
+                </li>
                 <li>
                     <a href="https://www.instagram.com/yourprofile" target="_blank">
                         <i class='bx bxl-instagram'></i> Instagram
@@ -310,16 +328,19 @@
         let nav_list = document.getElementById('nav-list')
         let openMenu = document.querySelector('.menuopen')
         let cross = document.querySelector('.cross')
-        openMenu.addEventListener('click',()=>{
-          nav_list.style.opacity = '100%'
-          openMenu.style.display ='none'
+        openMenu.addEventListener('click', () => {
+            nav_list.style.opacity = '100%'
+            openMenu.style.display = 'none'
         })
-        cross.addEventListener('click',()=>{
-          nav_list.style.opacity = '0%';
-          setTimeout(()=>{
-              openMenu.style.display ='block'
-          },400)
+        cross.addEventListener('click', () => {
+            nav_list.style.opacity = '0%';
+            setTimeout(() => {
+                openMenu.style.display = 'block'
+            }, 400)
         })
-      </script>
+    </script>
+
+
 </body>
+
 </html>

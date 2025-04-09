@@ -53,7 +53,7 @@
 
     <div class="navbar">
         <div class="logo">
-            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;" ><i class='bx bxl-redux'></i></h2>
+            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;" ><i class='bx bxl-vuejs'></i></h2>
         </div>
         <ul id="nav-list">
             <li><a href="/index.html">Home</a></li>
@@ -81,11 +81,12 @@
         </div>
     </section>
     
-    <section id="flipbook-notes" class="subject-section">
-        <div class="container">
+    <section id="flipbook-notes" class="flipbook-subject-section">
+        <div class="flipbook-container">
             <h2>Handwritten Notes</h2>
             <div class="flipbook-cards-scroll-container">
                 <div class="cards-wrapper">
+<<<<<<< HEAD:templates/scm.html
                     {% for note in notes %}
                         <div class="flipbook-card">
                             <a href="{{ url_for('download_notes', filename=note.filename, subject='scm') }}">
@@ -99,10 +100,89 @@
                             {% endif %}
                         </div>
                     {% endfor %}
+=======
+                    <a href="#" class="flipbook-card">Git & GitHub</a>
+                    <a href="#" class="flipbook-card">Installing</a>
+                    <a href="#" class="flipbook-card">Git Basics</a>
+                    <a href="#" class="flipbook-card">Branching and Merging</a>
+                    <a href="#" class="flipbook-card">Git Remote</a>
+                    <a href="#" class="flipbook-card">Pull Requests</a>
+                    <a href="#" class="flipbook-card">Merge Conflicts</a>
+                    <a href="#" class="flipbook-card">Squashing Commits</a>
+                    <a href="#" class="flipbook-card">Git Best Practices</a>
+                    
+>>>>>>> 63a2332bea8fa309f102f618db798bd7d63aea82:scm.html
                 </div>
             </div>
         </div>
     </section>
+<<<<<<< HEAD:templates/scm.html
+=======
+    <style>
+    .flipbook-container {
+        width: 100%;
+        overflow: hidden;
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .flipbook-cards-scroll-container {
+        width: 100%;
+        overflow-x: auto;
+        white-space: nowrap;
+        scroll-behavior: smooth;
+    }
+    
+    .flipbook-cards-scroll-container::-webkit-scrollbar {
+        display: none; 
+    }
+    
+    .cards-wrapper {
+        display: flex;
+        gap: 19px;
+        padding: 20px 20px;
+    }
+    .flipbook-card {
+        flex: 0 0 auto;
+        width: 200px; 
+        height: 120px;
+        background: #f8f9fa;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: bold;
+        text-align: center;
+        padding: 50px 90px;
+    }
+    .flipbook-card:hover {
+        background: #e9ecef;
+        transition: 0.9ms;
+    }
+    
+    @media (max-width: 768px) {
+        .flipbook-card {
+            width: 150px;
+            height: 100px;
+            font-size: 14px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        .flipbook-card {
+            width: 120px;
+            height: 80px;
+            font-size: 12px;
+        }
+    }
+    
+    </style>
+
+
+    
+>>>>>>> 63a2332bea8fa309f102f618db798bd7d63aea82:scm.html
     <section id="video-lectures" class="subject-section">
         <div class="container">
             <h2>Video Lectures</h2>
@@ -222,6 +302,10 @@
             <li><a href="scm.html">Source Code Management</a></li>
             <li><a href="deca.html">DECA</a></li>
             <li><a href="dent.html">DE & T</a></li>
+            <li><a href="">Python</a></li>
+            <li><a href="">Casa</a></li>
+            <li><a href="">Mcp</a></li>
+            <li><a href="">FEE</a></li>
         </ul>
             <ul class="footer-column">
                 <li><h5>Follow Us</h5></li>
@@ -252,6 +336,12 @@
                     <input type="email" placeholder="Enter your email" required>
                     <button type="submit">Send</button>
                 </form>
+                <div class="whatsapp-container">
+                    <div class="whatsapp-qr-section">
+                        <img src="/images/qrcode.jpg" alt="WhatsApp QR Code">
+                        <p>Scan to Join <i class='bx bxl-whatsapp'></i></p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer">

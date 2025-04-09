@@ -189,7 +189,7 @@
                 <li><a href="{{ url_for('upload_notes') }}">📤 Upload Notes</a></li>
 
                 <li class="dropdown">
-                    <a href="#">User</a>
+                    <a href="">User</a>
                     <div class="login-dropdown">
                         <form>
                             <a href="{{ url_for('login') }}" class="btn-link">
@@ -201,6 +201,7 @@
                         </form>
                     </div>
                 </li>
+                <li><a href="user_page.html"><i class='bx bx-user' style="font-size: x-large;"></i></a></li>
 
                 <img class="cross" src="{{ url_for('static', filename='images/close-116-512.png') }}" alt="cross">
             </ul>
@@ -209,20 +210,6 @@
             </div>
 
         </div>
-        <div class="navtext">
-            <p>Welcome to Notes Manager – Organize Your Ideas with Ease! . Your mind is powerful, but a note remembers
-                everything</p>
-        </div>
-        {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <div class="flash-messages">
-            {% for category, message in messages %}
-            <div class="flash-message {{ category }}">{{ message }}</div>
-            {% endfor %}
-        </div>
-        {% endif %}
-        {% endwith %}
-
 
         <section class="intro-section">
             <div class="intro-container">
@@ -240,7 +227,7 @@
                 align-items: center;
                 justify-content: center;
                 height: 100vh;
-                background-color: #000000;
+                background: linear-gradient(180deg, black, rgb(22, 22, 22),rgb(61, 61, 61),rgb(141, 141, 141),white);
                 overflow: hidden;
                 flex-direction: column;
                 text-align: center;
@@ -385,7 +372,6 @@
                 color: #555;
             }
 
-            /* Responsive: Stack items on smaller screens */
             @media (max-width: 768px) {
                 .feature-container {
                     flex-direction: column;
@@ -460,6 +446,50 @@
                             <img src="{{ url_for('static', filename='images/DENT.jpg') }}" alt="de%t">
                         </div>
                     </a>
+
+
+
+                    <a href="#">
+                        <div class="card">
+                            <h1>Python</h1>
+                            <p>Problem Solving Using Python Programming</p>
+                            <img src="/images/python.png" alt="Python">
+                        </div>
+                    </a>
+
+
+
+                    <a href="#">
+                        <div style="background: black;" class="card">
+                            <h1 style="color: white;">Frontend Engineering</h1>
+                            <p style="color: white;">Bringing designs to life with the power of HTML, CSS, and
+                                JavaScript!</p>
+                            <img src="/images/fee.jpg" alt="FEE">
+                        </div>
+                    </a>
+
+
+
+                    <a href="#">
+                        <div class="card">
+                            <h1>MCP</h1>
+                            <p>Modern Computational Physics </p>
+                            <img src="/images/MCP.webp" alt="MCP">
+                        </div>
+                    </a>
+
+
+
+                    <a href="#">
+                        <div style="background: black;" class="card">
+                            <h1 style="color: white;">CASA</h1>
+                            <p style="color: white;">Calculus And Statical Analysis </p>
+                            <img src="/images/CASA.jpg" alt="CASA">
+                        </div>
+                    </a>
+
+
+
 
                 </div>
             </div>
@@ -625,23 +655,23 @@
                 display: none;
             }
 
-            .note-card {
-                flex: 0 0 auto;
-                width: 250px;
-                height: 300px;
-                margin: 0 10px;
-                background: #fff;
-                border-radius: 10px;
-                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-                overflow: hidden;
-            }
+        .note-card {
+            flex: 0 0 auto;
+            width: 250px;
+            height: 300px;
+            margin: 0 10px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
 
-            .note-card img {
-                width: 100%;
-                height: 100%;
-                object-fit: cover;
-            }
-        </style>
+        .note-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+</style>
 
 
 
@@ -825,6 +855,179 @@
                 return responses[input] || "I'm not sure. Try asking something else!";
             }
         </script>
+
+
+
+
+<div class="quiz-container">
+    <h1 class="quiz-heading">Test Your Knowledge with MCQs</h1>
+    <p class="quiz-subheading">Practice quizzes to enhance your understanding in various subjects.</p>
+
+    <div class="quiz-buttons">
+        
+        <button class="quiz-button">Source Code Management</button>
+        <button class="quiz-button">C Programming</button>
+        <button class="quiz-button">Python Programming</button>
+        <button class="quiz-button">Data Structures</button>
+        <button class="quiz-button">Operating System</button>
+        <button class="quiz-button">DECA</button>
+        <button class="quiz-button">MCP</button>
+        <button class="quiz-button">CASA</button>
+        <button class="quiz-button">DE & T</button>
+        <button class="quiz-button">HTML</button>
+        <button class="quiz-button">JAVASCRIPT</button>
+    </div>
+</div>
+<style>
+    
+        .quiz-container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px 20px;
+            padding-top: 40px;
+        }
+
+        .quiz-heading {
+            font-size: 28px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .quiz-subheading {
+            font-size: 18px;
+            color: #555;
+            margin: 10px 0 20px;
+        }
+
+        .quiz-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            background-color: white;
+            transition: 0.3s;
+        }
+
+        .quiz-button:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+</style>
+
+
+
+
+
+    <div class="learning-container">
+        <div class="learning-devices">
+            <div class="learning-device">
+                <img src="/images/learning.webp" alt="Laptop View">
+            </div>
+        </div>
+        <div class="learning-text">
+            <div class="learning-info">
+                <h3>Learn faster</h3>
+                <p>Short 5-minute lessons make it easier to pay attention and remember what you learned.</p>
+            </div>
+            <div class="learning-info">
+                <h3>Stay motivated</h3>
+                <p>Animated videos bring concepts to life with examples and a touch of humor.</p>
+            </div>
+            <div class="learning-info">
+                <h3>Study smarter</h3>
+                <p>Expert teachers help you focus on what's most important so you are confident and prepared.</p>
+            </div>
+        </div>
+    </div>
+    <style>
+
+.learning-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .learning-text {
+            max-width: 400px;
+        }
+        .learning-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .learning-info {
+            margin-bottom: 15px;
+        }
+        .learning-info h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .learning-devices {
+            display: flex;
+            align-items: center;
+        }
+        .learning-device {
+            max-width: 300px;
+            margin-right: 20px;
+        }
+        .learning-device img {
+            width: 600px; 
+            height: auto; 
+            object-fit: cover;
+            border-radius: 7px;
+        }
+        @media (max-width: 1024px) { 
+            .learning-device img {
+                width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) { 
+            .learning-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .learning-device img {
+                width: 100%; 
+                max-width: 300px;
+            }
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1026,6 +1229,67 @@
                 transform: scale(1.04);
             }
         </style>
+
+
+
+
+<section class="faq-container">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">What is Campus Connect?</p>
+        <div class="faq-answer">Campus Connect is a platform designed to help students connect with academic and extracurricular opportunities within their university.</div>
+        <br>
+        <hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">How can I register on Campus Connect?</p>
+        <div class="faq-answer">You can register by signing up with your university email and verifying your identity through the provided verification process.</div>
+        <br>
+        <hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">What features does Campus Connect offer?</p>
+        <div class="faq-answer">Campus Connect provides networking opportunities, event updates, study groups, and academic resources tailored to your university.</div>
+        <br><hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">Is Campus Connect free to use?</p>
+        <div class="faq-answer">Yes, the platform is free for students and faculty members of registered universities.</div> <br><hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">How can I post an event on Campus Connect?</p>
+        <div class="faq-answer">Registered users can submit event details through the event submission form, which will be reviewed before being published.</div><br><hr>
+    </div>
+</section>
+<style>
+    .faq-container{
+        color: white;
+        padding: 50px 50px;
+        background: linear-gradient(90deg, #000000, #2c2c2c);
+    }
+    .faq-container h2{
+        text-align: center;
+    }
+        .faq-item {
+            background: transparent;
+            padding: 15px;
+            cursor: pointer;
+        }
+        .faq-answer {
+            display: none;
+            padding: 10px;
+            background: transparent;
+        }
+</style>
+<script>
+    function toggleFAQ(element) {
+        let answer = element.querySelector('.faq-answer');
+        answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
+    }
+</script>
+
+
+
         <div class="menu-items">
             <div class="menu-list">
                 <ul class="footer-column">
@@ -1039,11 +1303,11 @@
                     <li>
                         <h5>Subjects</h5>
                     </li>
-                    <li><a href="{{ url_for('c_programming') }}">C Programming</a></li>
-                    <li><a href="{{ url_for('operating_system') }}">Operating System</a></li>
-                    <li><a href="{{ url_for('scm') }}">SCM</a></li>
-                    <li><a href="{{ url_for('deca') }}">DECA</a></li>
-                    <li><a href="{{ url_for('dent') }}">DE & T</a></li>
+                    <li><a href="c_programming.html">C Programming</a></li>
+                    <li><a href="operating_system.html">Operating System</a></li>
+                    <li><a href="scm.html">Source Code Management</a></li>
+                    <li><a href="deca.html">DECA</a></li>
+                    <li><a href="dent.html">DE & T</a></li>
                 </ul>
                 <ul class="footer-column">
                     <li>
@@ -1076,9 +1340,16 @@
                         <input type="email" placeholder="Enter your email" required>
                         <button type="submit">Send</button>
                     </form>
+                    <div class="whatsapp-container">
+                        <div class="whatsapp-qr-section">
+                            <img src="/images/qrcode.jpg" alt="WhatsApp QR Code">
+                            <p>Scan to Join <i class='bx bxl-whatsapp'></i></p>
+                        </div>
+                    </div>
                 </div>
-
             </div>
+
+            
             <div class="footer">
                 <p>© 2025 Notes Manager. All rights reserved.</p>
                 <button id="scrollToTopBtn" title="Go to top">↑</button>
@@ -1100,7 +1371,7 @@
                     transition: opacity 0.3s ease, visibility 0.3s ease;
                     z-index: 999;
                 }
-
+        
                 #scrollToTopBtn.show {
                     opacity: 1;
                     visibility: visible;
@@ -1117,7 +1388,7 @@
                             scrollToTopBtn.classList.remove("show");
                         }
                     };
-
+        
                     scrollToTopBtn.addEventListener("click", () => {
                         window.scrollTo({
                             top: 0,
