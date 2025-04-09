@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DECA</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Source Code Management</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet"
   href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <style>
@@ -46,12 +46,14 @@
     </style>
 </head>
 <body>
-    
+
+
+
 
 
     <div class="navbar">
         <div class="logo">
-            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;" > <i class='bx bxl-vuejs'></i></h2>
+            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;" ><i class='bx bxl-vuejs'></i></h2>
         </div>
         <ul id="nav-list">
             <li><a href="/index.html">Home</a></li>
@@ -69,10 +71,13 @@
 
 
 
+
     <section id="subject-introduction" class="subject-section" style="background: black; color: #fff;">
         <div class="container">
-            <h1>Digital Electronics and Computer Architecture</h1>
-            <p>Digital Electronics and Computer Architecture (DECA) focuses on the design and functioning of digital circuits and computing systems. It covers topics like logic gates, microprocessors, memory architecture, and data processing. Understanding DECA is essential for building efficient hardware and optimizing software performance.</p>
+            <h1>Source Code Management</h1>
+            <p>Git is a distributed version control system that helps track changes in code, enabling collaboration among developers. It allows branching, merging, and reverting to previous versions efficiently.
+
+                GitHub is a cloud-based platform that hosts Git repositories, making it easy to share, collaborate, and manage projects. It provides features like pull requests, issue tracking, and CI/CD integration for seamless development.</p>
         </div>
     </section>
     
@@ -81,20 +86,38 @@
             <h2>Handwritten Notes</h2>
             <div class="flipbook-cards-scroll-container">
                 <div class="cards-wrapper">
-                    <a href="#" class="flipbook-card">Number Systems</a>
-                    <a href="#" class="flipbook-card">Conversions</a>
-                    <a href="#" class="flipbook-card">Boolean Algebra</a>
-                    <a href="#" class="flipbook-card">Logic Gates</a>
-                    <a href="#" class="flipbook-card">Combinational Circuits</a>
-                    <a href="#" class="flipbook-card">Sequential Circuits</a>
-                    <a href="#" class="flipbook-card">Registers</a>
-                    <a href="#" class="flipbook-card">Counters</a>
-                    <a href="#" class="flipbook-card">Memory Systems</a>
-                    <a href="#" class="flipbook-card">Processor Architecture</a>
+<<<<<<< HEAD:templates/scm.html
+                    {% for note in notes %}
+                        <div class="flipbook-card">
+                            <a href="{{ url_for('download_notes', filename=note.filename, subject='scm') }}">
+                                📄 {{ note.filename }}
+                            </a>
+                            {% if note.video_link %}
+                                <br>
+                                <a href="{{ note.video_link }}" target="_blank" class="video-link">
+                                    🎥 Watch Video
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+=======
+                    <a href="#" class="flipbook-card">Git & GitHub</a>
+                    <a href="#" class="flipbook-card">Installing</a>
+                    <a href="#" class="flipbook-card">Git Basics</a>
+                    <a href="#" class="flipbook-card">Branching and Merging</a>
+                    <a href="#" class="flipbook-card">Git Remote</a>
+                    <a href="#" class="flipbook-card">Pull Requests</a>
+                    <a href="#" class="flipbook-card">Merge Conflicts</a>
+                    <a href="#" class="flipbook-card">Squashing Commits</a>
+                    <a href="#" class="flipbook-card">Git Best Practices</a>
+                    
+>>>>>>> 63a2332bea8fa309f102f618db798bd7d63aea82:scm.html
                 </div>
             </div>
         </div>
     </section>
+<<<<<<< HEAD:templates/scm.html
+=======
     <style>
     .flipbook-container {
         width: 100%;
@@ -157,35 +180,47 @@
     
     </style>
 
+
     
+>>>>>>> 63a2332bea8fa309f102f618db798bd7d63aea82:scm.html
     <section id="video-lectures" class="subject-section">
         <div class="container">
             <h2>Video Lectures</h2>
             <div class="video-container">
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/DBTna2ydmC0
+                    <iframe src="https://www.youtube.com/embed/hwP7WQkmECE
                     " allowfullscreen></iframe>
-                    <p>Basics of Digital Electronics</p>
+                    <p>Basics Of Git</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/47u7b2yh7s8
+                    <iframe src="https://www.youtube.com/embed/GZILYABgAoo
                     " allowfullscreen></iframe>
-                    <p> Logic Gates & Combinational Circuits</p>
+                    <p> Branching & Merging</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/fLN1YOmuAr8
+                    <iframe src="https://www.youtube.com/embed/Lb4yvfrX_7I
                     " allowfullscreen></iframe>
-                    <p>Sequential Circuits</p>
+                    <p>Working with Remote Repositories</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/HEjPop-aK_w
+                    <iframe src="https://www.youtube.com/embed/ecK3EnyGD8o
                     " allowfullscreen></iframe>
-                    <p>Computer Architecture Basics</p>
+                    <p>Advanced Git Features</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/PM728r4oGcE
+                    <iframe src="https://www.youtube.com/embed/ygqx50-JHEE
                     " allowfullscreen></iframe>
-                    <p>Input & Output Systems</p>
+                    <p>GitHub Collaboration & Best Practices</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/Uszj_k0DGsg
+                    " allowfullscreen></iframe>
+                    <p>Git Advanced Tools & Commands</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/9srnyNC1e_o
+                    " allowfullscreen></iframe>
+                    <p> Hosting & Deploying with GitHub</p>
                 </div>
             </div>
         </div>
@@ -227,18 +262,28 @@
     </style>
     
     
-    <section id="deca-additional-resources" class="subject-section" style="background: #000; color: white;">
+    
+    <section id="additional-resources-git" class="subject-section" style="background: black; color: white;">
         <div class="container">
-            <h2>Additional Resources - Digital Electronics and Computer Architecture</h2>
+            <h2>Additional Resources - Git & GitHub</h2>
             <ul>
-                <li><a href="https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/" target="_blank">GeeksforGeeks - Digital Electronics</a></li>
-                <li><a href="https://www.tutorialspoint.com/digital_electronics/index.htm" target="_blank">TutorialsPoint - Digital Electronics</a></li>
-                <li><a href="https://nptel.ac.in/courses/117/106/117106086/" target="_blank">NPTEL - Digital Circuits Course</a></li>
-                <li><a href="https://www.coursera.org/learn/comparch" target="_blank">Coursera - Computer Architecture</a></li>
-                <li><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-004-computation-structures-fall-2017/" target="_blank">MIT OpenCourseWare - Computation Structures</a></li>
+                <li><a href="https://git-scm.com/doc" target="_blank">Official Git Documentation</a></li>
+                <li><a href="https://docs.github.com/" target="_blank">GitHub Docs</a></li>
+                <li><a href="https://www.freecodecamp.org/news/learn-the-basics-of-git-in-under-10-minutes-da548267cc91/" target="_blank">FreeCodeCamp - Git Basics</a></li>
+                <li><a href="https://www.atlassian.com/git/tutorials" target="_blank">Atlassian Git Tutorials</a></li>
+                <li><a href="https://www.geeksforgeeks.org/what-is-git/" target="_blank">GeeksforGeeks - Git Introduction</a></li>
             </ul>
         </div>
     </section>
+    
+
+
+
+
+
+
+
+
     <div class="menu-items">
         <div class="menu-list">
             <ul class="footer-column">
@@ -248,19 +293,20 @@
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="footer-column">
-                <li>
-                    <h5>Subjects</h5>
-                </li>
-                <li><a href="c_programming.html">C Programming</a></li>
-                <li><a href="operating_system.html">Operating System</a></li>
-                <li><a href="scm.html">Source Code Management</a></li>
-                <li><a href="deca.html">DECA</a></li>
-                <li><a href="dent.html">DE & T</a></li>
-                <li><a href="">Python</a></li>
-                <li><a href="">Casa</a></li>
-                <li><a href="">Mcp</a></li>
-                <li><a href="">FEE</a></li>
-            </ul>
+               
+            <li>
+                <h5>Subjects</h5>
+            </li>
+            <li><a href="c_programming.html">C Programming</a></li>
+            <li><a href="operating_system.html">Operating System</a></li>
+            <li><a href="scm.html">Source Code Management</a></li>
+            <li><a href="deca.html">DECA</a></li>
+            <li><a href="dent.html">DE & T</a></li>
+            <li><a href="">Python</a></li>
+            <li><a href="">Casa</a></li>
+            <li><a href="">Mcp</a></li>
+            <li><a href="">FEE</a></li>
+        </ul>
             <ul class="footer-column">
                 <li><h5>Follow Us</h5></li>
                 <li>
@@ -305,6 +351,7 @@
 
 
 
+
     <script>
         let nav_list = document.getElementById('nav-list')
         let openMenu = document.querySelector('.menuopen')
@@ -320,5 +367,8 @@
           },400)
         })
       </script>
+
+
+    
 </body>
 </html>

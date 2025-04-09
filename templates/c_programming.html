@@ -1,64 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Source Code Management</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet"
-  href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+    <title>C Programming</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <style>
         .subject-section {
             padding: 40px;
             background-color: #f9f9f9;
             text-align: center;
         }
+
         .container {
             max-width: 800px;
             margin: auto;
         }
-        h1, h2 {
+
+        h1,
+        h2 {
             margin-bottom: 20px;
         }
-        p, ul {
+
+        p,
+        ul {
             font-size: 16px;
         }
+
         ul {
             list-style-type: none;
             padding: 0;
         }
+
         ul li {
             margin: 10px 0;
         }
+
         ul li a {
             color: rgb(255, 255, 255);
             text-decoration: none;
             font-weight: 500;
         }
+
         ul li a:hover {
             text-decoration: underline;
             color: rgb(128, 126, 135);
         }
+
         #subject-introduction {
-    padding-top: 80px; 
-    }
-
+            padding-top: 80px;
+        }
     </style>
+
 </head>
+
 <body>
-
-
-
 
 
     <div class="navbar">
         <div class="logo">
-            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;" ><i class='bx bxl-vuejs'></i></h2>
+            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;"><i class='bx bxl-vuejs'></i>
+            </h2>
         </div>
         <ul id="nav-list">
             <li><a href="/index.html">Home</a></li>
             <li><a href="#notes">Notes</a></li>
-            <img  class="cross" src="/images/close-116-512.png" alt="cross">
+            <img class="cross" src="/images/close-116-512.png" alt="cross">
         </ul>
         <div class="nav-icons">
             <img class="menuopen" src="/images/hamburger-menu-5.png" alt="menu">
@@ -69,33 +78,34 @@
 
 
 
-
-
-
     <section id="subject-introduction" class="subject-section" style="background: black; color: #fff;">
         <div class="container">
-            <h1>Source Code Management</h1>
-            <p>Git is a distributed version control system that helps track changes in code, enabling collaboration among developers. It allows branching, merging, and reverting to previous versions efficiently.
-
-                GitHub is a cloud-based platform that hosts Git repositories, making it easy to share, collaborate, and manage projects. It provides features like pull requests, issue tracking, and CI/CD integration for seamless development.</p>
+            <h1>Introduction to C Programming</h1>
+            <h2><i class='bx bx-laptop'></i></h2>
+            <p>C Programming is a powerful general-purpose language that is widely used for system and application
+                software, embedded systems, and more. It is known for its efficiency, flexibility, and portability,
+                making it a fundamental language for programmers.</p>
         </div>
     </section>
-    
-    <section id="flipbook-notes" class="flipbook-subject-section">
-        <div class="flipbook-container">
+
+    <section id="flipbook-notes" class="subject-section">
+        <div class="container">
             <h2>Handwritten Notes</h2>
             <div class="flipbook-cards-scroll-container">
                 <div class="cards-wrapper">
-                    <a href="#" class="flipbook-card">Git & GitHub</a>
-                    <a href="#" class="flipbook-card">Installing</a>
-                    <a href="#" class="flipbook-card">Git Basics</a>
-                    <a href="#" class="flipbook-card">Branching and Merging</a>
-                    <a href="#" class="flipbook-card">Git Remote</a>
-                    <a href="#" class="flipbook-card">Pull Requests</a>
-                    <a href="#" class="flipbook-card">Merge Conflicts</a>
-                    <a href="#" class="flipbook-card">Squashing Commits</a>
-                    <a href="#" class="flipbook-card">Git Best Practices</a>
-                    
+                    {% for note in notes %}
+                        <div class="flipbook-card">
+                            <a href="{{ url_for('download_notes', filename=note.filename, subject='c_programming') }}">
+                                📄 {{ note.filename }}
+                            </a>
+                            {% if note.video_link %}
+                                <br>
+                                <a href="{{ note.video_link }}" target="_blank" class="video-link">
+                                    🎥 Watch Video
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -137,13 +147,12 @@
         font-size: 16px;
         font-weight: bold;
         text-align: center;
-        padding: 50px 90px;
+        padding: 10px;
     }
     .flipbook-card:hover {
         background: #e9ecef;
         transition: 0.9ms;
     }
-    
     @media (max-width: 768px) {
         .flipbook-card {
             width: 150px;
@@ -163,133 +172,143 @@
     </style>
 
 
-    
-    <section id="video-lectures" class="subject-section">
+
+
+<section id="video-lectures" class="subject-section">
         <div class="container">
             <h2>Video Lectures</h2>
             <div class="video-container">
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/hwP7WQkmECE
+                    <iframe src="https://www.youtube.com/embed/RBVzTeSv2z8
                     " allowfullscreen></iframe>
-                    <p>Basics Of Git</p>
+                    <p>Introduction to C - Basics</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/GZILYABgAoo
-                    " allowfullscreen></iframe>
-                    <p> Branching & Merging</p>
+                    <iframe src="https://www.youtube.com/embed/XvsozFnXVsA" allowfullscreen></iframe>
+                    <p>Data Types & Variables</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/Lb4yvfrX_7I
-                    " allowfullscreen></iframe>
-                    <p>Working with Remote Repositories</p>
+                    <iframe src="https://www.youtube.com/embed/t_u516mLEbk" allowfullscreen></iframe>
+                    <p>Operators & Expressions</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/ecK3EnyGD8o
+                    <iframe src="https://www.youtube.com/embed/I93JzA_cvPo
                     " allowfullscreen></iframe>
-                    <p>Advanced Git Features</p>
+                    <p>Control Flow</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/ygqx50-JHEE
+                    <iframe src="https://www.youtube.com/embed/vDI_fyKYjHc
                     " allowfullscreen></iframe>
-                    <p>GitHub Collaboration & Best Practices</p>
+                    <p>Functions in C</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/Uszj_k0DGsg
+                    <iframe src="https://www.youtube.com/embed/AefKSoNpZtQ
                     " allowfullscreen></iframe>
-                    <p>Git Advanced Tools & Commands</p>
+                    <p> Arrays & Strings</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/9srnyNC1e_o
+                    <iframe src="https://www.youtube.com/embed/f2i0CnUOniA
                     " allowfullscreen></iframe>
-                    <p> Hosting & Deploying with GitHub</p>
+                    <p> Pointers</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/TqmvFpwke34
+                    " allowfullscreen></iframe>
+                    <p>Structures & Unions</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/4DljBbiC2p4
+                    " allowfullscreen></iframe>
+                    <p>File Handling in C</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/0zuolvgpAaY
+                    " allowfullscreen></iframe>
+                    <p>Advanced Topics</p>
+                </div>
+                <div class="video-item">
+                    <iframe src="https://www.youtube.com/embed/8hly31xKli0" allowfullscreen></iframe>
+                    <p>Data Structures in C</p>
                 </div>
             </div>
         </div>
     </section>
-    
+
     <style>
         .video-container {
             display: flex;
             gap: 20px;
-            overflow-x: auto; /* Enables horizontal scrolling */
+            overflow-x: auto;
             padding: 10px;
             scroll-behavior: smooth;
         }
-        
+
         .video-item {
-            min-width: 320px; /* Adjust width as needed */
+            min-width: 320px;
             flex: 0 0 auto;
             text-align: center;
         }
-    
+
         .video-item iframe {
             width: 100%;
             height: 180px;
             border-radius: 10px;
         }
-    
+
         .video-container::-webkit-scrollbar {
             height: 4px;
         }
-    
+
         .video-container::-webkit-scrollbar-thumb {
             background: #5f6060;
             border-radius: 10px;
         }
-    
+
         .video-container::-webkit-scrollbar-track {
             background: #ddd;
         }
     </style>
-    
-    
-    
-    <section id="additional-resources-git" class="subject-section" style="background: black; color: white;">
+<section id="additional-resources" class="subject-section" style="background: #000000; color: #fff;">
         <div class="container">
-            <h2>Additional Resources - Git & GitHub</h2>
+            <h2>Additional Resources</h2>
             <ul>
-                <li><a href="https://git-scm.com/doc" target="_blank">Official Git Documentation</a></li>
-                <li><a href="https://docs.github.com/" target="_blank">GitHub Docs</a></li>
-                <li><a href="https://www.freecodecamp.org/news/learn-the-basics-of-git-in-under-10-minutes-da548267cc91/" target="_blank">FreeCodeCamp - Git Basics</a></li>
-                <li><a href="https://www.atlassian.com/git/tutorials" target="_blank">Atlassian Git Tutorials</a></li>
-                <li><a href="https://www.geeksforgeeks.org/what-is-git/" target="_blank">GeeksforGeeks - Git Introduction</a></li>
+                <li><a href="https://www.geeksforgeeks.org/c-programming-language/" target="_blank">GeeksforGeeks - C
+                        Programming</a></li>
+                <li><a href="https://www.tutorialspoint.com/cprogramming/" target="_blank">TutorialsPoint - C
+                        Programming</a></li>
+                <li><a href="https://www.cprogramming.com/" target="_blank">CProgramming.com - Learn C</a></li>
             </ul>
         </div>
     </section>
-    
 
-
-
-
-
-
-
-
-    <div class="menu-items">
+<div class="menu-items">
         <div class="menu-list">
             <ul class="footer-column">
-                <li><h5>Quick Links</h5></li>
+                <li>
+                    <h5>Quick Links</h5>
+                </li>
                 <li><a href="#">Home</a></li>
                 <li><a href="#notes">Notes</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
             <ul class="footer-column">
-               
-            <li>
-                <h5>Subjects</h5>
-            </li>
-            <li><a href="c_programming.html">C Programming</a></li>
-            <li><a href="operating_system.html">Operating System</a></li>
-            <li><a href="scm.html">Source Code Management</a></li>
-            <li><a href="deca.html">DECA</a></li>
-            <li><a href="dent.html">DE & T</a></li>
-            <li><a href="">Python</a></li>
-            <li><a href="">Casa</a></li>
-            <li><a href="">Mcp</a></li>
-            <li><a href="">FEE</a></li>
-        </ul>
+                <li>
+                    <h5>Subjects</h5>
+                </li>
+                <li><a href="c_programming.html">C Programming</a></li>
+                <li><a href="operating_system.html">Operating System</a></li>
+                <li><a href="scm.html">Source Code Management</a></li>
+                <li><a href="deca.html">DECA</a></li>
+                <li><a href="dent.html">DE & T</a></li>
+                <li><a href="">Python</a></li>
+                <li><a href="">Casa</a></li>
+                <li><a href="">Mcp</a></li>
+                <li><a href="">FEE</a></li>
+            </ul>
             <ul class="footer-column">
-                <li><h5>Follow Us</h5></li>
+                <li>
+                    <h5>Follow Us</h5>
+                </li>
                 <li>
                     <a href="https://www.instagram.com/yourprofile" target="_blank">
                         <i class='bx bxl-instagram'></i> Instagram
@@ -332,24 +351,23 @@
 
 
 
-
     <script>
         let nav_list = document.getElementById('nav-list')
         let openMenu = document.querySelector('.menuopen')
         let cross = document.querySelector('.cross')
-        openMenu.addEventListener('click',()=>{
-          nav_list.style.opacity = '100%'
-          openMenu.style.display ='none'
+        openMenu.addEventListener('click', () => {
+            nav_list.style.opacity = '100%'
+            openMenu.style.display = 'none'
         })
-        cross.addEventListener('click',()=>{
-          nav_list.style.opacity = '0%';
-          setTimeout(()=>{
-              openMenu.style.display ='block'
-          },400)
+        cross.addEventListener('click', () => {
+            nav_list.style.opacity = '0%';
+            setTimeout(() => {
+                openMenu.style.display = 'block'
+            }, 400)
         })
-      </script>
+    </script>
 
 
-    
 </body>
+
 </html>

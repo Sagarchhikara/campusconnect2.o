@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DE & T</title>
-    <link rel="stylesheet" href="style.css">
+    <title>DECA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet"
   href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <style>
@@ -42,13 +42,129 @@
         #subject-introduction {
     padding-top: 80px; 
     }
+    .flipbook-cards-scroll-container {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+}
+
+.flipbook-cards-scroll-container::-webkit-scrollbar {
+    display: none; 
+}
+
+.cards-wrapper {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+}
+
+.flipbook-card {
+    flex: 0 0 auto;
+    width: 220px;
+    height: 140px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    transition: transform 0.2s ease-in-out;
+}
+
+.flipbook-card:hover {
+    transform: scale(1.05);
+    text-decoration: underline;
+    background: #e9ecef;
+}
+.video-link {
+    display: block;
+    margin-top: 5px;
+    padding: 5px 10px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.video-link:hover {
+    background: #0056b3;
+}
+
+.upload-form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 80%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.upload-form label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.upload-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.upload-form input[type="file"] {
+    background: #f8f9fa;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.upload-form input[type="file"]:hover {
+    background: #e9ecef;
+}
+
+.upload-form button {
+    background: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.upload-form button:hover {
+    background: #0056b3;
+}
+
+
 
     </style>
 </head>
 <body>
+    
+
+
     <div class="navbar">
         <div class="logo">
-            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif;" ><i class='bx bxl-vuejs'></i></h2>
+            <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500;" > <i class='bx bxl-vuejs'></i></h2>
         </div>
         <ul id="nav-list">
             <li><a href="/index.html">Home</a></li>
@@ -66,10 +182,10 @@
 
 
 
-    <section id="subject-introduction" class="subject-section" style="background: black; color: white;">
+    <section id="subject-introduction" class="subject-section" style="background: black; color: #fff;">
         <div class="container">
-            <h1>Differential Equations And Transformations</h1>
-            <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Tempore ab voluptatem laborum atque! Unde dolore omnis itaque ad deserunt tempora perferendis ex velit provident blanditiis! Obcaecati est modi exercitationem error?</p>
+            <h1>Digital Electronics and Computer Architecture</h1>
+            <p>Digital Electronics and Computer Architecture (DECA) focuses on the design and functioning of digital circuits and computing systems. It covers topics like logic gates, microprocessors, memory architecture, and data processing. Understanding DECA is essential for building efficient hardware and optimizing software performance.</p>
         </div>
     </section>
     
@@ -78,13 +194,19 @@
             <h2>Handwritten Notes</h2>
             <div class="flipbook-cards-scroll-container">
                 <div class="cards-wrapper">
-                    <a href="#" class="flipbook-card">Fourier Series</a>
-                    <a href="#" class="flipbook-card">Fourier Transforms</a>
-                    <a href="#" class="flipbook-card">Differential Equations</a>
-                    <a href="#" class="flipbook-card">ODE</a>
-                    <a href="#" class="flipbook-card">PDE</a>
-                    <a href="#" class="flipbook-card">Laplace Transfors</a>
-                    <a href="#" class="flipbook-card">Extra questions</a>
+                    {% for note in notes %}
+                        <div class="flipbook-card">
+                            <a href="{{ url_for('download_notes', filename=note.filename, subject='deca') }}">
+                                📄 {{ note.filename }}
+                            </a>
+                            {% if note.video_link %}
+                                <br>
+                                <a href="{{ note.video_link }}" target="_blank" class="video-link">
+                                    🎥 Watch Video
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -150,51 +272,71 @@
     }
     
     </style>
-    
 
+    
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ url_for('upload_notes') }}">📤 Upload Notes</a>
+    </div>
+    
+    
     <section id="video-lectures" class="subject-section">
         <div class="container">
             <h2>Video Lectures</h2>
             <div class="video-container">
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/kWRLInwDckU
+                    <iframe src="https://www.youtube.com/embed/DBTna2ydmC0
                     " allowfullscreen></iframe>
-                    <p>Fourier Series</p>
+                    <p>Basics of Digital Electronics</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/Ff5yCozon94
+                    <iframe src="https://www.youtube.com/embed/47u7b2yh7s8
                     " allowfullscreen></iframe>
-                    <p>Fourier Transformations</p>
+                    <p> Logic Gates & Combinational Circuits</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/live/ma-Iu9kkNt8
+                    <iframe src="https://www.youtube.com/embed/fLN1YOmuAr8
                     " allowfullscreen></iframe>
-                    <p>Differential Equations (Part - 1)</p>
+                    <p>Sequential Circuits</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/aZwx9OdsMsQ
+                    <iframe src="https://www.youtube.com/embed/HEjPop-aK_w
                     " allowfullscreen></iframe>
-                    <p>Differential Equations (Part - 2)</p>
+                    <p>Computer Architecture Basics</p>
                 </div>
                 <div class="video-item">
-                    <iframe src="https://www.youtube.com/embed/NqeUG8FEvCo
+                    <iframe src="https://www.youtube.com/embed/PM728r4oGcE
                     " allowfullscreen></iframe>
-                    <p>Laplace Transformations</p>
+                    <p>Input & Output Systems</p>
                 </div>
             </div>
         </div>
     </section>
+    <section id="upload-notes" class="subject-section">
+        <div class="container">
+            <h2>Upload Your Notes</h2>
+            <form action="{{ url_for('upload_notes', subject='deca') }}" method="POST" enctype="multipart/form-data" class="upload-form">
+                <label for="file">📂 Choose File</label>
+                <input type="file" name="file" id="file" required>
+    
+                <label for="video_link">🎥 Video Reference (Optional)</label>
+                <input type="url" name="video_link" id="video_link" placeholder="Paste YouTube or any video link">
+    
+                <button type="submit">🚀 Upload Notes</button>
+            </form>
+        </div>
+    </section>
+    
     <style>
         .video-container {
             display: flex;
             gap: 20px;
-            overflow-x: auto; 
+            overflow-x: auto; /* Enables horizontal scrolling */
             padding: 10px;
             scroll-behavior: smooth;
         }
         
         .video-item {
-            min-width: 320px; 
+            min-width: 320px; /* Adjust width as needed */
             flex: 0 0 auto;
             text-align: center;
         }
@@ -219,21 +361,19 @@
         }
     </style>
     
-
-
-    <section id="additional-resources" class="subject-section" style="background: black; color: #fff;">
+    
+    <section id="deca-additional-resources" class="subject-section" style="background: #000; color: white;">
         <div class="container">
-            <h2>Engineering Mathematics Resources</h2>
+            <h2>Additional Resources - Digital Electronics and Computer Architecture</h2>
             <ul>
-                <li><a href="https://www.mathcentre.ac.uk/" target="_blank">MathCentre - Engineering Mathematics</a></li>
-                <li><a href="https://www.khanacademy.org/math" target="_blank">Khan Academy - Mathematics</a></li>
-                <li><a href="https://ocw.mit.edu/courses/mathematics/" target="_blank">MIT OpenCourseWare - Mathematics</a></li>
+                <li><a href="https://www.geeksforgeeks.org/digital-electronics-logic-design-tutorials/" target="_blank">GeeksforGeeks - Digital Electronics</a></li>
+                <li><a href="https://www.tutorialspoint.com/digital_electronics/index.htm" target="_blank">TutorialsPoint - Digital Electronics</a></li>
+                <li><a href="https://nptel.ac.in/courses/117/106/117106086/" target="_blank">NPTEL - Digital Circuits Course</a></li>
+                <li><a href="https://www.coursera.org/learn/comparch" target="_blank">Coursera - Computer Architecture</a></li>
+                <li><a href="https://ocw.mit.edu/courses/electrical-engineering-and-computer-science/6-004-computation-structures-fall-2017/" target="_blank">MIT OpenCourseWare - Computation Structures</a></li>
             </ul>
         </div>
     </section>
-    
-
-
     <div class="menu-items">
         <div class="menu-list">
             <ul class="footer-column">
