@@ -16,14 +16,395 @@
             </h2>
         </div>
         <ul id="nav-list">
-            <li><a href="/index.html">Home</a></li>
-            <li><a href="#notes">Notes</a></li>
+            <li><a href="/index.html" style="color: black;">Home</a></li>
             <img class="cross" src="/images/close-116-512.png" alt="cross">
         </ul>
         <div class="nav-icons">
             <img class="menuopen" src="/images/hamburger-menu-5.png" alt="menu">
         </div>
     </div>
+
+
+
+
+               
+    <section class="student" id="student">
+        <div class="student-card">
+            <div class="card-header">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Student Profile" class="profile-img">
+                <div class="student-info">
+                    <h2>NAME</h2>
+                    <p>Computer Science</p>
+                    <div class="university">
+                        <i class='bx bxs-school'></i>
+                        <span>Chitkara University</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="info-section">
+                    <h3>Personal Info</h3>
+                    <div class="info-item">
+                        <strong>Email:</strong> john.doe@stanford.edu
+                    </div>
+                    <div class="info-item">
+                        <strong>Phone:</strong> 99876r6776
+                    </div>
+                </div>
+                <div class="info-section">
+                    <h3>Skills</h3>
+                    <div class="skills">
+                        <span class="skill">JavaScript</span>
+                        <span class="skill">Python</span>
+                        <span class="skill">React</span>
+                        <span class="skill">Node.js</span>
+                        <span class="skill">Machine Learning</span>
+                        <span class="skill">Data Science</span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="social-links">
+                    <a href="#"><i class='bx bxl-linkedin'></i></a>
+                    <a href="#"><i class='bx bxl-github'></i></a>
+                    <a href="#"><i class='bx bxl-twitter'></i></a>
+                    <a href="#"><i class='bx bxl-instagram'></i></a>
+                </div>
+                <button class="action-btn">Contact Student</button>
+            </div>
+        </div>
+    </section>         
+
+
+
+    <style>
+        
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            background-color: #ffffff;
+            color: rgb(0, 0, 0);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        .logo i {
+            font-size: 2rem;
+            color: #3498db;
+        }
+        .student {
+            padding: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 120px);
+        }
+
+        .student-card {
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 800px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .student-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .card-header {
+            background-color: #3498db;
+            color: white;
+            padding: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid white;
+        }
+
+        .student-info h2 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .student-info p {
+            opacity: 0.9;
+            font-size: 1rem;
+        }
+
+        .university {
+            display: flex;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+
+        .university i {
+            margin-right: 0.5rem;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .info-section h3 {
+            color: #3498db;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .info-item {
+            margin-bottom: 0.8rem;
+        }
+
+        .info-item strong {
+            display: inline-block;
+            width: 100px;
+            color: #555;
+        }
+
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .skill {
+            background-color: #e0f7fa;
+            color: #00796b;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .card-footer {
+            background-color: #f8f9fa;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #eee;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-links a {
+            color: #555;
+            font-size: 1.2rem;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #3498db;
+        }
+
+        .action-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .action-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .menu-items {
+            background-color: #2c3e50;
+            color: white;
+            padding: 2rem;
+            display: none;
+        }
+
+        .menu-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .footer-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .footer-column h5 {
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            color: #3498db;
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column li {
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-column a {
+            color: white;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .footer-column a:hover {
+            color: #3498db;
+        }
+
+        .email-form {
+            display: flex;
+            margin-bottom: 1.5rem;
+        }
+
+        .email-form input {
+            flex: 1;
+            padding: 0.5rem;
+            border: none;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .email-form button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0 5px 5px 0;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .email-form button:hover {
+            background-color: #2980b9;
+        }
+
+        .whatsapp-qr-section {
+            text-align: center;
+        }
+
+        .whatsapp-qr-section img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding-top: 1rem;
+            border-top: 1px solid #34495e;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+
+            #nav-list {
+                position: fixed;
+                top: 0;
+                right: 0;
+                width: 70%;
+                height: 100vh;
+                background-color: #2c3e50;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                opacity: 0;
+                pointer-events: none;
+                z-index: 100;
+            }
+
+            #nav-list.active {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            .cross {
+                display: block;
+                position: absolute;
+                top: 20px;
+                right: 20px;
+            }
+
+            .nav-icons img {
+                display: block;
+            }
+
+            .card-header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .student-info {
+                text-align: center;
+            }
+
+            .university {
+                justify-content: center;
+            }
+
+            .card-footer {
+                flex-direction: column;
+                gap: 1rem;
+                align-items: flex-start;
+            }
+
+            .social-links {
+                align-self: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card-body {
+                grid-template-columns: 1fr;
+            }
+
+            .student-info h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
 <div class="menu-items">
         <div class="menu-list">
             <ul class="footer-column">
@@ -57,6 +438,12 @@
                     <input type="email" placeholder="Enter your email" required>
                     <button type="submit">Send</button>
                 </form>
+                <div class="whatsapp-container">
+                    <div class="whatsapp-qr-section">
+                        <img src="/images/qrcode.jpg" alt="WhatsApp QR Code">
+                        <p>Scan to Join <i class='bx bxl-whatsapp'></i></p>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="footer">
