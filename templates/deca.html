@@ -195,13 +195,11 @@
             <div class="flipbook-cards-scroll-container">
                 <div class="cards-wrapper">
                     {% for note in notes %}
-                    {% include 'notes_section.html' %}
-
                         <div class="flipbook-card">
-                            <a href="{{ url_for('download_notes', filename=note.filename, subject='deca') }}">
+                            <a href="{{ url_for('download_notes', filename=note.filename, subject='c_programming') }}">
                                 📄 {{ note.filename }}
                             </a>
-                            {% if note.video_link %}
+                            {% if note.video_link %}S
                                 <br>
                                 <a href="{{ note.video_link }}" target="_blank" class="video-link">
                                     🎥 Watch Video
