@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Operating System</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <style>
         .subject-section {
@@ -93,15 +93,19 @@
             <h2>Handwritten Notes</h2>
             <div class="flipbook-cards-scroll-container">
                 <div class="cards-wrapper">
-                    <a href="#" class="flipbook-card">Introduction</a>
-                    <a href="#" class="flipbook-card">Process Management</a>
-                    <a href="#" class="flipbook-card">Threads</a>
-                    <a href="#" class="flipbook-card">CPU Scheduling</a>
-                    <a href="#" class="flipbook-card">Memory Management</a>
-                    <a href="#" class="flipbook-card">Virtual Memory</a>
-                    <a href="#" class="flipbook-card">File System</a>
-                    <a href="#" class="flipbook-card">Disk Management</a>
-                    <a href="#" class="flipbook-card">Deadlocks</a>
+                    {% for note in notes %}
+                        <div class="flipbook-card">
+                            <a href="{{ url_for('download_notes', filename=note.filename, subject='operating_system') }}">
+                                📄 {{ note.filename }}
+                            </a>
+                            {% if note.video_link %}
+                                <br>
+                                <a href="{{ note.video_link }}" target="_blank" class="video-link">
+                                    🎥 Watch Video
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>DECA</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet"
   href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <style>
@@ -42,6 +42,119 @@
         #subject-introduction {
     padding-top: 80px; 
     }
+    .flipbook-cards-scroll-container {
+    width: 100%;
+    overflow-x: auto;
+    white-space: nowrap;
+    scroll-behavior: smooth;
+    padding: 10px 0;
+}
+
+.flipbook-cards-scroll-container::-webkit-scrollbar {
+    display: none; 
+}
+
+.cards-wrapper {
+    display: flex;
+    gap: 15px;
+    padding: 20px;
+}
+
+.flipbook-card {
+    flex: 0 0 auto;
+    width: 220px;
+    height: 140px;
+    background: #f8f9fa;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    padding: 10px;
+    color: black;
+    text-decoration: none;
+    transition: transform 0.2s ease-in-out;
+}
+
+.flipbook-card:hover {
+    transform: scale(1.05);
+    text-decoration: underline;
+    background: #e9ecef;
+}
+.video-link {
+    display: block;
+    margin-top: 5px;
+    padding: 5px 10px;
+    background: #007bff;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: background 0.3s;
+}
+
+.video-link:hover {
+    background: #0056b3;
+}
+
+.upload-form {
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 80%;
+    max-width: 500px;
+    margin: auto;
+}
+
+.upload-form label {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.upload-form input {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    width: 100%;
+}
+
+.upload-form input[type="file"] {
+    background: #f8f9fa;
+    border: none;
+    padding: 8px;
+    cursor: pointer;
+}
+
+.upload-form input[type="file"]:hover {
+    background: #e9ecef;
+}
+
+.upload-form button {
+    background: #007bff;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.upload-form button:hover {
+    background: #0056b3;
+}
+
+
 
     </style>
 </head>
@@ -81,16 +194,19 @@
             <h2>Handwritten Notes</h2>
             <div class="flipbook-cards-scroll-container">
                 <div class="cards-wrapper">
-                    <a href="#" class="flipbook-card">Number Systems</a>
-                    <a href="#" class="flipbook-card">Conversions</a>
-                    <a href="#" class="flipbook-card">Boolean Algebra</a>
-                    <a href="#" class="flipbook-card">Logic Gates</a>
-                    <a href="#" class="flipbook-card">Combinational Circuits</a>
-                    <a href="#" class="flipbook-card">Sequential Circuits</a>
-                    <a href="#" class="flipbook-card">Registers</a>
-                    <a href="#" class="flipbook-card">Counters</a>
-                    <a href="#" class="flipbook-card">Memory Systems</a>
-                    <a href="#" class="flipbook-card">Processor Architecture</a>
+                    {% for note in notes %}
+                        <div class="flipbook-card">
+                            <a href="{{ url_for('download_notes', filename=note.filename, subject='deca') }}">
+                                📄 {{ note.filename }}
+                            </a>
+                            {% if note.video_link %}
+                                <br>
+                                <a href="{{ note.video_link }}" target="_blank" class="video-link">
+                                    🎥 Watch Video
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -158,6 +274,11 @@
     </style>
 
     
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="{{ url_for('upload_notes') }}">📤 Upload Notes</a>
+    </div>
+    
+    
     <section id="video-lectures" class="subject-section">
         <div class="container">
             <h2>Video Lectures</h2>
@@ -188,6 +309,20 @@
                     <p>Input & Output Systems</p>
                 </div>
             </div>
+        </div>
+    </section>
+    <section id="upload-notes" class="subject-section">
+        <div class="container">
+            <h2>Upload Your Notes</h2>
+            <form action="{{ url_for('upload_notes', subject='deca') }}" method="POST" enctype="multipart/form-data" class="upload-form">
+                <label for="file">📂 Choose File</label>
+                <input type="file" name="file" id="file" required>
+    
+                <label for="video_link">🎥 Video Reference (Optional)</label>
+                <input type="url" name="video_link" id="video_link" placeholder="Paste YouTube or any video link">
+    
+                <button type="submit">🚀 Upload Notes</button>
+            </form>
         </div>
     </section>
     

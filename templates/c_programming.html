@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>C Programming</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
     <style>
         .subject-section {
@@ -88,20 +88,24 @@
         </div>
     </section>
 
-    <section id="flipbook-notes" class="flipbook-subject-section">
-        <div class="flipbook-container">
+    <section id="flipbook-notes" class="subject-section">
+        <div class="container">
             <h2>Handwritten Notes</h2>
             <div class="flipbook-cards-scroll-container">
                 <div class="cards-wrapper">
-                    <a href="#" class="flipbook-card">Introduction to C</a>
-                    <a href="#" class="flipbook-card">Data Types</a>
-                    <a href="#" class="flipbook-card">Operators</a>
-                    <a href="#" class="flipbook-card">Control Statements</a>
-                    <a href="#" class="flipbook-card">Functions</a>
-                    <a href="#" class="flipbook-card">Arrays</a>
-                    <a href="#" class="flipbook-card">Pointers</a>
-                    <a href="#" class="flipbook-card">Structures</a>
-                    <a href="#" class="flipbook-card">File Handling</a>
+                    {% for note in notes %}
+                        <div class="flipbook-card">
+                            <a href="{{ url_for('download_notes', filename=note.filename, subject='c_programming') }}">
+                                📄 {{ note.filename }}
+                            </a>
+                            {% if note.video_link %}
+                                <br>
+                                <a href="{{ note.video_link }}" target="_blank" class="video-link">
+                                    🎥 Watch Video
+                                </a>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
