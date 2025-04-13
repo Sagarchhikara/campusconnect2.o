@@ -201,7 +201,7 @@
                         </form>
                     </div>
                 </li>
-                <li><a href="user_page.html"><i class='bx bx-user' style="font-size: x-large;"></i></a></li>
+                <li><a href="{{ url_for('profile')}}"><i class='bx bx-user' style="font-size: x-large;"></i></a></li>
 
                 <img class="cross" src="{{ url_for('static', filename='images/close-116-512.png') }}" alt="cross">
             </ul>
@@ -449,38 +449,38 @@
 
 
 
-                    <a href="#">
+                    <a href="{{url_for('python')}}">
                         <div class="card">
                             <h1>Python</h1>
                             <p>Problem Solving Using Python Programming</p>
-                            <img src="/images/python.png" alt="Python">
+                            <img src="{{ url_for('static', filename='images/python.png')}}" alt="Python">
                         </div>
                     </a>
 
 
 
-                    <a href="#">
+                    <a href="{{ url_for('fee') }}">
                         <div style="background: black;" class="card">
                             <h1 style="color: white;">Frontend Engineering</h1>
                             <p style="color: white;">Bringing designs to life with the power of HTML, CSS, and
                                 JavaScript!</p>
-                            <img src="/images/fee.jpg" alt="FEE">
+                            <img src="{{ url_for('static',filename='images/fee.png')}}" alt="FEE">
                         </div>
                     </a>
 
 
 
-                    <a href="#">
+                    <a href="{{ url_for('mcp')}}">
                         <div class="card">
                             <h1>MCP</h1>
                             <p>Modern Computational Physics </p>
-                            <img src="/images/MCP.webp" alt="MCP">
+                            <img src="{{ url_for('static',filename='images/MCP.webp')}}" alt="MCP">
                         </div>
                     </a>
 
 
 
-                    <a href="#">
+                    <a href="{{ url_for('casa') }}">
                         <div style="background: black;" class="card">
                             <h1 style="color: white;">CASA</h1>
                             <p style="color: white;">Calculus And Statical Analysis </p>

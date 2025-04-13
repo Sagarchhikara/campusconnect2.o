@@ -151,6 +151,28 @@ def dent():
     notes = Note.query.filter_by(subject="dent").all()
     return render_template('dent.html', notes=notes)
 
+@app.route('/python')
+def python():
+    notes = Note.query.filter_by(subject="python").all()
+    return render_template('python.html', notes=notes)
+
+@app.route('/casa')
+def casa():
+    notes = Note.query.filter_by(subject="casa").all()
+    return render_template('casa.html', notes=notes)
+
+@app.route('/mcp')
+def mcp():
+    notes = Note.query.filter_by(subject="mcp").all()
+    return render_template('mcp.html', notes=notes)
+
+@app.route('/fee')
+def fee():
+    notes = Note.query.filter_by(subject="fee").all()
+    return render_template('fee.html', notes=notes)
+
+
+
 @app.route('/download/<subject>/<filename>')
 def download_notes(subject, filename):
     return send_from_directory(os.path.join(app.config['UPLOAD_FOLDER'], subject), filename)
