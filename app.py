@@ -232,6 +232,10 @@ def upload_notes():
         flash("⚠️ Invalid file format!", "error")
 
     return render_template('upload_notes.html')
+# In app.py, after defining app
+os.makedirs(os.path.join(app.config['UPLOAD_FOLDER']), exist_ok=True)
+for subject in ['c_programming', 'operating_system', 'scm', 'deca', 'dent', 'profiles']:
+    os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'], subject), exist_ok=True)
 
 if __name__ == '__main__':
     with app.app_context():
