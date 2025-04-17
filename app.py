@@ -28,6 +28,10 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'  # redirects if user not logged in
 
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(int(user_id))
+
 class Role(Enum):
     STUDENT = "student"
     ADMIN = "admin"
@@ -61,10 +65,6 @@ class Note(db.Model):
     uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
     uploader_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     uploader = db.relationship('User', backref='notes')
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -174,8 +174,6 @@ def fee():
 @app.route('/404notfound')
 def not_found():
     return render_template('404notfound.html')
-
-
 
 @app.route('/download/<subject>/<filename>')
 def download_notes(subject, filename):
