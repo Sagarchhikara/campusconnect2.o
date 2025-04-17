@@ -1,0 +1,8 @@
+<div class="notes-container">
+    <h2>📚 Notes</h2>
+    <ul>
+        {% for note in notes %}
+            <li>{{ note.title }} - <a href="{{ note.link }}">View</a></li>
+        {% endfor %}
+    </ul>
+</div>

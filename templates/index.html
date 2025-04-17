@@ -1,0 +1,1463 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Campus Connect</title>
+    <link rel="stylesheet" href="/static/style.css">
+    <link rel="stylesheet" href="https://unpkg.com/boxicons@latest/css/boxicons.min.css">
+</head>
+
+<body>
+
+    <div id="cookie-popup" class="cookie-popup">
+        <p>This website uses cookies to ensure you get the best experience on our website.
+            <a href="/privacy-policy">Learn more</a>
+        </p>
+        <button id="accept-cookies">Accept</button>
+        <button id="reject-cookies">Reject</button>
+    </div>
+    <style>
+        .cookie-popup {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: 80%;
+            max-width: 600px;
+            z-index: 1000;
+        }
+
+        .cookie-popup p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        .cookie-popup a {
+            color: #4caf50;
+            text-decoration: none;
+        }
+
+        .cookie-popup a:hover {
+            text-decoration: underline;
+        }
+
+        .cookie-popup button {
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+
+        .cookie-popup button#reject-cookies {
+            background-color: #f44336;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cookiePopup = document.getElementById("cookie-popup");
+            const acceptCookies = document.getElementById("accept-cookies");
+            const rejectCookies = document.getElementById("reject-cookies");
+            if (!localStorage.getItem("cookieConsent")) {
+                cookiePopup.style.display = "flex";
+            }
+            acceptCookies.addEventListener("click", function () {
+                localStorage.setItem("cookieConsent", "accepted");
+                cookiePopup.style.display = "none";
+            });
+            rejectCookies.addEventListener("click", function () {
+                localStorage.setItem("cookieConsent", "rejected");
+                cookiePopup.style.display = "none";
+            });
+        });
+    </script>
+
+
+
+    <div class="loader-progress-container">
+        <div class="loader-progress-bar" id="loader-progress-bar"></div>
+    </div>
+    <style>
+        .loader-progress-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: rgba(0, 0, 0, 0.1);
+            z-index: 10000;
+        }
+
+        .loader-progress-bar {
+            height: 5px;
+            width: 0%;
+            background: #007bff;
+            transition: width 0.2s ease;
+        }
+
+        #scrollToTopBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 15px;
+            font-size: 18px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 999;
+        }
+
+        #scrollToTopBtn.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .flash-messages {
+            text-align: center;
+            margin: 10px auto;
+            width: 80%;
+        }
+
+        .flash-message {
+            padding: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .flash-message.error {
+            background-color: #ffcccc;
+            color: #cc0000;
+        }
+
+        .flash-message.success {
+            background-color: #ccffcc;
+            color: #008000;
+        }
+    </style>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+            const progressBar = document.getElementById("loader-progress-bar");
+            window.addEventListener("scroll", function () {
+                let scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+                let scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+                let progress = (scrollTop / scrollHeight) * 100;
+                progressBar.style.width = progress + "%";
+                if (scrollTop > 20) {
+                    scrollToTopBtn.classList.add("show");
+                } else {
+                    scrollToTopBtn.classList.remove("show");
+                }
+            });
+            scrollToTopBtn.addEventListener("click", () => {
+                window.scrollTo({
+                    top: 0,
+                    behavior: "smooth"
+                });
+            });
+        });
+    </script>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo">
+                <h2
+                    style="font-family: Verdana, Geneva, Tahoma, sans-serif; font-weight: 500; color: rgba(0, 0, 0, 0.815);">
+                    <i class='bx bx-code'></i></i></i>
+                </h2>
+            </div>
+            <ul id="nav-list">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="#notes">Notes</a></li>
+                <li><a href="{{ url_for('upload_notes') }}">📤 Upload Notes</a></li>
+
+                <li class="dropdown">
+                    <a href="">User</a>
+                    <div class="login-dropdown">
+                        <form>
+                            <a href="{{ url_for('login') }}" class="btn-link">
+                                <button type="button">Login</button>
+                            </a>
+                            <a href="{{ url_for('signup') }}" class="btn-link">
+                                <button type="button">Sign Up</button>
+                            </a>
+                        </form>
+                    </div>
+                </li>
+                <li><a href="{{ url_for('profile')}}"><i class='bx bx-user' style="font-size: x-large;"></i></a></li>
+
+                <img class="cross" src="{{ url_for('static', filename='images/close-116-512.png') }}" alt="cross">
+            </ul>
+            <div class="nav-icons">
+                <img class="menuopen" src="{{ url_for('static', filename='images/hamburger-menu-5.png') }}" alt="menu">
+            </div>
+
+        </div>
+
+        <section class="intro-section">
+            <div class="intro-container">
+                <div class="fullscreen-text"><i class='bx bx-navigation'></i> Campus Connect</div>
+                <p class="subheading">Find top-rated study notes from students taking the same courses as you.</p>
+                <div class="search-container">
+                    <input type="text" class="search-bar" placeholder="Search for notes...">
+                    <i class='bx bx-search search-icon'></i>
+                </div>
+            </div>
+        </section>
+        <style>
+            .intro-section {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                background: linear-gradient(180deg, black, rgb(22, 22, 22),rgb(61, 61, 61),rgb(141, 141, 141),white);
+                overflow: hidden;
+                flex-direction: column;
+                text-align: center;
+                color: white;
+                padding: 20px;
+            }
+
+            .intro-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                transform: translateY(-30px);
+                transition: transform 0.5s ease-out;
+            }
+
+            .fullscreen-text {
+                font-size: 3rem;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+
+            .subheading {
+                font-size: 1.2rem;
+                font-weight: 400;
+                opacity: 0.8;
+                margin-bottom: 20px;
+            }
+
+            .search-container {
+                position: relative;
+                display: flex;
+                align-items: center;
+                background: white;
+                border-radius: 50px;
+                padding: 5px 20px;
+                width: 80%;
+                max-width: 600px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+            }
+
+            .search-bar {
+                flex: 1;
+                border: none;
+                outline: none;
+                font-size: 1rem;
+                padding: 10px;
+                border-radius: 50px;
+            }
+
+            .search-icon {
+                font-size: 1.5rem;
+                color: gray;
+                cursor: pointer;
+            }
+
+            @media (max-width: 768px) {
+                .fullscreen-text {
+                    font-size: 2rem;
+                }
+
+                .subheading {
+                    font-size: 1rem;
+                }
+
+                .search-bar {
+                    font-size: 0.9rem;
+                }
+            }
+        </style>
+
+        <script>
+            document.addEventListener("scroll", function () {
+                let introContainer = document.querySelector(".intro-container");
+                let notesSection = document.querySelector("#notes");
+
+                let scrollPosition = window.scrollY;
+                let introHeight = introContainer.offsetHeight;
+                let notesPosition = notesSection.offsetTop;
+
+                if (scrollPosition < notesPosition - introHeight) {
+                    let scaleFactor = 1 + scrollPosition / 1200;
+                    let translateY = scrollPosition / 10 - 30;
+                    introContainer.style.transform = `scale(${Math.min(scaleFactor, 1.2)}) translateY(${translateY}px)`;
+                } else {
+                    introContainer.style.transform = "scale(1.2) translateY(30px)";
+                }
+            });
+        </script>
+
+
+        <div class="feature-container">
+            <div class="feature">
+                <img src="{{ url_for('static', filename='images/personalized_learning_icon.png') }}"
+                    alt="Personalized Learning">
+                <h3>Personalized Learning</h3>
+                <p>Students practice at their own pace, filling in gaps in their understanding and accelerating their
+                    learning.</p>
+            </div>
+            <div class="feature">
+                <img src="{{ url_for('static', filename='images/trusted_content_icon.png') }}" alt="Trusted Content">
+                <h3>Trusted Content</h3>
+                <p>Created by experts, covering subjects like math, science, history, and more. Free for learners and
+                    teachers.</p>
+            </div>
+            <div class="feature">
+                <img src="{{ url_for('static', filename='images/empower_teachers_icon.png') }}" alt="Empower Teachers">
+                <h3>Tools to Empower Teachers</h3>
+                <p>Teachers can identify gaps, tailor instruction, and meet the needs of every student.</p>
+            </div>
+        </div>
+
+        <style>
+            .feature-container {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                text-align: center;
+                max-width: 900px;
+                width: 90%;
+                background: white;
+                padding: 30px;
+                margin: auto;
+            }
+
+            .feature {
+                flex: 1;
+                padding: 20px;
+            }
+
+            .feature img {
+                width: 60px;
+                height: auto;
+            }
+
+            .feature h3 {
+                font-size: 1.5em;
+                margin: 10px 0;
+            }
+
+            .feature p {
+                color: #555;
+            }
+
+            @media (max-width: 768px) {
+                .feature-container {
+                    flex-direction: column;
+                    align-items: center;
+                    padding: 20px;
+                }
+
+                .feature {
+                    padding: 20px 0;
+                }
+            }
+        </style>
+
+
+
+
+        <section class="notes" id="notes">
+            <div class="card-container">
+                <h1>Stay organized with the latest updates to your notes !</h1>
+                <div class="cards">
+
+
+
+                    <a href="{{ url_for('c_programming') }}">
+                        <div style="background: black;" class="card">
+                            <h1 style="color: white;">C Programming</h1>
+                            <p style="color: white;">Master the fundamentals of C – the foundation of modern
+                                programming!</p>
+                            <img src="{{ url_for('static', filename='images/c.jpg') }}" alt="C programming">
+                        </div>
+                    </a>
+
+
+
+                    <a href="{{ url_for('operating_system') }}">
+                        <div class="card">
+                            <h1>Operating System </h1>
+                            <p>Master the core concepts of multitasking, memory management, and process scheduling in
+                                Operating Systems</p>
+                            <img src="{{ url_for('static', filename='images/operating system.jpg') }}"
+                                alt="operating system">
+                        </div>
+                    </a>
+
+
+                    <a href="{{ url_for('scm') }}">
+                        <div style="background: black;" class="card">
+                            <h1 style="color: white;">SCM</h1>
+                            <p style="color: white;">Efficiently track, manage, and collaborate on code with powerful
+                                version control systems</p>
+                            <img style="height: 180px;" src="{{ url_for('static', filename='images/git.jpg') }}"
+                                alt="scm">
+                        </div>
+                    </a>
+
+
+
+                    <a href="{{ url_for('deca') }}">
+                        <div class="card">
+                            <h1>DECA</h1>
+                            <p>Unraveling the mysteries of the universe, one equation at a time</p>
+                            <img src="{{ url_for('static', filename='images/deca1.jpg') }}" alt="DECA">
+                        </div>
+                    </a>
+
+
+
+                    <a href="{{ url_for('dent') }}">
+                        <div class="card">
+                            <h1>DE & T</h1>
+                            <p>Differential equations and transformations </p>
+                            <img src="{{ url_for('static', filename='images/DENT.jpg') }}" alt="de%t">
+                        </div>
+                    </a>
+
+
+
+                    <a href="{{url_for('python')}}">
+                        <div class="card">
+                            <h1>Python</h1>
+                            <p>Problem Solving Using Python Programming</p>
+                            <img src="{{ url_for('static', filename='images/python.png')}}" alt="Python">
+                        </div>
+                    </a>
+
+
+
+                    <a href="{{ url_for('fee') }}">
+                        <div style="background: black;" class="card">
+                            <h1 style="color: white;">Frontend Engineering</h1>
+                            <p style="color: white;">Bringing designs to life with the power of HTML, CSS, and
+                                JavaScript!</p>
+                            <img src="{{ url_for('static',filename='images/fee.png')}}" alt="FEE">
+                        </div>
+                    </a>
+
+
+
+                    <a href="{{ url_for('mcp')}}">
+                        <div class="card">
+                            <h1>MCP</h1>
+                            <p>Modern Computational Physics </p>
+                            <img src="{{ url_for('static',filename='images/MCP.webp')}}" alt="MCP">
+                        </div>
+                    </a>
+
+
+
+                    <a href="{{ url_for('casa') }}">
+                        <div style="background: black;" class="card">
+                            <h1 style="color: white;">CASA</h1>
+                            <p style="color: white;">Calculus And Statical Analysis </p>
+                            <img src="/images/CASA.jpg" alt="CASA">
+                        </div>
+                    </a>
+
+
+
+
+                </div>
+            </div>
+        </section>
+
+        <div class="text">
+            <h1>Your Notes, Your Way - Organized and Always Accessible .</h1>
+        </div>
+
+
+
+
+        <div class="counters">
+            <div>
+                <div class="counter">
+                    <h1><span data-count="243">0</span></h1>
+                    <h3>Notes</h3>
+                </div>
+                <div class="counter">
+                    <h1><span data-count="2453">0</span></h1>
+                    <h3>Achievers</h3>
+                </div>
+                <div class="counter">
+                    <h1><span data-count="121">0</span></h1>
+                    <h3>Video Lectures</h3>
+                </div>
+                <div class="counter">
+                    <h1><span data-count="137">0</span></h1>
+                    <h3>Qualified Professors</h3>
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+            const counters = document.querySelectorAll(".counter span");
+            const container = document.querySelector(".counters");
+            let activated = false;
+
+            function animateCounter(counter) {
+                const target = +counter.getAttribute("data-count");
+                let count = 0;
+                const speed = 200;
+                const increment = Math.ceil(target / speed);
+
+                const interval = setInterval(() => {
+                    count += increment;
+                    if (count >= target) {
+                        count = target;
+                        clearInterval(interval);
+                    }
+                    counter.innerText = count;
+                }, 1);
+            }
+
+            window.addEventListener("scroll", () => {
+                if (window.pageYOffset > container.offsetTop - window.innerHeight + 200 && !activated) {
+                    counters.forEach(counter => {
+                        animateCounter(counter);
+                    });
+                    activated = true;
+                }
+            });
+        </script>
+
+
+
+
+        <style>
+            .counters {
+                padding-top: 60px;
+                background: #ffffff;
+                color: #000000;
+                text-align: center;
+            }
+
+            .counters>div {
+                max-width: 900px;
+                margin: 0 auto;
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 4em 2em;
+
+            }
+
+            .counter {
+                position: relative;
+            }
+
+            .counter h1 {
+                font-size: 3em;
+                margin-bottom: 0.5em;
+            }
+
+            .counter:not(:last-child)::before {
+                width: 2px;
+                position: absolute;
+                height: 3em;
+                top: 50%;
+                transform: translateY(-50%);
+                right: -1em;
+            }
+
+            @media screen and (max-width: 900px) and (min-width: 501px) {
+                .counters>div {
+                    grid-template-columns: 1fr 1fr;
+                }
+
+                .counter:nth-child(2)::before {
+                    display: none;
+                }
+            }
+
+            @media screen and (max-width: 500px) {
+                .counters>div {
+                    grid-template-columns: 1fr;
+                    row-gap: 5em;
+                }
+
+                .counter:not(:last-child)::before {
+                    width: 90%;
+                    height: 2px;
+                    top: inintial;
+                    right: initial;
+                    bottom: -3em;
+                    left: 50%;
+                    transform: translateY(-50%);
+                }
+            }
+        </style>
+        <h1 style="text-align: center; margin-top: 70px;">
+            Insight Notes
+        </h1>
+        <section class="all-notes">
+            <div class="note-card">
+                <img src="{{ url_for('static', filename='images/differential_equations_notes.png') }}" alt="Note 1">
+            </div>
+            <div class="note-card">
+                <img src="{{ url_for('static', filename='images/dsa_notes.png') }}" alt="Note 2">
+            </div>
+            <div class="note-card">
+                <img src="{{ url_for('static', filename='images/operating_system_notes.png') }}" alt="Note 3">
+            </div>
+            <div class="note-card">
+                <img src="{{ url_for('static', filename='images/+.png') }}" alt="Note 4">
+            </div>
+            <div class="note-card">
+                <img src="{{ url_for('static', filename='images/note4.png') }}" alt="Note 5">
+            </div>
+        </section>
+        <style>
+            .all-notes {
+                display: flex;
+                overflow-x: auto;
+                white-space: nowrap;
+                scroll-behavior: smooth;
+                padding: 20px 20px;
+                padding-right: 6%;
+                padding-left: 6%;
+            }
+
+            .all-notes::-webkit-scrollbar {
+                display: none;
+            }
+
+        .note-card {
+            flex: 0 0 auto;
+            width: 250px;
+            height: 300px;
+            margin: 0 10px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .note-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+</style>
+
+
+
+        <div class="mascot-container">
+            <div class="mascot">
+                <img src="{{ url_for('static', filename='images/mascot.jpg') }}" alt="mascot">
+            </div>
+            <div class="chat-container">
+                <div class="chat-header">EduChat</div>
+                <div class="chat-box" id="chatBox">
+                    <div class="bot-message">Hi! How can I help you?</div>
+                </div>
+                <div class="chat-input">
+                    <input type="text" id="userInput" placeholder="Type a message...">
+                    <button onclick="sendMessage()">Send</button>
+                </div>
+            </div>
+        </div>
+
+        <style>
+            .mascot-container {
+                margin-top: 40px;
+                display: flex;
+                align-items: center;
+                gap: 20px;
+                max-width: 1200px;
+                width: 100%;
+                padding: 20px;
+                padding-bottom: 35px;
+            }
+
+            .mascot {
+                flex: 1;
+                text-align: center;
+            }
+
+            .mascot img {
+                max-width: 60%;
+                height: auto;
+            }
+
+            .chat-container {
+                flex: 1;
+                max-width: 350px;
+                height: 500px;
+                background: white;
+                border-radius: 15px;
+                box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+
+            .chat-header {
+                background: black;
+                color: white;
+                padding: 15px;
+                text-align: center;
+                font-weight: bold;
+            }
+
+            .chat-box {
+                flex: 1;
+                padding: 10px;
+                overflow-y: auto;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .user-message,
+            .bot-message {
+                padding: 8px 12px;
+                border-radius: 10px;
+                margin: 5px;
+                max-width: 70%;
+            }
+
+            .user-message {
+                background: #202121;
+                color: white;
+                align-self: flex-end;
+            }
+
+            .bot-message {
+                background: #e0e0e0;
+                color: black;
+            }
+
+            .chat-input {
+                display: flex;
+                padding: 10px;
+                background: white;
+                border-top: 1px solid #ddd;
+            }
+
+            .chat-input input {
+                flex: 1;
+                padding: 8px;
+                border: none;
+                border-radius: 5px;
+                outline: none;
+            }
+
+            .chat-input button {
+                margin-left: 10px;
+                padding: 8px 12px;
+                background: black;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+
+            .chat-input button:hover {
+                background-color: #b0b0b0;
+                transition: 0.2s ease;
+            }
+
+            @media (min-width: 1024px) {
+                .mascot img {
+                    max-width: 50%;
+                }
+            }
+
+            @media (max-width: 768px) {
+                .container {
+                    flex-direction: column;
+                    align-items: center;
+                }
+
+                .mascot {
+                    order: -1;
+                    margin-bottom: 20px;
+                }
+
+                .chat-container {
+                    max-width: 100%;
+                }
+            }
+        </style>
+
+        <script>
+            function sendMessage() {
+                let userInput = document.getElementById("userInput").value;
+                let chatBox = document.getElementById("chatBox");
+                if (userInput.trim() === "") return;
+
+                let userMessage = `<div class='user-message'>${userInput}</div>`;
+                chatBox.innerHTML += userMessage;
+                document.getElementById("userInput").value = "";
+
+                setTimeout(() => {
+                    let botReply = `<div class='bot-message'>${getBotResponse(userInput)}</div>`;
+                    chatBox.innerHTML += botReply;
+                    chatBox.scrollTop = chatBox.scrollHeight;
+                }, 1000);
+            }
+
+            function getBotResponse(input) {
+                input = input.toLowerCase();
+                let responses = {
+                    "hello": "Hello! How can I assist you today?",
+                    "courses": "We offer various courses including AI, Web Dev, and more!",
+                    "events": "Upcoming events are listed on the Campus Portal.",
+                    "bye": "Goodbye! Have a great day!",
+                    "hi": "hello",
+                    "great": "You're Welcome ! , feel free to ask anything",
+                    "thanks": "You're Welcome ! , feel free to ask anything",
+                    "notes": "You can create, edit, and manage your notes easily using our Notes Manager.",
+                    "save note": "To save a note, just type it and click the save button!",
+                    "delete note": "You can delete a note by clicking on the delete icon next to it.",
+                    "edit note": "Click on the note you want to edit, make changes, and save.",
+                    "search notes": "Use the search bar to find specific notes instantly!",
+                    "export notes": "You can export your notes as a PDF or text file for easy access.",
+                    "share notes": "You can share notes via email or generate a shareable link.",
+                    "backup notes": "Your notes are automatically backed up to prevent data loss.",
+                    "dark mode": "You can switch to dark mode for a better reading experience.",
+                    "sync notes": "Your notes sync across all your devices when logged in.",
+                    "help": "Need help with the Notes Manager? Visit our Help section for FAQs and guides."
+                };
+                return responses[input] || "I'm not sure. Try asking something else!";
+            }
+        </script>
+
+
+
+
+<div class="quiz-container">
+    <h1 class="quiz-heading">Test Your Knowledge with MCQs</h1>
+    <p class="quiz-subheading">Practice quizzes to enhance your understanding in various subjects.</p>
+
+    <div class="quiz-buttons">
+        
+        <button class="quiz-button">Source Code Management</button>
+        <button class="quiz-button">C Programming</button>
+        <button class="quiz-button">Python Programming</button>
+        <button class="quiz-button">Data Structures</button>
+        <button class="quiz-button">Operating System</button>
+        <button class="quiz-button">DECA</button>
+        <button class="quiz-button">MCP</button>
+        <button class="quiz-button">CASA</button>
+        <button class="quiz-button">DE & T</button>
+        <button class="quiz-button">HTML</button>
+        <button class="quiz-button">JAVASCRIPT</button>
+    </div>
+</div>
+<style>
+    
+        .quiz-container {
+            max-width: 900px;
+            margin: auto;
+            padding: 20px 20px;
+            padding-top: 40px;
+        }
+
+        .quiz-heading {
+            font-size: 28px;
+            font-weight: bold;
+            color: #222;
+        }
+
+        .quiz-subheading {
+            font-size: 18px;
+            color: #555;
+            margin: 10px 0 20px;
+        }
+
+        .quiz-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .quiz-button {
+            padding: 12px 20px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 30px;
+            cursor: pointer;
+            background-color: white;
+            transition: 0.3s;
+        }
+
+        .quiz-button:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+</style>
+
+
+
+
+
+    <div class="learning-container">
+        <div class="learning-devices">
+            <div class="learning-device">
+                <img src="/images/learning.webp" alt="Laptop View">
+            </div>
+        </div>
+        <div class="learning-text">
+            <div class="learning-info">
+                <h3>Learn faster</h3>
+                <p>Short 5-minute lessons make it easier to pay attention and remember what you learned.</p>
+            </div>
+            <div class="learning-info">
+                <h3>Stay motivated</h3>
+                <p>Animated videos bring concepts to life with examples and a touch of humor.</p>
+            </div>
+            <div class="learning-info">
+                <h3>Study smarter</h3>
+                <p>Expert teachers help you focus on what's most important so you are confident and prepared.</p>
+            </div>
+        </div>
+    </div>
+    <style>
+
+.learning-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 50px;
+            max-width: 1200px;
+            margin: auto;
+        }
+        .learning-text {
+            max-width: 400px;
+        }
+        .learning-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .learning-info {
+            margin-bottom: 15px;
+        }
+        .learning-info h3 {
+            font-size: 20px;
+            margin-bottom: 5px;
+        }
+        .learning-devices {
+            display: flex;
+            align-items: center;
+        }
+        .learning-device {
+            max-width: 300px;
+            margin-right: 20px;
+        }
+        .learning-device img {
+            width: 600px; 
+            height: auto; 
+            object-fit: cover;
+            border-radius: 7px;
+        }
+        @media (max-width: 1024px) { 
+            .learning-device img {
+                width: 500px;
+            }
+        }
+
+        @media (max-width: 768px) { 
+            .learning-container {
+                flex-direction: column;
+                text-align: center;
+            }
+            .learning-device img {
+                width: 100%; 
+                max-width: 300px;
+            }
+        }
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <div class="pro-container">
+            <h1 class="pro-heading">Qualified Professors</h1>
+            <div class="pro-slider">
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Mohit Kakkar</h3>
+                    <p class="pro-subject">Engineering Mathematics</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Monika Sethi</h3>
+                    <p class="pro-subject">Operating System</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Renu Popli</h3>
+                    <p class="pro-subject">SCM</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Chandra Prabha</h3>
+                    <p class="pro-subject">Python / C</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Ekta Thakur</h3>
+                    <p class="pro-subject">Deca</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Neha Sharma</h3>
+                    <p class="pro-subject">Frontend Engineering</p>
+                </div>
+                <div class="pro-card">
+                    <img src="https://via.placeholder.com/150" alt="" class="pro-image">
+                    <h3 class="pro-name">Shivani Punj</h3>
+                    <p class="pro-subject">MCP</p>
+                </div>
+            </div>
+        </div>
+        <style>
+            .pro-container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .pro-heading {
+                margin-top: 60px;
+                ;
+                text-align: center;
+                font-size: 2.5rem;
+                margin-bottom: 20px;
+                color: #000000;
+            }
+
+            .pro-slider {
+                display: flex;
+                overflow-x: auto;
+                gap: 20px;
+                padding-bottom: 20px;
+            }
+
+            .pro-slider::-webkit-scrollbar {
+                display: none;
+            }
+
+            .pro-card {
+                flex: 0 0 auto;
+                width: 250px;
+                height: 350px;
+                background-color: white;
+                border-radius: 10px;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+                text-align: center;
+                transition: transform 0.3s ease;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .pro-card:hover {
+                cursor: pointer;
+            }
+
+            .pro-image {
+                width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                margin-bottom: 20px;
+                object-fit: cover;
+            }
+
+            .pro-name {
+                font-size: 1.5rem;
+                margin-bottom: 15px;
+                color: black;
+            }
+
+            .pro-subject {
+                font-size: 1rem;
+                color: #676767;
+            }
+        </style>
+        <section class="resources-section">
+            <h2>Coding Essentials</h2>
+            <div class="logo-scroll-container">
+                <div class="logo-scroll-wrapper">
+                    <div class="logo-scroll">
+                        <a href="https://leetcode.com" target="_blank">
+                            <img src="{{ url_for('static', filename='images/leetcode.webp') }}" alt="leetcode"
+                                class="circular-logo">
+
+                        </a>
+                        <a href="https://github.com" target="_blank">
+                            <img src="{{ url_for('static', filename='images/github_logo.png') }}" alt="GitHub"
+                                class="circular-logo">
+
+                        </a>
+                        <a href="https://stackoverflow.com" target="_blank">
+                            <img src="{{ url_for('static', filename='images/stack_overflow.webp') }}"
+                                alt="stack_overflow" class="circular-logo">
+
+                        </a>
+                        <a href="https://www.geeksforgeeks.org" target="_blank">
+                            <img src="{{ url_for('static', filename='images/geekforgeeks.png') }}" alt="GeeksforGeeks"
+                                class="circular-logo">
+
+                        </a>
+                        <a href="https://www.hackerrank.com" target="_blank">
+                            <img src="{{ url_for('static', filename='images/hackerrank.webp') }}" alt="hackerrank"
+                                class="circular-logo">
+
+                        </a>
+                        <a href="https://www.kaggle.com" target="_blank">
+                            <img src="{{ url_for('static', filename='images/kaggle.webp') }}" alt="kaggle"
+                                class="circular-logo">
+
+                        </a>
+                        <a href="https://www.freecodecamp.org" target="_blank">
+                            <img src="{{ url_for('static', filename='images/free_code_Camp.webp') }}"
+                                alt="free-code-camp" class="circular-logo">
+
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <style>
+            .resources-section {
+                padding: 20px;
+                margin: 20px;
+                background-color: #f9f9f9;
+                text-align: center;
+            }
+
+            .resources-section h2 {
+                margin-bottom: 20px;
+                font-size: 24px;
+                color: #000000;
+            }
+
+            .logo-scroll-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                width: 100%;
+                overflow: hidden;
+            }
+
+            .logo-scroll-wrapper {
+                width: 100%;
+                max-width: 1200px;
+                overflow-x: auto;
+                scroll-behavior: smooth;
+                white-space: nowrap;
+                padding: 10px 0;
+            }
+
+            .logo-scroll a {
+                margin: 0 15px;
+            }
+
+            .circular-logo {
+                height: 80px;
+                width: 80px;
+                border-radius: 50%;
+                object-fit: cover;
+                transition: transform 0.3s ease;
+            }
+
+            .circular-logo:hover {
+                transform: scale(1.04);
+            }
+        </style>
+
+
+
+
+<section class="faq-container">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">What is Campus Connect?</p>
+        <div class="faq-answer">Campus Connect is a platform designed to help students connect with academic and extracurricular opportunities within their university.</div>
+        <br>
+        <hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">How can I register on Campus Connect?</p>
+        <div class="faq-answer">You can register by signing up with your university email and verifying your identity through the provided verification process.</div>
+        <br>
+        <hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">What features does Campus Connect offer?</p>
+        <div class="faq-answer">Campus Connect provides networking opportunities, event updates, study groups, and academic resources tailored to your university.</div>
+        <br><hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">Is Campus Connect free to use?</p>
+        <div class="faq-answer">Yes, the platform is free for students and faculty members of registered universities.</div> <br><hr>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+        <p class="faq-question">How can I post an event on Campus Connect?</p>
+        <div class="faq-answer">Registered users can submit event details through the event submission form, which will be reviewed before being published.</div><br><hr>
+    </div>
+</section>
+<style>
+    .faq-container{
+        color: white;
+        padding: 50px 50px;
+        background: linear-gradient(90deg, #000000, #2c2c2c);
+    }
+    .faq-container h2{
+        text-align: center;
+    }
+        .faq-item {
+            background: transparent;
+            padding: 15px;
+            cursor: pointer;
+        }
+        .faq-answer {
+            display: none;
+            padding: 10px;
+            background: transparent;
+        }
+</style>
+<script>
+    function toggleFAQ(element) {
+        let answer = element.querySelector('.faq-answer');
+        answer.style.display = (answer.style.display === 'block') ? 'none' : 'block';
+    }
+</script>
+
+
+
+        <div class="menu-items">
+            <div class="menu-list">
+                <ul class="footer-column">
+                    <li>
+                        <h5>Quick Links</h5>
+                    </li>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="#notes">Notes</a></li>
+                </ul>
+                <ul class="footer-column">
+                    <li>
+                        <h5>Subjects</h5>
+                    </li>
+                    <li><a href="c_programming.html">C Programming</a></li>
+                    <li><a href="operating_system.html">Operating System</a></li>
+                    <li><a href="scm.html">Source Code Management</a></li>
+                    <li><a href="deca.html">DECA</a></li>
+                    <li><a href="dent.html">DE & T</a></li>
+                </ul>
+                <ul class="footer-column">
+                    <li>
+                        <h5>Follow Us</h5>
+                    </li>
+                    <li>
+                        <a href="https://www.instagram.com/yourprofile" target="_blank">
+                            <i class='bx bxl-instagram'></i> Instagram
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://twitter.com/yourprofile" target="_blank">
+                            <i class='bx bxl-twitter'></i> Twitter
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://wa.me/yourphonenumber" target="_blank">
+                            <i class='bx bxl-whatsapp'></i> WhatsApp
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/yourprofile" target="_blank">
+                            <i class='bx bxl-github'></i> GitHub
+                        </a>
+                    </li>
+                </ul>
+                <div class="footer-column email-section">
+                    <h5>Contact Us</h5>
+                    <form class="email-form">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit">Send</button>
+                    </form>
+                    <div class="whatsapp-container">
+                        <div class="whatsapp-qr-section">
+                            <img src="/images/qrcode.jpg" alt="WhatsApp QR Code">
+                            <p>Scan to Join <i class='bx bxl-whatsapp'></i></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="footer">
+                <p>© 2025 Notes Manager. All rights reserved.</p>
+                <button id="scrollToTopBtn" title="Go to top">↑</button>
+            </div>
+            <style>
+                #scrollToTopBtn {
+                    position: fixed;
+                    bottom: 20px;
+                    right: 20px;
+                    padding: 10px 15px;
+                    font-size: 18px;
+                    background-color: #007bff;
+                    color: white;
+                    border: none;
+                    border-radius: 5px;
+                    cursor: pointer;
+                    opacity: 0;
+                    visibility: hidden;
+                    transition: opacity 0.3s ease, visibility 0.3s ease;
+                    z-index: 999;
+                }
+        
+                #scrollToTopBtn.show {
+                    opacity: 1;
+                    visibility: visible;
+                }
+            </style>
+            <script>
+                document.addEventListener("DOMContentLoaded", function () {
+                    const scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+                    window.onscroll = function () {
+                        if (document.documentElement.scrollTop > 20) {
+                            scrollToTopBtn.classList.add("show");
+                        } else {
+                            scrollToTopBtn.classList.remove("show");
+                        }
+                    };
+        
+                    scrollToTopBtn.addEventListener("click", () => {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: "smooth"
+                        });
+                    });
+                });
+            </script>
+        </div>
+
+    </div>
+    <script>
+        let nav_list = document.getElementById('nav-list')
+        let openMenu = document.querySelector('.menuopen')
+        let cross = document.querySelector('.cross')
+        openMenu.addEventListener('click', () => {
+            nav_list.style.opacity = '100%'
+            openMenu.style.display = 'none'
+        })
+        cross.addEventListener('click', () => {
+            nav_list.style.opacity = '0%';
+            setTimeout(() => {
+                openMenu.style.display = 'block'
+            }, 400)
+        })
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const cards = document.querySelectorAll(".card");
+
+            const observer = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("show");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.2 }
+            );
+
+            cards.forEach((card) => {
+                observer.observe(card);
+            });
+        });
+    </script>
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const textSection = document.querySelector(".text");
+
+            const observer = new IntersectionObserver(
+                (entries, observer) => {
+                    entries.forEach((entry) => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add("show");
+                            observer.unobserve(entry.target);
+                        }
+                    });
+                },
+                { threshold: 0.2 }
+            );
+
+            observer.observe(textSection);
+        });
+    </script>
+
+</body>
+
+</html>
