@@ -14,7 +14,7 @@
 | Frontend    | HTML, CSS, JavaScript |
 | Backend     | Flask (Python)      |
 | Database     | SQLite (for now)    |
-| APIs         | OpenAI API          |
+| APIs         | None          |
 | Storage       | Local (switching to S3 for scaling) |
 🎯 Installation  
 🔽 Clone the Repo  
