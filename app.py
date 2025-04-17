@@ -171,6 +171,10 @@ def fee():
     notes = Note.query.filter_by(subject="fee").all()
     return render_template('fee.html', notes=notes)
 
+@app.route('/404notfound')
+def not_found():
+    return render_template('404notfound.html')
+
 
 
 @app.route('/download/<subject>/<filename>')
