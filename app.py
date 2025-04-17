@@ -9,10 +9,12 @@ from enum import Enum
 from flask import abort
 from functools import wraps
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+import uuid
 
 
 app = Flask(__name__)  
-app.secret_key = 'your_secret_key_here'
+app.secret_key = os.getenv("SECRET_KEY", "dev_key")
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -30,7 +32,8 @@ login_manager.login_view = 'login'  # redirects if user not logged in
 
 @login_manager.user_loader
 def load_user(user_id):
-    return User.query.get(int(user_id))
+    return db.session.get(User, int(user_id))
+
 
 class Role(Enum):
     STUDENT = "student"
@@ -42,6 +45,7 @@ def role_required(role):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             if not current_user.is_authenticated or current_user.role != role:
+
                 abort(403)  # Forbidden access
             return f(*args, **kwargs)
         return decorated_function
@@ -238,6 +242,9 @@ def upload_notes():
 os.makedirs(os.path.join(app.config['UPLOAD_FOLDER']), exist_ok=True)
 for subject in ['c_programming', 'operating_system', 'scm', 'deca', 'dent', 'profiles']:
     os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'], subject), exist_ok=True)
+
+# Removed the line as 'file' is undefined in this context and not used elsewhere
+
 
 if __name__ == '__main__':
     with app.app_context():
