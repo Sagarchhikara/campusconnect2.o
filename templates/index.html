@@ -220,112 +220,96 @@
 
         </div>
 
-        <section class="intro-section">
-            <div class="intro-container">
-                <div class="fullscreen-text"><i class='bx bx-navigation'></i><h1">CAMPUS CONNECT</h1>
-                </div>
-                <div class="search-container">
-                    <input type="text" class="search-bar" placeholder="Search for notes...">
-                    <i class='bx bx-search search-icon'></i>
-                </div>
-            </div>
-        </section>
-        <style>
-            .intro-section {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                height: 100vh;
-                background: linear-gradient(180deg, black, rgb(22, 22, 22),rgb(61, 61, 61),rgb(141, 141, 141),white);
-                overflow: hidden;
-                flex-direction: column;
-                text-align: center;
-                color: white;
-                padding: 20px;
-            }
 
-            .intro-container {
-                display: flex;
-                flex-direction: column;
-                align-items: center;
-                transform: translateY(-30px);
-                transition: transform 0.5s ease-out;
-            }
 
-            .fullscreen-text {
-                font-size: 3rem;
-                font-weight: 700;
-                text-align: center;
-                margin-bottom: 10px;
-            }
 
-            .subheading {
-                font-size: 1.2rem;
-                font-weight: 400;
-                opacity: 0.8;
-                margin-bottom: 20px;
-            }
 
-            .search-container {
-                position: relative;
-                display: flex;
-                align-items: center;
-                background: white;
-                border-radius: 50px;
-                padding: 5px 20px;
-                width: 80%;
-                max-width: 600px;
-                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            }
+<script src="https://unpkg.com/split-type"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 
-            .search-bar {
-                flex: 1;
-                border: none;
-                outline: none;
-                font-size: 1rem;
-                padding: 10px;
-                border-radius: 50px;
-            }
+<section class="intro-section">
+  <div class="intro-container">
+    <div class="fullscreen-text">
+      <h1 id="heading">CAMPUS CONNECT</h1>
+    </div>
+  </div>
+</section>
 
-            .search-icon {
-                font-size: 1.5rem;
-                color: gray;
-                cursor: pointer;
-            }
+<style>
+  .intro-section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background: linear-gradient(200deg, black, rgb(22, 22, 22), rgb(32, 32, 32), rgb(96, 94, 94), rgb(255, 255, 255));
+    overflow: hidden;
+    flex-direction: column;
+    text-align: center;
+    color: white;
+    padding: 20px;
+  }
 
-            @media (max-width: 768px) {
-                .fullscreen-text {
-                    font-size: 2rem;
-                }
+  .intro-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translateY(-30px);
+    transition: transform 0.5s ease-out;
+  }
 
-                .subheading {
-                    font-size: 1rem;
-                }
+  .fullscreen-text {
+    font-size: 3rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 10px;
+  }
 
-                .search-bar {
-                    font-size: 0.9rem;
-                }
-            }
-        </style>
+  @media (max-width: 768px) {
+    .fullscreen-text {
+      font-size: 2rem;
+    }
+  }
+</style>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+      gsap.registerPlugin(ScrollTrigger);
+    
+      // Split the heading into characters
+      const text = new SplitType("#heading", { types: "chars" });
+    
+      // Set initial position of heading
+      gsap.set("#heading", { yPercent: 100 });
+    
+      // Intro animation on page load
+      gsap.to("#heading", {
+        yPercent: 0,
+        ease: "sine.out",
+        onComplete: scrollAnimation
+      });
+    
+      function scrollAnimation() {
+        const t1 = gsap.timeline({
+          scrollTrigger: {
+            trigger: "#heading",
+            start: "top top",
+            end: () => `+=${document.getElementById("heading").offsetHeight * 0.25}`,
+            scrub: 1
+          }
+        });
+    
+        t1.to(text.chars, {
+          yPercent: -100,
+          stagger: {
+            from: "center",
+            amount: 1
+          }
+        });
+      }
+    });
+    </script>
+    
 
-        <script>
-            document.addEventListener("scroll", function () {
-                let introContainer = document.querySelector(".intro-container");
-                let notesSection = document.querySelector("#notes");
-
-                let scrollPosition = window.scrollY;
-                let introHeight = introContainer.offsetHeight;
-                let notesPosition = notesSection.offsetTop;
-
-                if (scrollPosition < notesPosition - introHeight) {
-                    let scaleFactor = 1 + scrollPosition / 1200;
-                    let translateY = scrollPosition / 10 - 30;
-                    introContainer.style.transform = `scale(${Math.min(scaleFactor, 1.2)}) translateY(${translateY}px)`;
-                } else {
-                    introContainer.style.transform = "scale(1.2) translateY(30px)";
-                }
-            });
-        </script>
 
 
 
@@ -396,6 +380,38 @@
                 }
             }
         </style>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+        
+            <script>
+                window.addEventListener('load', () => {
+                    gsap.from(".feature", {
+                        duration: 1,
+                        y: 50,
+                        opacity: 0,
+                        stagger: 0.3,
+                        ease: "power3.out"
+                    });
+                });
+                document.querySelectorAll('.feature').forEach((feature) => {
+        feature.addEventListener('mouseenter', () => {
+            gsap.to(feature, {
+                scale: 1.05,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+        });
+
+        feature.addEventListener('mouseleave', () => {
+            gsap.to(feature, {
+                scale: 1,
+                duration: 0.3,
+                ease: "power2.out"
+            });
+        });
+    });
+            </script>
+
+    
 
 
 
