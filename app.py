@@ -252,7 +252,6 @@ else:
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-2.0-flash')
 
-# Update the chat route to handle errors better
 @app.route('/chat', methods=['POST'])
 def chat():
     user_input = request.json.get('message')
@@ -262,12 +261,28 @@ def chat():
     if not api_key:
         return jsonify({'response': 'Chat service is currently unavailable. API key not configured.'}), 200
 
+    # Keyword filter
+    allowed_keywords = ['notes', 'lecture', 'assignment', 'subject', 'topic', 'exam', 'discussion', 'schedule']
+    if not any(keyword in user_input.lower() for keyword in allowed_keywords):
+        return jsonify({'response': "❌ Please ask something related to your subjects or class content."}), 200
+
+    # Prompt control
+    chat_prompt = f"""
+    You are CampusConnect AI, a helpful assistant only allowed to respond to queries related to class notes, subjects, schedules, and other academic content from the CampusConnect platform.
+
+    If the question is unrelated (like personal advice, random trivia, jokes, etc.), respond with:
+    "I'm here to help only with CampusConnect-related queries. Please ask something relevant to your classes or subjects."
+    
+    User question: {user_input}
+    """
+
     try:
-        response = model.generate_content(user_input)
+        response = model.generate_content(chat_prompt)
         return jsonify({'response': response.text})
     except Exception as e:
         print(f"Error in chat API: {str(e)}")
         return jsonify({'response': 'Sorry, I encountered an error processing your request.'}), 200
+
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()
