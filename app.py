@@ -4,14 +4,21 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
+from dotenv import load_dotenv
 from flask_migrate import Migrate
 from enum import Enum
 from flask import abort
 from functools import wraps
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
-
+import google.generativeai as genai
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import os
 
 app = Flask(__name__)  
+CORS(app)  # Enable CORS for all routes
+load_dotenv()  # Load environment variables from .env file
+
 app.secret_key = 'your_secret_key_here'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -237,6 +244,30 @@ os.makedirs(os.path.join(app.config['UPLOAD_FOLDER']), exist_ok=True)
 for subject in ['c_programming', 'operating_system', 'scm', 'deca', 'dent', 'profiles']:
     os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'], subject), exist_ok=True)
 
+# Ai chat bot
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    print("WARNING: No GEMINI_API_KEY found in environment variables!")
+else:
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel('gemini-2.0-flash')
+
+# Update the chat route to handle errors better
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_input = request.json.get('message')
+    if not user_input:
+        return jsonify({'error': 'No message provided'}), 400
+
+    if not api_key:
+        return jsonify({'response': 'Chat service is currently unavailable. API key not configured.'}), 200
+
+    try:
+        response = model.generate_content(user_input)
+        return jsonify({'response': response.text})
+    except Exception as e:
+        print(f"Error in chat API: {str(e)}")
+        return jsonify({'response': 'Sorry, I encountered an error processing your request.'}), 200
 if __name__ == '__main__':
     with app.app_context():
         db.create_all()

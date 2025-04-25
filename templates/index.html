@@ -865,46 +865,82 @@
         </style>
 
         <script>
-            function sendMessage() {
-                let userInput = document.getElementById("userInput").value;
-                let chatBox = document.getElementById("chatBox");
-                if (userInput.trim() === "") return;
+          // Replace the existing chatbot scripts with this code
+function sendMessage() {
+    const userInput = document.getElementById("userInput");
+    const chatBox = document.getElementById("chatBox");
+    const message = userInput.value.trim();
+    
+    if (!message) return;
+    
+    // Add user message to the chat
+    const userMessage = document.createElement('div');
+    userMessage.className = 'user-message';
+    userMessage.textContent = message;
+    chatBox.appendChild(userMessage);
+    
+    // Clear input field
+    userInput.value = '';
+    
+    // Add a temporary "typing" indicator
+    const typingIndicator = document.createElement('div');
+    typingIndicator.className = 'bot-message typing';
+    typingIndicator.textContent = 'Typing...';
+    chatBox.appendChild(typingIndicator);
+    
+    // Scroll to the bottom
+    chatBox.scrollTop = chatBox.scrollHeight;
+    
+    // Send message to the backend
+    fetch('/chat', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: message }),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
+        // Remove typing indicator
+        chatBox.removeChild(typingIndicator);
+        
+        // Add bot response
+        const botMessage = document.createElement('div');
+        botMessage.className = 'bot-message';
+        botMessage.textContent = data.response;
+        chatBox.appendChild(botMessage);
+        
+        // Scroll to the bottom again after getting response
+        chatBox.scrollTop = chatBox.scrollHeight;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        // Remove typing indicator
+        chatBox.removeChild(typingIndicator);
+        
+        // Add error message
+        const errorMessage = document.createElement('div');
+        errorMessage.className = 'bot-message error';
+        errorMessage.textContent = 'Sorry, I encountered an error. Please try again.';
+        chatBox.appendChild(errorMessage);
+        
+        // Scroll to the bottom
+        chatBox.scrollTop = chatBox.scrollHeight;
+    });
+}
 
-                let userMessage = `<div class='user-message'>${userInput}</div>`;
-                chatBox.innerHTML += userMessage;
-                document.getElementById("userInput").value = "";
-
-                setTimeout(() => {
-                    let botReply = `<div class='bot-message'>${getBotResponse(userInput)}</div>`;
-                    chatBox.innerHTML += botReply;
-                    chatBox.scrollTop = chatBox.scrollHeight;
-                }, 1000);
-            }
-
-            function getBotResponse(input) {
-                input = input.toLowerCase();
-                let responses = {
-                    "hello": "Hello! How can I assist you today?",
-                    "courses": "We offer various courses including AI, Web Dev, and more!",
-                    "events": "Upcoming events are listed on the Campus Portal.",
-                    "bye": "Goodbye! Have a great day!",
-                    "hi": "hello",
-                    "great": "You're Welcome ! , feel free to ask anything",
-                    "thanks": "You're Welcome ! , feel free to ask anything",
-                    "notes": "You can create, edit, and manage your notes easily using our Notes Manager.",
-                    "save note": "To save a note, just type it and click the save button!",
-                    "delete note": "You can delete a note by clicking on the delete icon next to it.",
-                    "edit note": "Click on the note you want to edit, make changes, and save.",
-                    "search notes": "Use the search bar to find specific notes instantly!",
-                    "export notes": "You can export your notes as a PDF or text file for easy access.",
-                    "share notes": "You can share notes via email or generate a shareable link.",
-                    "backup notes": "Your notes are automatically backed up to prevent data loss.",
-                    "dark mode": "You can switch to dark mode for a better reading experience.",
-                    "sync notes": "Your notes sync across all your devices when logged in.",
-                    "help": "Need help with the Notes Manager? Visit our Help section for FAQs and guides."
-                };
-                return responses[input] || "I'm not sure. Try asking something else!";
-            }
+// Add event listener for Enter key
+document.getElementById("userInput").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+        event.preventDefault();
+        sendMessage();
+    }
+});
         </script>
 
 
