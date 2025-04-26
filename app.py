@@ -275,6 +275,19 @@ def chat():
     
     User question: {user_input}
     """
+    
+    # Keyword filter (optional)
+    allowed_keywords = ['notes', 'lecture', 'assignment', 'subject', 'topic', 'exam', 'discussion', 'schedule']
+    if not any(keyword in user_input.lower() for keyword in allowed_keywords):
+        return jsonify({'response': "❌ Please ask something related to your subjects or class content."}), 200
+
+    # 🧠 Dynamically build the list of subjects from the database
+    try:
+        subjects = Note.query.with_entities(Note.subject).distinct().all()
+        subject_links = "\n".join([f"- {subj[0].capitalize()} notes: /{subj[0]}" for subj in subjects])
+    except Exception as e:
+        print(f"Error fetching subjects: {str(e)}")
+        subject_links = "Sorry, I couldn't load subjects right now."
 
     try:
         response = model.generate_content(chat_prompt)
