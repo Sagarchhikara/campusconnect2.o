@@ -9,7 +9,7 @@ from flask_migrate import Migrate
 from enum import Enum
 from flask import abort
 from functools import wraps
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, curren
 import google.generativeai as genai
 from flask import Flask, request, jsonify
 from flask_cors import CORS
@@ -19,7 +19,14 @@ app = Flask(__name__)
 CORS(app)  # Enable CORS for all routes
 load_dotenv()  # Load environment variables from .env file
 
-app.secret_key = 'your_secret_key_here'
+app.secret_key = 'your_secret_key_h"
+import uuid
+
+
+app = Flask(__name__)  
+app.secret_key = os.getenv("SECRET_KEY", "dev_key")
+
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
@@ -35,6 +42,11 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 login_manager.login_view = 'login'  # redirects if user not logged in
 
+@login_manager.user_loader
+def load_user(user_id):
+    return db.session.get(User, int(user_id))
+
+
 class Role(Enum):
     STUDENT = "student"
     ADMIN = "admin"
@@ -45,6 +57,7 @@ def role_required(role):
         @wraps(f)
         def decorated_function(*args, **kwargs):
             if not current_user.is_authenticated or current_user.role != role:
+
                 abort(403)  # Forbidden access
             return f(*args, **kwargs)
         return decorated_function
@@ -68,10 +81,6 @@ class Note(db.Model):
     uploaded_at = db.Column(db.DateTime, default=datetime.utcnow)
     uploader_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     uploader = db.relationship('User', backref='notes')
-
-@login_manager.user_loader
-def load_user(user_id):
-    return User.query.get(int(user_id))
 
 def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
@@ -178,7 +187,9 @@ def fee():
     notes = Note.query.filter_by(subject="fee").all()
     return render_template('fee.html', notes=notes)
 
-
+@app.route('/404notfound')
+def not_found():
+    return render_template('404notfound.html')
 
 @app.route('/download/<subject>/<filename>')
 def download_notes(subject, filename):
@@ -295,6 +306,9 @@ def chat():
     except Exception as e:
         print(f"Error in chat API: {str(e)}")
         return jsonify({'response': 'Sorry, I encountered an error processing your request.'}), 200
+
+# Removed the line as 'file' is undefined in this context and not used elsewhere
+
 
 if __name__ == '__main__':
     with app.app_context():
