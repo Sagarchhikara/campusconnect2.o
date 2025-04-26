@@ -4,16 +4,28 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
 from werkzeug.utils import secure_filename
 import os
+from dotenv import load_dotenv
 from flask_migrate import Migrate
 from enum import Enum
 from flask import abort
 from functools import wraps
-from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
+from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, curren
+import google.generativeai as genai
+from flask import Flask, request, jsonify
+from flask_cors import CORS
+import os
+
+app = Flask(__name__)  
+CORS(app)  # Enable CORS for all routes
+load_dotenv()  # Load environment variables from .env file
+
+app.secret_key = 'your_secret_key_h"
 import uuid
 
 
 app = Flask(__name__)  
 app.secret_key = os.getenv("SECRET_KEY", "dev_key")
+
 
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///users.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -242,6 +254,58 @@ def upload_notes():
 os.makedirs(os.path.join(app.config['UPLOAD_FOLDER']), exist_ok=True)
 for subject in ['c_programming', 'operating_system', 'scm', 'deca', 'dent', 'profiles']:
     os.makedirs(os.path.join(app.config['UPLOAD_FOLDER'], subject), exist_ok=True)
+
+# Ai chat bot
+api_key = os.getenv("GEMINI_API_KEY")
+if not api_key:
+    print("WARNING: No GEMINI_API_KEY found in environment variables!")
+else:
+    genai.configure(api_key=api_key)
+    model = genai.GenerativeModel('gemini-2.0-flash')
+
+@app.route('/chat', methods=['POST'])
+def chat():
+    user_input = request.json.get('message')
+    if not user_input:
+        return jsonify({'error': 'No message provided'}), 400
+
+    if not api_key:
+        return jsonify({'response': 'Chat service is currently unavailable. API key not configured.'}), 200
+
+    # Keyword filter
+    allowed_keywords = ['notes', 'lecture', 'assignment', 'subject', 'topic', 'exam', 'discussion', 'schedule']
+    if not any(keyword in user_input.lower() for keyword in allowed_keywords):
+        return jsonify({'response': "❌ Please ask something related to your subjects or class content."}), 200
+
+    # Prompt control
+    chat_prompt = f"""
+    You are CampusConnect AI, a helpful assistant only allowed to respond to queries related to class notes, subjects, schedules, and other academic content from the CampusConnect platform.
+
+    If the question is unrelated (like personal advice, random trivia, jokes, etc.), respond with:
+    "I'm here to help only with CampusConnect-related queries. Please ask something relevant to your classes or subjects."
+    
+    User question: {user_input}
+    """
+    
+    # Keyword filter (optional)
+    allowed_keywords = ['notes', 'lecture', 'assignment', 'subject', 'topic', 'exam', 'discussion', 'schedule']
+    if not any(keyword in user_input.lower() for keyword in allowed_keywords):
+        return jsonify({'response': "❌ Please ask something related to your subjects or class content."}), 200
+
+    # 🧠 Dynamically build the list of subjects from the database
+    try:
+        subjects = Note.query.with_entities(Note.subject).distinct().all()
+        subject_links = "\n".join([f"- {subj[0].capitalize()} notes: /{subj[0]}" for subj in subjects])
+    except Exception as e:
+        print(f"Error fetching subjects: {str(e)}")
+        subject_links = "Sorry, I couldn't load subjects right now."
+
+    try:
+        response = model.generate_content(chat_prompt)
+        return jsonify({'response': response.text})
+    except Exception as e:
+        print(f"Error in chat API: {str(e)}")
+        return jsonify({'response': 'Sorry, I encountered an error processing your request.'}), 200
 
 # Removed the line as 'file' is undefined in this context and not used elsewhere
 
