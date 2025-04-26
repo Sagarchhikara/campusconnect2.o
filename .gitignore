@@ -182,6 +182,12 @@ Dockerfile
 # VS Code settings
 .vscode/
 
+
+
+# Ignore Alembic migration cache  
+migrations/  
+alembic.ini  
+uploads/
 migrations/alembic.ini
 migrations/env.py
 migrations/script.py.mako
@@ -190,5 +196,4 @@ migrations/alembic.ini
 migrations/alembic.ini
 migrations/env.py
 uploads/profiles/2410991648_Sagar_chhikara.jpg
-migrations/
-migrations/versions/
+.env 
