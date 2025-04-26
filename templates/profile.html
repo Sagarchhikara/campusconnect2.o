@@ -471,7 +471,10 @@
       loadUserData();
       
       // Check if userData exists in localStorage
-      const savedUserData = localStorage.getItem('userData');
+      <div id="userNameContainer">
+        <span id="userName"></span>
+        <span id="userNameText">{{ user,name }}</span>
+      </div>
       if (savedUserData) {
         try {
           const parsedData = JSON.parse(savedUserData);
